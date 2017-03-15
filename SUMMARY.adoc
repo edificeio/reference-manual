@@ -1,19 +1,20 @@
 = Summary
 
+* link:README.adoc[Introduction]
 * link:architecture/index.adoc[Architecture]
-** link:architecture/building-philosophy.adoc[building's philosophy]
+** link:architecture/building-philosophy.adoc[building’s philosophy]
 ** link:architecture/schemas.adoc[Schemas]
 * link:first-steps/index.adoc[First Steps]
 ** link:first-steps/simple-install.adoc[Simple install]
 ** link:first-steps/basic-configuration.adoc[Basic configuration]
 * link:operations/index.adoc[Operations]
-** link:operations/build-composition.adoc[Build & Composition]
+** link:operations/build-composition.adoc[Build &amp; Composition]
 ** link:operations/typical-ugrade.adoc[Typical upgrade]
+** link:operations/assets.adoc[Assets]
 ** link:operations/data-feed/index.adoc[Data feed]
 *** link:operations/data-feed/aaf.adoc[AAF]
 *** link:operations/data-feed/edt.adoc[EDT]
 *** link:operations/data-feed/csv.adoc[CSV]
-** link:operations/assets.adoc[Assets]
 ** link:operations/sso/index.adoc[SSO]
 *** link:operations/sso/cas.adoc[CAS]
 *** link:operations/sso/oauth2.adoc[OAuth2]
@@ -47,3 +48,5 @@
 *** link:developpement/theme/css-layout.adoc[CSS Layout]
 *** link:developpement/theme/responsive.adoc[Responsive]
 *** link:developpement/theme/overriding.adoc[Overriding]
+
+
