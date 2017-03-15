@@ -1,4 +1,23 @@
 = Reference Manuel - Open Digital Education
 
+ODE Framework aim at provide a modular tool's to build and execute applications in education's field.
+It embraces paramount concerns and constraints of education's field like massive deployment,
+deep community interaction, high gaps in technology adoption and heterogenous application's type. 
 
-This is normal content.
+It is typically well suited to implement :
+
+* VLE (Virtual Learning Environement)
+* LMS (Learning Managment System)
+* Educational Portal
+* Discipline specific learning application
+
+ODE Framework is distributed under Open Source LGPL V3 Licence. 
+So we hope it can spread in education's communities and be helpfull to improve EdTecg's uses.
+
+== Get started
+
+Follow link:first-steps.adoc[First Steps] instructions
+
+== Learn more about de community and contribute
+
+Go to our confluence space https://opendigitaleducation.atlassian.net/wiki/display/FK

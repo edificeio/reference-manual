@@ -1,0 +1,94 @@
+= Simple Install
+
+== Install necessary system's componant
+
+We don't detail installation of each following dependencies. You just have to follow the installation's good practices of each one. 
+
+* java 1.7
+* vertx 2.1.6
+* postgres 9.4
+* neo4j 2.3.1
+* mongodb 3.2.6
+
+== Clone a Springboard
+....
+git clone git@github.com:OPEN-ENT-NG/springboard-open-ent.git
+....
+
+NOTE: a Springboard is an kind of super-personalisation asset. It is usefull to choose application to load, skin to apply, application configuration ... 
+
+== Configure Maven repository
+
+Add to file `\{VERTX_HOME\}/conf/repos.txt` the following line :
+
+....
+    maven:http://maven.web-education.net/nexus/content/groups/public/    
+....
+
+== Initialize your Springboard
+
+From the directory Springboard was cloned (cd path-to-our/springboard) run :
+
+....
+    gradle init // récupère les dépendance
+....
+
+WARNING: tmp Hack (to avoid bower installation) => Copy skin to `assets/themes`
+
+....
+    cp -rf deployments/assets/themes/leo/ assets/themes/
+....
+
+== Configure core plateform
+
+Control the folloing properties in conf.properties file. You must set values closed to that settings
+
+....
+    mode=dev
+
+    host=http://localhost:8090
+    httpProxy=true 
+
+    // Neo4J
+    neo4jUri=http://localhost:7474
+    neo4jEmbedded=false
+
+    // MongoDB
+    dbName=${MONGO_DB_NAME}
+    mongoHost=localhost
+    mongoPort=27017
+
+    // PostgreSQL
+    sqlUrl=jdbc:postgresql://localhost:5432/$PSQL_DB_NAME?stringtype=unspecified
+    sqlUsername=$PSQL_USER
+    sqlPassword=$PSQL_USER_PWD
+
+    // Configuration de l'apparence (skin et thème => 1 skin peut contenir plusieurs thèmes. 1 skin doit être associé à une domaine)
+    skin=leo
+    skins={"localhost:8090":"leo"}
+    themes={"_id": "default","displayName": "default","path": "/assets/themes/leo/default/"},{"_id": "dyslexic","displayName": "dyslexic","path": "/as    sets/themes/leo/dyslexic/"}
+....
+
+Run Vert.x 's configuration file generation 
+
+....
+    gradle generateConf
+....
+
+== Load data's model schema
+
+....
+    neo4j-shell < scripts/schema.cypher
+....
+
+== Run
+
+....
+    vertx runMod org.entcore~infra~${entcoreVersion} -conf ent-core.json
+....
+
+NOTE: Value of property entcoreVersion is set in conf.properties
+
+The Springboard download Vertx's modules and run the plateform . Acces's host is *`localhost:8090`* with "tom.mate / password" superuser
+
+NOTE: User that run vertx must be able to write in vertx's framework installation directory.
