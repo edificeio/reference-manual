@@ -1,6 +1,4 @@
 = Summary
-
-* link:introduction.adoc[Introduction]
 * link:architecture.adoc[Architecture & building's philosophy]
 * link:operations/index.adoc[Installation & Operations]
 ** link:operations/simple-install.adoc[Simple install]
