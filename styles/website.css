@@ -3,7 +3,17 @@
     font-style : italic;
 }
 
-.admonitionblock td.icon { font-size: 1.3em; }
+.admonitionblock td.icon div.title { 
+    font-size: 1.3em; 
+    color: #fff;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    border-radius: 25px;
+    line-height: 25px;
+    display: inline-block;
+    padding: 0 15px;
+}
 
-.admonitionblock.note td.icon { color : #00f; }
-.admonitionblock.warning td.icon { color : #f00; }
+.admonitionblock.note td.icon div.title { background-color : #00f; }
+.admonitionblock.warning td.icon div.title { background-color : #f00; }
