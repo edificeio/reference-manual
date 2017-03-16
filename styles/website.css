@@ -1,6 +1,9 @@
 .admonitionblock {
     font-weight : bold;
+    font-style : italic;
 }
 
-.admonitionblock.note { color : #00f; }
-.admonitionblock.warning { color : #f00; }
+.admonitionblock td.icon { font-size: 1.3em; }
+
+.admonitionblock.note td.icon { color : #00f; }
+.admonitionblock.warning td.icon { color : #f00; }
