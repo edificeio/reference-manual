@@ -1,16 +1,20 @@
 = Reference Manuel - Open Digital Education
 
-ODE Framework aim at provide a modular tooling to build and execute applications in education's field.
-It embraces paramount concerns and constraints of education's field like massive deployment,
-deep community interaction, high gaps in technology adoption and heterogenous application's type. 
+link:http://opendigitaleducation.com[Open Digital Education] (ODE) Frameworks aims at provide a modular tooling to design, build and execute applications in education's field.
+It embraces paramount concerns and constraints of education's field like
+ 
+* massive deployment
+* deep community interaction 
+* high gaps in technology adoption 
+* heterogenous application's type. 
 
 It is typically well suited to implement an deploy :
 
-* VLE (Virtual Learning Environement)
-* LMS (Learning Managment System)
+* VLE footnote:[link:https://en.wikipedia.org/wiki/Virtual_learning_environment[Virtual Learning Environement] (In France it's called an  link:https://fr.wikipedia.org/wiki/Espace_num%C3%A9rique_de_travail[ENT])]
+* LMS footnote:[link:https://en.wikipedia.org/wiki/Learning_management_system[Learning Managment System]]
 * Educational Portal
-* Discipline specific learning application
-* MOOC
+* Field of studies specific learning application
+* MOOC footnote:[link:https://en.wikipedia.org/wiki/Massive_open_online_course[Massive Open Online Course]]
 
 ODE Framework is distributed under Open Source LGPL V3 Licence. 
 So we hope it can spread in education's communities and be helpfull to improve EdTech's uses.
@@ -22,12 +26,14 @@ Follow link:first-steps/index.adoc[First Steps] instructions
 
 == About this manual
 
+WARNING: *!! This manual is under active editing !!*. We will inform you on link:https://groups.google.com/forum/#!forum/entcore[Google Group] when a first proper version is available
+
 This manual put forward ODE Framework capabilites. 
 You will find for each of them a brief decription and usage example. 
 To browse deeper inside the framework's features we also provide links to detailed API documentation.
 We try to write aach section as autonomous as possible. So you can use it as "technical receipes"
 
-NOTE: If you observe some errors or lacks your comments and contributions are welcome !
+NOTE: If you observe some errors or lacks your comments and contributions are welcomed !
 
 == About the community 
 
