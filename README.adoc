@@ -1,4 +1,4 @@
-= Reference Manuel - Open Digital Education
+= Reference Manual - Open Digital Education
 
 link:http://opendigitaleducation.com[Open Digital Education] (ODE) Frameworks aims at provide a modular tooling to design, build and execute applications in education's field.
 It embraces paramount concerns and constraints of education's field like
