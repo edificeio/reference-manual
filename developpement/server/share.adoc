@@ -1,0 +1,235 @@
+= Share
+
+== Conventions
+
+Server-side resource shares require the following conventions:
+
+1.  The data model must respect some modeling specific to the database service used.
+2.  Helpers exist to interact with the sharing directive and thus manage for you the lifecycle of the shared resources (Creation, update, deletion), as well as sharing notifications.
+3.  The resource listing service that potentially contains shared resources must also in its response respect exchange semantics.
+
+== Data model
+
+=== PosgreSQL
+
+==== Design
+
+===== Tables
+
+Each table, function, trigger, and type must be prefixed to the schema defined in your application. The $schema variable must be replaced.
+
+[cols="<,<,<,<10%",options="header",]
+|=======================================================================
+|Table |Field |Type |Description
+|users |id |VARCHAR(36) | 
+|users |username |VARCHAR(255) | 
+|groups |id |VARCHAR(36) | 
+|groups |name |VARCHAR(255) | 
+|members |id |VARCHAR(36) | 
+|members |user_id |VARCHAR(36) |One entry contain only an user_id value or a group id value
+|members |group_id |VARCHAR(36) | 
+|$resource$_shares |member_id |VARCHAR(36) | 
+|$resource$_shares |resource_id |BIGINT | 
+|$resource$_shares |action |VARCHAR(255) |Contains the right of access to a service, in the following form: Namespace separated by dashes followed by the class name followed by a pipe followed by the
+name of the method
+|=======================================================================
+
+NOTE: $resource$ is replaced by the name of the table that contains the resources
+
+*SQL example:*
+
+....
+CREATE TABLE $schema.users (
+ id VARCHAR(36) NOT NULL PRIMARY KEY,
+ username VARCHAR(255)
+);
+CREATE TABLE $schema.groups (
+ id VARCHAR(36) NOT NULL PRIMARY KEY,
+ name VARCHAR(255)
+);
+CREATE TABLE $schema.members (
+ id VARCHAR(36) NOT NULL PRIMARY KEY,
+ user_id VARCHAR(36),
+ group_id VARCHAR(36),
+ CONSTRAINT user_fk FOREIGN KEY(user_id) REFERENCES $schema.users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+ CONSTRAINT group_fk FOREIGN KEY(group_id) REFERENCES $schema.groups(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+CREATE TABLE $schema.$resource$_shares (
+ member_id VARCHAR(36) NOT NULL,
+ resource_id BIGINT NOT NULL,
+ action VARCHAR(255) NOT NULL,
+ CONSTRAINT thread_share PRIMARY KEY (member_id, resource_id, action),
+ CONSTRAINT thread_share_member_fk FOREIGN KEY(member_id) REFERENCES $schema.members(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+....
+
+NOTE: $schema is schema of the application and $resource$ is replaced by the name of the table that contains the resources
+
+===== Function and trigger
+
+This modeling requires the addition of function, trigger and a new type:
+
+[cols="<,<,<",options="header",]
+|=================================
+|Name |Type |Description
+|merge_users |FUNCTION |
+|insert_users_members |FUNCTION |
+|insert_groups_members |FUNCTION |
+|users_trigger |TRIGGER |
+|groups_trigger |TRIGGER |
+|share_tuple |TYPE |
+|=================================
+
+*SQL example:*
+
+....
+CREATE FUNCTION $schema.merge_users(key VARCHAR, data VARCHAR) RETURNS VOID AS
+$$
+BEGIN
+    LOOP
+        UPDATE $schema.users SET username = data WHERE id = key;
+        IF found THEN
+            RETURN;
+        END IF;
+        BEGIN
+            INSERT INTO $schema.users(id,username) VALUES (key, data);
+            RETURN;
+        EXCEPTION WHEN unique_violation THEN
+        END;
+    END LOOP;
+END;
+$$
+LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION $schema.insert_users_members() RETURNS TRIGGER AS 
+$$
+BEGIN
+ IF (TG_OP = 'INSERT') THEN
+        INSERT INTO $schema.members (id, user_id) VALUES (NEW.id, NEW.id);
+        RETURN NEW;
+    END IF;
+    RETURN NULL;
+END;
+$$ 
+LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION $schema.insert_groups_members() RETURNS TRIGGER AS 
+$$
+BEGIN
+ IF (TG_OP = 'INSERT') THEN
+        INSERT INTO $schema.members (id, group_id) VALUES (NEW.id, NEW.id);
+        RETURN NEW;
+    END IF;
+    RETURN NULL;
+END;
+$$ 
+LANGUAGE plpgsql;
+CREATE TRIGGER users_trigger
+AFTER INSERT ON $schema.users
+    FOR EACH ROW EXECUTE PROCEDURE $schema.insert_users_members();
+CREATE TRIGGER groups_trigger
+AFTER INSERT ON actualites.groups
+    FOR EACH ROW EXECUTE PROCEDURE $schema.insert_groups_members();
+
+CREATE TYPE $schema.share_tuple as (member_id VARCHAR(36), action VARCHAR(255));
+....
+
+NOTE: $schema is schema of the application and $resource$ is replaced by the name of the table that contains the resources
+
+=== MongoDB
+==== Design
+
+Each mongo document represents a resource and has a shared JsonArray field.
+
+*Json example:*
+
+....
+"shared" : [ 
+        {
+            "userId" : "5b9e362c-7e03-43d6-b51b-4f196ca86551",
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|getTimelineData" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|getTimeline" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|getEvent" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|getEvents" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|deleteTimeline" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|shareTimelineSubmit" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|shareTimeline" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|updateTimeline" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|removeShareTimeline" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|createEvent" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|updateEvent" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|deleteEvent" : true
+        }, 
+        {
+            "groupId" : "4232-1487939357094",
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|getTimelineData" : true,
+            "net-atos-entng-timelinegenerator-controllers-TimelineController|getTimeline" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|getEvent" : true,
+            "net-atos-entng-timelinegenerator-controllers-EventController|getEvents" : true
+        }
+    ]
+....
+
+The share table contains as much occurrence as sharing on the resource.
+If the resource has been shared for a user then the JSON instance contains a "userId" field, so for a group this is "groupId".
+
+The rest of the fields in a share instance correspond to the share rights set.
+
+== Helper, Request and API
+
+=== Mongo Helper
+
+The helper, MongoDbControllerHelper, which must be inherited by your controllers, it offers APIs to manage the lifecycle of the shares.
+
+The easiest way to understand parameters and their use and look at the source code of an existing ONG application:
+
+see share, shareSubmit and shareRemove methods: https://github.com/OPEN-ENT-NG/share-big-files/blob/0.4.0/src/main/java/fr/openent/sharebigfiles/controllers/ShareBigFilesController.java#L524
+
+=== Postgre Helper
+
+The helper, ControllerHelper, which must be inherited by your controllers, it offers standard APIs to manage the lifecycle of the shares.
+
+The easiest way to understand parameters and their use and look at the source code of an existing ONG application:
+
+see share, shareSubmit and shareRemove methods: https://github.com/OPEN-ENT-NG/exercizer/blob/0.3.0/src/main/java/fr/openent/exercizer/controllers/SubjectController.java#L272
+
+== Request and API
+
+For both backend databases APIs are provided.
+
+=== MongoDB
+
+The MongoDbCrudService, crud service, allows you to use the list service that manages the shares.
+
+The search query for resources is completed by these search criteria:
+
+....
+new QueryBuilder().or(
+        QueryBuilder.start("owner.userId").is(user.getUserId()).get(),
+        QueryBuilder.start("shared").elemMatch(
+                new QueryBuilder().or(groups.toArray(new DBObject[groups.size()])).get()
+        )
+....
+
+This criterion will therefore return the instances of which the connected user is the owner or on which they have a rights of sharing.
+
+NOTE: "groups" contains all of the user’s groups, plus the user’s identifier, which allows you to link the shared resources directly to that user.
+
+It is quite possible to manage either the sharing criterion in specific requests without going through the CRUD.
+
+=== PostgreSQL
+
+The SqlCrudService, crud service, allows to use the service list that manages the shares.
+
+The search query for resources accessible by the user:
+
+....
+"SELECT r.id FROM $schema.$resourceTable as r LEFT JOIN $schema.$resource$_shares as rs ON r.id = rs.resource_id " +
+      "WHERE re.member_id IN " + Sql.listPrepared(groupsAndUserIds) + " OR owner = ?";
+....
+
+NOTE: *$schema* is schema of the application and *$resource$* is replaced by the name of the table that contains the resources
+
+NOTE: "groupsAndUserIds" contains all of the user’s groups, plus its user ID, which allows you to link shared resources directly to that user.
+
+This join and these search criteria will therefore return the instances of which the connected user is the owner or on which they have a sharing rights.
+
+It is quite possible to manage either the sharing criterion in specific requests without going through the CRUD.
