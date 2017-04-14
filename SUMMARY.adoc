@@ -39,6 +39,7 @@
 *** link:developpement/server/share.adoc[Share]
 *** link:developpement/server/trace.adoc[Trace]
 *** link:developpement/server/search.adoc[Search]
+*** link:developpement/server/cas-registered-service.adoc[CAS registered service]
 ** link:developpement/client/index.adoc[Client]
 *** link:developpement/client/layout.adoc[Layout]
 *** link:developpement/client/model.adoc[Model]

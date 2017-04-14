@@ -1,0 +1,145 @@
+= CAS Registered Service
+
+ODE framework provides an asynchronous server SSO CAS library
+
+see https://github.com/web-education/cas-server-async to consult this implementation
+
+cas-server-async library is integrate to ODE Framework, https://github.com/entcore/entcore/tree/master/cas[here], it complies with the Apereo CAS specification https://apereo.github.io/cas/5.0.x/protocol/CAS-Protocol-Specification.html
+
+It completely supports the CAS 2 protocol and the samlValidate part for the protocol in version 3
+
+NOTE: It is possible quickly to add a complete compatibility with the protocol CAS 3, if the need becomes proven
+
+== Specific CAS ticket
+
+The *org.entcore.cas.services* package contains a specific service set.
+
+Each registered service provides a specific implementation of the attributes distributed in the CAS ticket.
+
+=== Specific SAML CAS ticket
+
+.prepareUser contract
+|===
+|Param |Type |Description
+
+|user
+|fr.wseduc.cas.entities.User
+|Cas ticket
+
+|userId
+|String
+|Graph user Id
+
+|service
+|String
+|Service URI
+
+|data
+|JsonObject
+|User data, see registered service example for more details
+|===
+
+*Basic example:* default identifier as the value for the user tag and the PROFIL attribute as additional attributes
+
+[source,java]
+----
+package org.entcore.cas.services;
+
+import ...
+
+public class $YourName$RegisteredService extends DefaultRegisteredService {
+
+    protected static final String PROFILE = "PROFILS";
+
+    @Override
+    public void configure(org.vertx.java.core.eventbus.EventBus eb, Map<String,Object> conf){
+        super.configure(eb, conf);
+    }
+
+    @Override
+    protected void prepareUser(User user, String userId, String service, JsonObject data) {
+        user.setUser(principalAttributeName);
+        user.setAttributes(new HashMap<String, String>());
+
+        // Profile example
+        JsonArray profiles = data.getArray("type", new JsonArray());
+        if (profiles.contains("Teacher")) {
+            user.getAttributes().put(PROFILE, "National_3");
+        } else if (profiles.contains("Student")) {
+            user.getAttributes().put(PROFILE, "National_1");
+        }
+    }
+}
+----
+
+NOTE: $YourName$ must be replaced by the name of your regitered service. *principalAttributeName* has by default "login" value, but it's possbile to configure.
+
+=== Specific CAS 2 ticket
+
+.prepareUser contract
+|===
+|Param |Type |Description
+
+|user
+|fr.wseduc.cas.entities.User
+|Cas ticket
+
+|userId
+|String
+|Graph user Id
+
+|service
+|String
+|Service URI
+
+|data
+|JsonObject
+|User data, see registered service example for more details
+
+|doc
+|org.w3c.dom.Document
+|xml doc
+
+|additionnalAttributes
+|List<org.w3c.dom.Element>
+|xml element
+
+
+|===
+
+*Basic example:* default identifier as the value for the user tag and the UID attribute as additional attributes
+
+[source,java]
+----
+package org.entcore.cas.services;
+
+import ...
+
+public class $YourName$RegisteredService extends AbstractCas20ExtensionRegisteredService {
+
+	protected static final String UID = "uid";
+
+	@Override
+	public void configure(org.vertx.java.core.eventbus.EventBus eb, java.util.Map<String,Object> conf) {
+		super.configure(eb, conf);
+	};
+
+	@Override
+	protected void prepareUserCas20(User user, String userId, String service, JsonObject data, Document doc, List<Element> additionnalAttributes) {
+		user.setUser(data.getString(principalAttributeName));
+
+		try {
+			// Uid
+			if (data.containsField("externalId")) {
+				additionnalAttributes.add(createTextElement(UID, data.getString("externalId"), doc));
+			}
+
+		} catch (Exception e) {
+			log.error("Failed to transform User for Uid service", e);
+		}
+	}
+
+}
+----
+
+NOTE: $YourName$ must be replaced by the name of your regitered service. *principalAttributeName* has by default "login" value, but it's possbile to configure.
