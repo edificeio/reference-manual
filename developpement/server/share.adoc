@@ -250,6 +250,19 @@ The easiest way to understand parameters and their use and look at the source co
 
 see share, shareSubmit and shareRemove methods: https://github.com/OPEN-ENT-NG/exercizer/blob/0.3.0/src/main/java/fr/openent/exercizer/controllers/SubjectController.java#L272
 
+WARNING: You must declare a SQL configuration for use it in your verticule class
+
+*SQL Conf example:*
+[source,java]
+----
+SqlConf yourControllerConf = SqlConfs.createConf(YourController.class.getName());
+        yourControllerConf.setSchema("$schema");
+        yourControllerConf.setTable("$resourceTable$");
+        yourControllerConf.setShareTable("$resourceTable$_shares");
+----
+
+NOTE: $schema is schema of the application and $resourceTable$ is replaced by the name of the table that contains the resources
+
 == Request and API
 
 For both backend databases APIs are provided.
