@@ -1,0 +1,165 @@
+= Search
+
+ODE framework provides a system around the vertx bus to inscribe an application into the search engine application (see https://github.com/OPEN-ENT-NG/search-engine[Search Engine])
+
+Search engine uses Publish-subscribe and Point-to-Point model.
+
+Publish-subscribe model is used to notify applications that subscribed. While the Point-to-Point model allows the application to communicate the result of its search.
+
+Search engine API uses the fulltext model for both backend (Mongo and Postgre).
+
+APIs are provided for standard search behaviors. It is possible to implement either the desired search behavior.
+
+NOTE: The search engine can only search in Document storage or relational data stores. Therefore, it does not search for file-type storage.
+
+== Subscription
+
+The verticule of the application subscribes to the search event. It is effective at the start of the verticule.
+
+[source,java]
+----
+// Subscribe to events published for searching
+if (config.getBoolean("searching-event", true)) {
+	setSearchingEvents(new $Application$SearchingEvents(new $SearchService()));
+}
+----
+
+NOTE: *$Application$* by convention is the name of the verticule. This class must implement the SearchingEvents interface. *$SearchService* is a class that implements the _SearchService_ interface
+
+*examples:*
+
+1. Mongo example: https://github.com/OPEN-ENT-NG/share-big-files/blob/0.4.0/src/main/java/fr/openent/sharebigfiles/ShareBigFiles.java#L68[See]
+
+2. Postgre example: https://github.com/OPEN-ENT-NG/actualites/blob/0.13.0/src/main/java/net/atos/entng/actualites/Actualites.java#L63[See]
+
+== Searching Events
+
+See the contract service to https://github.com/entcore/entcore/blob/1.26.0/common/src/main/java/org/entcore/common/search/SearchingEvents.java#L31[SearchingEvents]
+
+*search contract*:
+|===
+|Args |Type | Description
+
+|userId
+|String
+|User id
+
+|groupIds
+|List<String>
+|groups id
+
+|returnFields
+|List<String>
+|Returned fields by the backend query
+
+|searchWords
+|List<String>
+|Words to search
+
+|page
+|Integer
+|current page
+
+|limit
+|Integer
+|Number of occurrences to return
+
+|handler
+|Handler<Either<String, JsonArray>>
+|Callback with the result
+
+|===
+
+WARNING: Looks at the Result chapter for the returned values convention
+
+=== Document
+
+==== Index
+
+Add a JS script to "/deployment/$applicationName/migration/x.x.x/addTextIndex.js"
+
+NOTE: $applicationName is the name of your app. x.x.x is the version of your app.
+
+[source,javascript]
+----
+db.$collection.createIndex({ "$field1": "text", "$fieldN": "text"});
+----
+
+NOTE: $collection is the name of mongo collection, and $field1, $fieldN are attributes to be indexed
+
+==== Implementation
+
+Create your own $Application$SearchingEvents class with MongoDbSearchService instance.
+See example : https://github.com/OPEN-ENT-NG/share-big-files/blob/0.4.0/src/main/java/fr/openent/sharebigfiles/services/ShareBigFilesSearchingEvents.java#L36[ShareBigFilesSearchingEvents]
+
+
+=== Relational data
+
+==== Index
+
+Add a SQL script to "src/main/resources/sql/xxx-$applicationName.sql"
+
+NOTE: $applicationName is the name of your app. xxx is the number version of your script.
+
+[source,sql]
+----
+ -- specific configuration to language natively create vectors without accents (one configuration per supported language)
+ CREATE TEXT SEARCH CONFIGURATION  fr ( COPY = french ) ;
+ ALTER TEXT SEARCH CONFIGURATION fr ALTER MAPPING
+ FOR hword, hword_part, word WITH unaccent, french_stem;
+
+ -- With evolution of create services, it is possible to manage multiple languages to search for the same application instance
+ ALTER TABLE $schema.$resourceTable ADD language VARCHAR(2) NOT NULL DEFAULT('fr');
+
+ ALTER TABLE $schema.$resourceTable ADD COLUMN text_searchable tsvector;
+
+ -- Only if data alreay exists
+ UPDATE $schema.$resourceTable SET text_searchable =
+      to_tsvector(language::regconfig, coalesce(title,'') || ' ' || coalesce(regexp_replace(content, '<[^>]*>',' ','g'),'')    );
+
+ CREATE INDEX textsearch_idx ON $schema.$resourceTable USING gin(text_searchable);
+
+ CREATE FUNCTION $schema.text_searchable_trigger() RETURNS trigger AS $$
+ begin
+   new.text_searchable := to_tsvector(new.language::regconfig, coalesce(new.title,'') || ' ' || coalesce(regexp_replace(new.content, '<[^>]*>',' ','g'),''));
+   return new;
+ end
+ $$ LANGUAGE plpgsql;
+
+ CREATE TRIGGER tsvector_update_trigger BEFORE INSERT OR UPDATE
+     ON $schema.$resourceTable FOR EACH ROW EXECUTE PROCEDURE $schema.text_searchable_trigger();
+----
+
+NOTE: $schema is schema of the application and $resourceTable is replaced by the name of the table that contains the searchable resources
+
+WARNING: *text_searchable_trigger* function must use fields of your choice. In this case, indexed field are *title* and html *content*
+
+==== Implementation
+
+Create your own $Application$SearchingEvents class with SqlSearchService instance.
+See example : https://github.com/OPEN-ENT-NG/actualites/blob/0.13.0/src/main/java/net/atos/entng/actualites/services/impl/ActualitesSearchingEvents.java#L46[ActualitesSearchingEvents]
+
+== Result
+
+The result must be formatted according to the following convention
+
+*Json result example:*
+
+[source,json]
+----
+[
+    {
+      "title":"resource title",
+      "description":"resource description",
+      "modified": "modified date",
+      "ownerDisplayName": "owner fullname",
+      "ownerId": "owner uid",
+      "url": "resource link"
+    }, ...
+]
+----
+
+== Reference
+
+https://docs.mongodb.com/manual/reference/operator/query/text
+https://www.postgresql.org/docs/9.5/static/textsearch.html
