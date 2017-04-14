@@ -1,0 +1,138 @@
+= Data Storage
+
+ODE Framework offers two types of data storage container:
+
+1. File storage: via Swift, FS (File System) or gridFS.
+2. Relational data And Document
+
+== File storage
+
+The framework offers a factory that allows to get off of the storage file systems. Thus all the operations available on the storage file systems are available through a single interface contract.
+
+=== Factory use
+
+A storage container instance is thus obtained via the use of the factory:
+
+[source,java]
+----
+final Storage storage = new StorageFactory(vertx).getStorage();
+----
+
+In this case of use, we obtain an instance of the storage container defined by the server configuration. The factory via the vertx instance will retrieve the global configuration and instantiate the container.
+
+Server configuration examples:
+
+*File system*:
+
+[source,json]
+----
+"file-system": {
+     "path": "/opt/openentng/springboard-open-ent/storage/"
+},
+----
+
+*Gridfs-address*:
+
+[source,json]
+----
+"gridfs-address" : "wse.gridfs.persistor"
+----
+
+In some special cases, we wish to specify a particular storage system and the use of the factory is then of this kind:
+
+[source,java]
+----
+final Storage storage = new StorageFactory(vertx, container.config()).getStorage();
+----
+
+In this case of use, we obtain an instance of the storage container defined by the configuration performed for the verticule.
+
+Verticule configuration example for *Swift*:
+
+[source,json]
+----
+"swift": {
+     "uri": "http://IP:PORT",
+     "container": "testcontainer" ,
+     "user":  "test:tester",
+     "key":  "testing"
+},
+----
+
+=== Interface contract
+
+Look at the following link to see all available behaviors: https://github.com/entcore/entcore/blob/1.26.0/common/src/main/java/org/entcore/common/storage/Storage.java#L30[Storage]
+
+The most commonly used services are as follows:
+
+*sendFile*: Allows to dowload a file
+|===
+|Args |Type | Description
+
+|id
+|String
+|File id in the storage
+
+|downloadName
+|String
+|Allows to override the original name of the file
+
+|request
+|HttpServerRequest
+|the current http request
+
+|inline
+|Boolean
+|With inline "true", the browser will try to open the file within the browser. Otherwise the file will be downloaded.
+
+|metadata
+|JsonObject
+|File metadata
+
+|===
+
+WARNING: You must store the id and metadata of the file in the application repository (SQL, NOSQL) in order to be able to manipulate it later
+
+*writeUploadFile*: Allows to upload a file
+|===
+|Args |Type | Description
+
+|request
+|HttpServerRequest
+|HTTP multipart request
+
+|handler
+|Handler<JsonObject>
+|Allows callback to obtain status of the transaction and, where applicable, file id and metadata
+
+|===
+
+*removeFile*: Allows to remove a file
+|===
+|Args |Type | Description
+
+|id
+|String
+|File UID (storage file id)
+
+|handler
+|Handler<JsonObject>
+|Allows callback to obtain status of the transaction
+
+|===
+
+== Relational data and Document
+
+The framework offers CRUD services via a single interface, CrudService.
+
+See https://github.com/entcore/entcore/blob/1.26.0/common/src/main/java/org/entcore/common/service/CrudService.java#L28[Crud service interface]
+
+WARNING: You should not generalize the use of CRUD, it does not allow to make transactions and does not manage the problems of abundance (pagination)
+
+=== Relational data
+
+
+=== Document
+
+
+
