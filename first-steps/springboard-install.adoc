@@ -1,0 +1,89 @@
+= Springboard Installation
+
+== Get sources
+
+NOTE: Add your SSH key to Github before by following instructions here https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+Clone the repository:
+
+....
+    $ cd ~/ode/dev/projects
+    $ git clone git@github.com:OPEN-ENT-NG/springboard-open-ent.git
+    $ cd springboard-open-ent
+....
+
+Checkout dev branch:
+
+....
+    $ git checkout dev
+....
+
+== Build the Springboard
+
+=== Build backend
+
+....
+    $ gradle clean init
+....
+
+In *test.properties*, check and edit if needed the following properties:
+
+....
+    mode=dev
+
+    host=http://localhost:8090
+    httpProxy=true
+
+    // Neo4J
+    neo4jUri=http://localhost:7474
+    neo4jEmbedded=false
+
+    // MongoDB
+    dbName=one_gridfs
+    mongoHost=localhost
+    mongoPort=27017
+
+    // PostgreSQL
+    sqlUrl=jdbc:postgresql://localhost:5432/ong
+    sqlUsername=web-education
+    sqlPassword=We_1234
+
+    // Configuration de l'apparence (skin et thème => 1 skin peut contenir plusieurs thèmes. 1 skin doit être associé à une domaine)
+    skin=leo
+    skins={"localhost:8090":"leo"}
+    themes={"_id": "default","displayName": "default","path": "/assets/themes/leo/default/"},{"_id": "dyslexic","displayName": "dyslexic","path": "/as    sets/themes/leo/dyslexic/"}
+....
+
+Generate Vertx configuration (based on test.properties):
+
+....
+    $ gradle generateTestConf
+....
+
+=== Build frontend
+
+....
+    $ npm install
+    $ gulp build
+....
+
+=== Start Springboard
+
+NOTE: Neo4j, Postgre and mongodb must be running
+
+NOTE: In *run.sh*, comment the 2 lines about the neo4j docker container and the timeout
+
+Start Springboard:
+
+....
+    $ sh run.sh
+....
+
+=== Administration
+
+1. Authenticate with user tom-mate/password at http://localhost:8090/
+2. Go to http://localhost:8090/admin
+3. Import users: go to _Annuaire > alimentation_ and click on _Importer_ button
+4. Manage application rights: go to _Applications > roles applicatifs_ and create a _All_ right for needed application
+5. Manage transverse rights: Sélection user avec droit tout
+
