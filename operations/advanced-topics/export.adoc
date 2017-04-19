@@ -1,0 +1,76 @@
+= Referential Data export
+
+ODE Framework provide an referential's data export API granted by OAuth2 or HTTP Bascis credential.
+In some integration case, it can be usefull for inital data setup in third party application.
+
+== Configuration
+
+In backoffice, go to external application management screen (application registry > external application).
+
+=== 1. Create a new external application
+
+* setup mandatories field
+* enter an application's name Id. It will become the application clientID in Oauth2 vocabulary
+
+=== 2 open advanced option and setup oauth2 options
+
+* enter a secret code (usefull for grant access to external application)
+* chosse _Basic_ as Identification mode
+* configure authorized scopes with full qualified name of the endpoint to grant. 
+  Scope must be separed by a withe sapce 
+
+[NOTE]
+====
+the following endpoint are availables
+
+* org.entcore.directory.controllers.StructureController|listStructures
+* org.entcore.directory.controllers.StructureController|listUserInStructuresByUAI
+====
+
+// TODO : Provide a complete inventory of available endpoints
+
+== Fetch Data  
+
+=== List Structures
+[source]
+----
+curl -i -kH "Authorization: Basic {base64(clientId:secret)}==" https://$domaineENT/directory/structures
+----
+
+[source,json]
+----
+[
+    {
+        "id":"d31ea442-d070-4a71-8742-c20a33a74a8c",
+        "externalId":"55567",
+        "name":"Collège Denis Poisson",
+        "UAI":"0805432C",
+        "address":"15 RUE DE LA VARENNE",
+        "zipCode":"45300",
+        "city":"TYQPE",
+        "phone":"+33 1 64 59 25 20",
+        "academy":"VERSAILLES"
+    },
+    {...},...
+]
+----
+
+=== List users per structure 
+
+[source]
+----
+curl -i -kH "Authorization: Basic {base64(clientId:secret)}==" https://$domaineENT/directory/user/structures/list?format=xml&uai=0805432C&uai=5551628K
+----
+
+[source,json]
+----
+[
+    {
+        "externalId":"4eb5864e-1521-4c0c-ac54-1332a7ee101b",
+        "lastName":"Martin",
+        "firstName":"Marie",
+        "login":"marie.martin"
+    },
+    {...}, ...
+]
+----

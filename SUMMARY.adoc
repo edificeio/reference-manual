@@ -25,6 +25,7 @@
 ** link:operations/advenced-topics/index.adoc[Advanced topics]
 *** link:operations/advenced-topics/multi-domain.adoc[Multi-domain]
 *** link:operations/advenced-topics/cron.adoc[Cron]
+*** link:operations/advenced-topics/export.adoc[Expose network data]
 * link:developpement/index.adoc[Developpement]
 ** link:developpement/server/index.adoc[Server]
 *** link:developpement/server/layout.adoc[Layout]
