@@ -1,6 +1,6 @@
 = Developper guide
 
-* link:developpement/server/index.adoc[Server]
-* link:developpement/client/index.adoc[Client]
-* link:developpement/theme/index.adoc[Theme]
-* link:developpement/contribution.adoc[Contribution Guidelines]
+* link:server/index.adoc[Server]
+* link:client/index.adoc[Client]
+* link:theme/index.adoc[Theme]
+* link:contribution.adoc[Contribution Guidelines]
