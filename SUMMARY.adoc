@@ -27,6 +27,7 @@
 *** link:operations/advanced-topics/cron.adoc[Cron]
 *** link:operations/advanced-topics/export.adoc[Expose network data]
 * link:developpement/index.adoc[Developpement]
+** link:developpement/contribution.adoc[Contribution Guidelines]
 ** link:developpement/server/index.adoc[Server]
 *** link:developpement/server/layout.adoc[Layout]
 *** link:developpement/server/rest.adoc[REST]
