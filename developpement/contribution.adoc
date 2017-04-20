@@ -1,0 +1,59 @@
+= Developper contribution guidelines
+
+== Branch organisation
+
+* *master* : the main branch. It stores all the public commit log and tag (mapped to release). 
+  It musts be never "pushed force".
+* *dev* : the next release integration branch.
+* *my-topic* : a topic branch for a particular project. It must be rebase as often as possible on dev branch
+
+== 1. Derive _topic_ from _dev_
+
+[source]
+----
+
+                                       I---J---K  (topic)
+                                      /
+                             E---F---G---H  (dev)
+                            /
+               A---B---C---D  (master)
+
+----
+
+NOTE: Each new evolution projet must be isolated on a dedicated topic branch. 
+
+== 2. Isolation test : Rebase _topic_ on _dev_. Test your evolution
+
+[source]
+----
+
+                                           I---J---K---L---M  (topic)
+                                          /
+                             E---F---G---H  (dev)
+                            /
+               A---B---C---D  (master)
+
+----
+
+
+== 3. Integration test : Merge _topic_ in _dev_. All _dev_'s evolution will be test together
+
+[source]
+----
+
+                             E---F---G---H---I---J---K---L---M  (topic, dev)
+                            /
+               A---B---C---D  master
+
+----
+
+== 4. Packaging : Merge _dev_ on _master_. Tag the _HEAD_ of _master_ with the next release label 
+
+[source]
+----
+
+               A---B---C---D---E---F---G---H---I---J---K---L---M  (topic, dev, master, NEXT_RELEASE_LABEL)  
+
+----
+
+
