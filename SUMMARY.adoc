@@ -50,5 +50,4 @@
 *** link:developpement/theme/css-layout.adoc[CSS Layout]
 *** link:developpement/theme/responsive.adoc[Responsive]
 *** link:developpement/theme/overriding.adoc[Overriding]
-
-
+*** link:developpement/theme/applications.adoc[Extension for applications]
