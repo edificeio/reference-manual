@@ -1,0 +1,17 @@
+# Server developpement
+
+That section give you the main keys to implement the server layer of an ODE application. 
+ODE Framework provides in one hand a complete web-framework on top on Vertx2 
+and on the other hand a domain framework (to ease designing, building and )     
+
+
+* link:developpement/server/layout.adoc[Layout]
+* link:developpement/server/rest.adoc[REST]
+* link:developpement/server/data-storage.adoc[Data Storage]
+* link:developpement/server/security.adoc[Security]
+* link:developpement/server/i18n.adoc[I18n]
+* link:developpement/server/integration.adoc[Integration]
+* link:developpement/server/notification.adoc[Notification]
+* link:developpement/server/share.adoc[Share]
+* link:developpement/server/trace.adoc[Trace]
+* link:developpement/server/search.adoc[Search]

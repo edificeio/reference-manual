@@ -1,0 +1,70 @@
+= REST
+
+ODE frameworks offers, on top of Vertx2, an "annotation API" to implement a REST API. 
+It make possible to map a controller's method with a path (a route) by annatation. 
+There are two ideas behind that approach :
+
+* provide a descriptive style at code time (that reminds JAX-RS for Java developpers)
+* keep asynchronous vertx2 execution at runtime 
+
+
+NOTE: With ODE annotations you don't need to manage a vertx2 RouteMatcher. 
+The URL path format follow the verxt2 one (for parameter extraction, pattern matching ...)
+. See link:http://vertx.io./vertx2[Vert2 manual]  
+
+== HTTP method
+
+NOTE: annotations are shipped in the `import fr.wseduc.rs` package
+
+=== GET
+
+[source,java]
+----
+@Get("/group/:groupId")
+public void delete(final HttpServerRequest request) {
+    String groupId = request.params().get("groupId");
+}
+----
+
+=== DELETE
+
+[source,java]
+----
+@Delete("/group/:groupId")
+public void delete(final HttpServerRequest request) {
+    String groupId = request.params().get("groupId");
+}
+----
+
+=== PUT
+
+[source,java]
+----
+@Put("/group/:groupId")
+public void update(final HttpServerRequest request) {
+    bodyToJson(request, new Handler<JsonObject>() {
+        @Override
+        public void handle(JsonObject body) {
+            // modification's stuff with the body object  
+        }
+    });
+}
+----
+
+NOTE: `bodyToJson` is a static method provided by `fr.wseduc.webutils.request.RequestUtils`. 
+It wraps vertx2 `request.bodyHandler` in order to strip common XSS pattern from de the request's body. 
+
+=== POST
+
+[source,java]
+----
+@Post("/group/:groupId")
+public void create(final HttpServerRequest request) {
+    bodyToJson(request, new Handler<JsonObject>() {
+        @Override
+        public void handle(JsonObject body) {
+            // creation's stuff with the body object  
+        }
+    });
+}
+----
