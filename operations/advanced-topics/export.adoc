@@ -1,23 +1,23 @@
 = Referential Data export
 
 ODE Framework provide an referential's data export API granted by OAuth2 or HTTP Bascis credential.
-In some integration case, it can be usefull for inital data setup in third party application.
+In some integration case, it can be usefull for data's setup in third party application.
 
 == Configuration
 
-In backoffice, go to external application management screen (application registry > external application).
+In backoffice, go to external application management screen (`application registry > external application`) 
+and choose a structure (a school)
 
 === 1. Create a new external application
 
-* setup mandatories field
-* enter an application's name Id. It will become the application clientID in Oauth2 vocabulary
+* enter your external application's identifier. It will become the application's clientID in Oauth2 vocabulary
 
-=== 2 open advanced option and setup oauth2 options
+=== 2. Setup advanced options 
 
-* enter a secret code (usefull for grant access to external application)
-* chosse _Basic_ as Identification mode
-* configure authorized scopes with full qualified name of the endpoint to grant. 
-  Scope must be separed by a withe sapce 
+* enter a secret code (to grant access to external application)
+* set identification mode to chosse _Basic_ 
+* configure authorized scopes. You have to tip the _full qualified name_ of the endpoint you want to grant. 
+You must separe scope with a space. 
 
 [NOTE]
 ====
