@@ -1,6 +1,6 @@
 = Reference Manual - Open Digital Education
 
-link:http://opendigitaleducation.com[Open Digital Education] (ODE) Frameworks aims at provide a modular tooling to design, build and execute applications in education's field.
+link:http://opendigitaleducation.com[Open Digital Education] (ODE) Frameworks aims at providing a modular toolkit to design, build and execute applications in education's field.
 It embraces paramount concerns and constraints of education's field like
  
 * massive deployment
@@ -28,10 +28,10 @@ Follow link:first-steps/index.adoc[First Steps] instructions
 
 WARNING: *!! This manual is under active editing !!*. We will inform you on link:https://groups.google.com/forum/#!forum/entcore[Google Group] when a first proper version is available
 
-This manual put forward ODE Framework capabilites. 
+This manual puts forward ODE Framework capabilites. 
 You will find for each of them a brief decription and usage example. 
 To browse deeper inside the framework's features we also provide links to detailed API documentation.
-We try to write aach section as autonomous as possible. So you can use it as "technical receipes"
+We try to write each section as autonomous as possible. So you can use it as "technical receipes"
 
 NOTE: If you observe some errors or lacks your comments and contributions are welcomed !
 
