@@ -24,7 +24,7 @@ You must separe scope with a space.
 the following endpoint are availables
 
 * org.entcore.directory.controllers.StructureController|listStructures
-* org.entcore.directory.controllers.StructureController|listUserInStructuresByUAI
+* org.entcore.directory.controllers.UserController|listUserInStructuresByUAI
 ====
 
 // TODO : Provide a complete inventory of available endpoints
