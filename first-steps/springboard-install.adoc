@@ -36,7 +36,6 @@ In *test.properties*, check and edit if needed the following properties:
 
     // Neo4J
     neo4jUri=http://localhost:7474
-    neo4jEmbedded=false
 
     // MongoDB
     dbName=one_gridfs
@@ -86,4 +85,3 @@ Start Springboard:
 3. Import users: go to _Annuaire > alimentation_ and click on _Importer_ button
 4. Manage application rights: go to _Applications > roles applicatifs_ and create a _All_ right for needed application
 5. Manage transverse rights: Sélection user avec droit tout
-
