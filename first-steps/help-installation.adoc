@@ -1,0 +1,723 @@
+= Install local help module
+
+
+WARNING: Please be sure to install a proper Springboard, by following instructions link:simple-install.adoc[here]
+
+
+=== Step 1 : Get basics
+[source,bash]
+git clone https://github.com/web-education/applications-help
+git clone to-html.sh
+
+=== Step 2 : Install and configure Nginx
+
+[source,bash]
+sudo apt-get install nginx
+cd /etc/nginx/sites-available
+cp default help
+
+Edit help file and paste configuration below :
+
+[source, bash]
+upstream portal.vertx.lan {
+  server     127.0.0.1:8017  fail_timeout=10s;
+}
+upstream infra.vertx.lan {
+  server     127.0.0.1:8001  fail_timeout=10s;
+}
+upstream directory.vertx.lan {
+  server     127.0.0.1:8003  fail_timeout=10s;
+}
+upstream history.vertx.lan {
+  server     127.0.0.1:8006  fail_timeout=10s;
+}
+upstream auth.vertx.lan {
+  server     127.0.0.1:8009  fail_timeout=10s;
+}
+upstream workspace.vertx.lan {
+  server     127.0.0.1:8011  fail_timeout=10s;
+}
+upstream appregistry.vertx.lan {
+  server     127.0.0.1:8012  fail_timeout=10s;
+}
+upstream communication.vertx.lan {
+  server     127.0.0.1:8015  fail_timeout=10s;
+}
+upstream conversation.vertx.lan {
+  server     127.0.0.1:8019  fail_timeout=10s;
+}
+upstream blog.vertx.lan {
+  server     127.0.0.1:8018  fail_timeout=10s;
+}
+upstream timeline.vertx.lan {
+  server     127.0.0.1:8016  fail_timeout=10s;
+}
+upstream actualites.vertx.lan {
+  server     127.0.0.1:8022  fail_timeout=10s;
+}
+upstream cas.vertx.lan {
+  server     127.0.0.1:8023  fail_timeout=10s;
+}
+upstream archive.vertx.lan {
+  server     127.0.0.1:8004  fail_timeout=10s;
+}
+upstream forum.vertx.lan {
+  server     127.0.0.1:8024  fail_timeout=10s;
+}
+upstream pages.vertx.lan {
+  server     127.0.0.1:8025  fail_timeout=10s;
+  server     192.168.15.13:8025  fail_timeout=10s;
+}
+upstream wiki.vertx.lan {
+  server     127.0.0.1:8030  fail_timeout=10s;
+}
+upstream rbs.vertx.lan {
+  server     127.0.0.1:8026  fail_timeout=10s;
+}
+upstream support.vertx.lan {
+  server     127.0.0.1:8027  fail_timeout=10s;
+}
+upstream rss.vertx.lan {
+  server     127.0.0.1:8028  fail_timeout=10s;
+}
+upstream rack.vertx.lan {
+  server     127.0.0.1:8031  fail_timeout=10s;
+}
+upstream bookmark.vertx.lan {
+  server     127.0.0.1:8032  fail_timeout=10s;
+}
+upstream community.vertx.lan {
+  server     127.0.0.1:8078  fail_timeout=10s;
+}
+upstream eliot.vertx.lan {
+  server     127.0.0.1:8029  fail_timeout=10s;
+}
+upstream poll.vertx.lan {
+  server     127.0.0.1:8070  fail_timeout=10s;
+}
+upstream collaborativewall.vertx.lan {
+  server     127.0.0.1:8071  fail_timeout=10s;
+}
+upstream collaborativeeditor.vertx.lan {
+  server     127.0.0.1:8668  fail_timeout=10s;
+}
+upstream mindmap.vertx.lan {
+  server     127.0.0.1:8666  fail_timeout=10s;
+}
+upstream timelinegenerator.vertx.lan {
+  server     127.0.0.1:8099  fail_timeout=10s;
+}
+upstream cursus.vertx.lan {
+  server     127.0.0.1:8085  fail_timeout=10s;
+}
+upstream maxicours.vertx.lan {
+  server     127.0.0.1:8046  fail_timeout=10s;
+}
+upstream cns.vertx.lan {
+  server     127.0.0.1:8086  fail_timeout=10s;
+}
+upstream sso.vertx.lan {
+  server     127.0.0.1:8041  fail_timeout=10s;
+}
+upstream diary.vertx.lan {
+  server     127.0.0.1:8054  fail_timeout=10s;
+}
+upstream sharebigfiles.vertx.lan {
+  server     127.0.0.1:8052  fail_timeout=10s;
+}
+upstream exercizer.vertx.lan {
+  server     127.0.0.1:8105  fail_timeout=10s;
+}
+upstream calendar.vertx.lan {
+  server     127.0.0.1:8098  fail_timeout=10s;
+}
+upstream searchengine.vertx.lan {
+  server     127.0.0.1:8053  fail_timeout=10s;
+}
+upstream statistics.vertx.lan {
+  server     127.0.0.1:8042  fail_timeout=10s;
+}
+upstream xiti.vertx.lan {
+  server     127.0.0.1:8049  fail_timeout=10s;
+}
+upstream viescolaire.vertx.lan {
+  server     127.0.0.1:8128  fail_timeout=10s;
+}
+map $remote_addr $log_ip {
+  "127.0.0.1" 0;
+  default 1;
+}
+server {
+  listen                *:80;
+  client_max_body_size 50M;
+  gzip_types text/plain text/css application/javascript application/xml application/json text/json text/xml text/javascript/image/svg+xml application/vnd.ms-fontobject application/x-font-ttf font/opentype;
+  gzip_proxied any;
+  proxy_intercept_errors on;
+  error_page 404  /404.html;
+  error_page 500 503 504 /50x.html;
+  error_page 502 /502.html;
+  index  index.html index.htm index.php;
+  access_log            /var/log/nginx/preprod-leo.entcore.org-80.access.log combined if=$log_ip;
+  error_log             /var/log/nginx/preprod-leo.entcore.org-80.error.log;
+  location /userbook {
+    proxy_pass            http://directory.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location / {
+    proxy_pass            http://portal.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /infra {
+    proxy_pass            http://infra.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /directory {
+    proxy_pass            http://directory.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /history {
+    proxy_pass            http://history.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /auth {
+    proxy_pass            http://auth.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /workspace {
+    proxy_pass            http://workspace.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /appregistry {
+    proxy_pass            http://appregistry.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /communication {
+    proxy_pass            http://communication.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /conversation {
+    proxy_pass            http://conversation.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /blog {
+    proxy_pass            http://blog.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /timeline {
+    proxy_pass            http://timeline.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /actualites {
+    proxy_pass            http://actualites.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /cas {
+    proxy_pass            http://cas.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /archive {
+    proxy_pass            http://archive.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /forum {
+    proxy_pass            http://forum.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /pages {
+    proxy_pass            http://pages.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /wiki {
+    proxy_pass            http://wiki.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /rbs {
+    proxy_pass            http://rbs.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /support {
+    proxy_pass            http://support.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /rss {
+    proxy_pass            http://rss.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /rack {
+    proxy_pass            http://rack.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /bookmark {
+    proxy_pass            http://bookmark.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /community {
+    proxy_pass            http://community.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /eliot {
+    proxy_pass            http://eliot.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /poll {
+    proxy_pass            http://poll.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /collaborativewall {
+    proxy_pass            http://collaborativewall.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /collaborativeeditor {
+    proxy_pass            http://collaborativeeditor.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /mindmap {
+    proxy_pass            http://mindmap.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /timelinegenerator {
+    proxy_pass            http://timelinegenerator.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /cursus {
+    proxy_pass            http://cursus.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /maxicours {
+    proxy_pass            http://maxicours.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /cns {
+    proxy_pass            http://cns.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /sso {
+    proxy_pass            http://sso.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /diary {
+    proxy_pass            http://diary.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /sharebigfiles {
+    proxy_pass            http://sharebigfiles.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+    # extra options
+    client_max_body_size 1024M;
+  }
+  location /exercizer {
+    proxy_pass            http://exercizer.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /calendar {
+    proxy_pass            http://calendar.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /searchengine {
+    proxy_pass            http://searchengine.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /statistics {
+    proxy_pass            http://statistics.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /xiti {
+    proxy_pass            http://xiti.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /viescolaire {
+    proxy_pass            http://viescolaire.vertx.lan;
+    proxy_read_timeout    90;
+    proxy_connect_timeout 90;
+    proxy_redirect        off;
+    proxy_set_header      Host $host;
+    proxy_set_header      X-Real-IP $remote_addr;
+    proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header      X-Forwarded-Proto $scheme;
+  }
+  location /portal/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/portal/public/;
+    autoindex off;
+  }
+  location /infra/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/infra/public/;
+    autoindex off;
+  }
+  location /directory/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/directory/public/;
+    autoindex off;
+  }
+  location /auth/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/auth/public/;
+    autoindex off;
+  }
+  location /workspace/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/workspace/public/;
+    autoindex off;
+  }
+  location /appregistry/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/appregistry/public/;
+    autoindex off;
+  }
+  location /timeline/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/timeline/public/;
+    autoindex off;
+  }
+  location /actualites/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/actualites/public/;
+    autoindex off;
+  }
+  location /cas/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/cas/public/;
+    autoindex off;
+  }
+  location /archive/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/archive/public/;
+    autoindex off;
+  }
+  location /rbs/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/rbs/public/;
+    autoindex off;
+  }
+  location /support/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/support/public/;
+    autoindex off;
+  }
+  location /rss/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/rss/public/;
+    autoindex off;
+  }
+  location /eliot/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/eliot/public/;
+    autoindex off;
+  }
+  location /poll/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/poll/public/;
+    autoindex off;
+  }
+  location /collaborativewall/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/collaborativewall/public/;
+    autoindex off;
+  }
+  location /collaborativeeditor/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/collaborativeeditor/public/;
+    autoindex off;
+  }
+  location /timelinegenerator/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/timelinegenerator/public/;
+    autoindex off;
+  }
+  location /cns/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/cns/public/;
+    autoindex off;
+  }
+  location /sso/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/sso/public/;
+    autoindex off;
+  }
+  location /diary/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/diary/public/;
+    autoindex off;
+  }
+  location /calendar/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/calendar/public/;
+    autoindex off;
+  }
+  location /searchengine/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/searchengine/public/;
+    autoindex off;
+  }
+  location /xiti/public/ {
+    alias /home/ahas/ode/springboard-open-ent/mods/xiti/public/;
+    autoindex off;
+  }
+  location /assets/ {
+    root /home/ahas/ode/springboard-open-ent/;
+    autoindex off;
+  }
+  location /help/ {
+    root /home/ahas/ode/;
+    autoindex off;
+  }
+  location /img/ {
+    root /home/ahas/ode/springboard-open-ent/assets/themes/leo/;
+    autoindex off;
+  }
+  location /icons/ {
+    root /home/ahas/ode/springboard-open-ent/assets/themes/leo/;
+    autoindex off;
+  }
+  location /generic-icons/ {
+    root /home/ahas/ode/springboard-open-ent/assets/themes/;
+    autoindex off;
+  }
+}
+
+WARNING: Replace all filesystem's abolute paths with yours
+
+NOTE: If some assets doesn't load, you can create a new location block in your
+Nginx help's configuration to serve it.
+
+Once you have edited help configuration, enable it :
+[source, bash]
+cd ../sites-enabled
+unlink default
+ln -s ../sites-available/help
+
+Then you can restart nginx services
+[source, bash]
+sudo service nginx restart
+
+=== Step 3 : Run your Springboard
+
+[source, bash]
+cd springboard-path/
+sh run.sh
+
+=== You can now access to your Springboard by reaching localhost:80 on your favorite browser
