@@ -7,7 +7,15 @@ WARNING: Please be sure to install a proper Springboard, by following instructio
 === Step 1 : Get basics
 [source,bash]
 git clone https://github.com/web-education/applications-help
-git clone to-html.sh
+
+Install asciidoctor.js
+[source,bash]
+npm install -g asciidoctor.js asciidoctor-cli
+
+Launch HTML conversion's script
+[source,bash]
+cd applications-help
+sh to-html.sh
 
 === Step 2 : Install and configure Nginx
 
