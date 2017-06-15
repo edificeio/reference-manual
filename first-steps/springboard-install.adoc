@@ -26,7 +26,7 @@ Checkout dev branch:
     $ gradle clean init
 ....
 
-In *test.properties*, check and edit if needed the following properties:
+In *conf.properties*, check and edit if needed the following properties:
 
 ....
     mode=dev
@@ -50,13 +50,13 @@ In *test.properties*, check and edit if needed the following properties:
     // Configuration de l'apparence (skin et thème => 1 skin peut contenir plusieurs thèmes. 1 skin doit être associé à une domaine)
     skin=leo
     skins={"localhost:8090":"leo"}
-    themes={"_id": "default","displayName": "default","path": "/assets/themes/leo/default/"},{"_id": "dyslexic","displayName": "dyslexic","path": "/as    sets/themes/leo/dyslexic/"}
+    themes={"_id": "default","displayName": "default","path": "/assets/themes/leo/default/"},{"_id": "dyslexic","displayName": "dyslexic","path": "/assets/themes/leo/dyslexic/"}
 ....
 
 Generate Vertx configuration (based on test.properties):
 
 ....
-    $ gradle generateTestConf
+    $ gradle generateConf
 ....
 
 === Build frontend
@@ -70,13 +70,13 @@ Generate Vertx configuration (based on test.properties):
 
 NOTE: Neo4j, Postgre and mongodb must be running
 
-NOTE: In *run.sh*, comment the 2 lines about the neo4j docker container and the timeout
-
 Start Springboard:
 
 ....
-    $ sh run.sh
+    $ vertx runMod org.entcore~infra~<version> -conf ent-core.json
 ....
+
+where <version> has to be replaced by entcore version number
 
 === Administration
 
