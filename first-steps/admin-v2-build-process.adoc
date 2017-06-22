@@ -1,0 +1,92 @@
+= Admin Console v2 - Build Process for Developers
+
+This document describes the admin console v2 build process for developers
+
+== 0. Requirements
+
+=== Dev tools
+
+* git
+* npm
+* gulp (3.9.1)
+* gradle (1.6)
+
+=== Clone project
+
+....
+$ git clone git@github.com:entcore/entcore.git
+$ cd entcore
+$ git checkout admin-v2
+....
+
+== 1. Dev build
+
+Check "0. Requirements" before
+
+=== Build front
+
+....
+$ npm install
+$ gulp admin2:clean
+$ gulp admin2:build-dev
+....
+
+=== Build admin module
+
+....
+$ gradle :admin:clean
+$ gradle :admin:install
+....
+
+=== Deploy admin module to local springboard
+
+....
+$ cd ${springboard_dir}
+$ rm -rf mods/org.entcore~admin~${version}/
+$ vertx runMod org.entcore~infra~${version} -conf ent-core.embedded.json
+....
+
+Test app in browser => http://localhost:8090
+
+== 2. Dev Workflow
+
+IMPORTANT: Apply "1. Dev build" before
+
+=== Watch resources
+
+....
+$ cd ${entcore}
+$ gulp admin2:watch
+....
+
+This task will copy modified files from resources/ to springboard
+
+=== Webpack dev server
+
+....
+$ gulp admin2:dev-server
+....
+
+TS files are built in memory. Browser will refresh after code editing.
+
+Test app in browser => http://localhost:9000
+
+== 3. Production build (before commit)
+
+NOTE: Before committing your work, it is mandatory to test app with production build
+
+....
+$ cd ${entcore}
+$ gulp admin2:clean
+$ gulp admin2:build
+$ gradle :admin:clean
+$ gradle :admin:install
+$ rm -rf ${springboard_dir}/modes/org.entcore~admin~${version}/
+$ vertx runMod org.entcore~infra~${version} -conf ent-core.embedded.json
+....
+
+Test app in browser => http://localhost:8090
+
+If OK then commit
+
+IMPORTANT: After production buile, to start again dev workflow, do an initial dev build (see 1st chapter "1. Dev build")
