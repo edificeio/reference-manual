@@ -11,12 +11,28 @@ This document describes the admin console v2 build process for developers
 * gulp (3.9.1)
 * gradle (1.6)
 
-=== Clone project
+=== Clone admin console v2 project
 
 ....
 $ git clone git@github.com:entcore/entcore.git
 $ cd entcore
 $ git checkout admin-v2
+....
+
+=== Springboard configuration
+
+In your springboard gradle.properties file, set entcore version to 2.0-SNAPSHOT and springboard plugin version to 1.0-SNAPSHOT:
+
+....
+entCoreVersion=2.0-SNAPSHOT
+springboardPluginVersion=1.0-SNAPSHOT
+....
+
+In test.properties/conf.properties, set entcore version to 2.0-SNAPSHOT and add "localhost:9000" to skins array:
+
+....
+entcoreVersion=2.0-SNAPSHOT
+skins={"localhost:8090":"leo", "localhost:9000": "leo"}
 ....
 
 == 1. Dev build
@@ -42,8 +58,8 @@ $ gradle :admin:install
 
 ....
 $ cd ${springboard_dir}
-$ rm -rf mods/org.entcore~admin~${version}/
-$ vertx runMod org.entcore~infra~${version} -conf ent-core.embedded.json
+$ rm -rf mods/org.entcore~admin~2.0-SNAPSHOT/
+$ vertx runMod org.entcore~infra~2.0-SNAPSHOT -conf ent-core.embedded.json
 ....
 
 Test app in browser => http://localhost:8090
@@ -59,7 +75,7 @@ $ cd ${entcore}
 $ gulp admin2:watch
 ....
 
-This task will copy modified files from resources/ to springboard
+This task will copy modified files from resources/ to springboard after code editing.
 
 === Webpack dev server
 
@@ -67,26 +83,41 @@ This task will copy modified files from resources/ to springboard
 $ gulp admin2:dev-server
 ....
 
-TS files are built in memory. Browser will refresh after code editing.
+This task will deploy files in memory after code editing, browser will refresh automatically.
 
 Test app in browser => http://localhost:9000
 
 == 3. Production build (before commit)
 
-NOTE: Before committing your work, it is mandatory to test app with production build
+IMPORTANT: Before committing your work, it is mandatory to test app with production build
+
+=== Build front
 
 ....
 $ cd ${entcore}
 $ gulp admin2:clean
 $ gulp admin2:build
+....
+
+NOTE: gulp admin2:build will generate js files with hash code in filename
+
+=== Build admin module  
+
+....
 $ gradle :admin:clean
 $ gradle :admin:install
-$ rm -rf ${springboard_dir}/modes/org.entcore~admin~${version}/
-$ vertx runMod org.entcore~infra~${version} -conf ent-core.embedded.json
+....
+
+=== Deploy admin module to local springboard
+
+....
+$ cd ${springboard_dir}
+$ rm -rf mods/org.entcore~admin~2.0-SNAPSHOT/
+$ vertx runMod org.entcore~infra~2.0-SNAPSHOT -conf ent-core.embedded.json
 ....
 
 Test app in browser => http://localhost:8090
 
 If OK then commit
 
-IMPORTANT: After production buile, to start again dev workflow, do an initial dev build (see 1st chapter "1. Dev build")
+IMPORTANT: After production build, to start again dev workflow, do an initial dev build (see 1st chapter "1. Dev build")
