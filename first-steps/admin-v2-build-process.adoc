@@ -19,6 +19,12 @@ $ cd entcore
 $ git checkout admin-v2
 ....
 
+=== Install npm dependencies
+
+....
+$ npm install
+....
+
 === Springboard configuration
 
 In your springboard gradle.properties file, set entcore version to 2.0-SNAPSHOT and springboard plugin version to 1.0-SNAPSHOT:
@@ -42,9 +48,8 @@ Check "0. Requirements" before
 === Build front
 
 ....
-$ npm install
-$ gulp admin2:clean
-$ gulp admin2:build-dev
+$ gulp adminV2-clean
+$ gulp adminV2-build-dev
 ....
 
 === Build admin module
@@ -72,7 +77,7 @@ IMPORTANT: Apply "1. Dev build" before
 
 ....
 $ cd ${entcore}
-$ gulp admin2:watch
+$ gulp adminV2-watch
 ....
 
 This task will copy modified files from resources/ to springboard after code editing.
@@ -80,7 +85,7 @@ This task will copy modified files from resources/ to springboard after code edi
 === Webpack dev server
 
 ....
-$ gulp admin2:dev-server
+$ gulp adminV2-dev-server
 ....
 
 This task will deploy files in memory after code editing, browser will refresh automatically.
@@ -95,11 +100,10 @@ IMPORTANT: Before committing your work, it is mandatory to test app with product
 
 ....
 $ cd ${entcore}
-$ gulp admin2:clean
-$ gulp admin2:build
+$ gulp adminV2-build
 ....
 
-NOTE: gulp admin2:build will generate js files with hash code in filename
+NOTE: gulp adminV2-build will generate js files with hash code in filename
 
 === Build admin module  
 
