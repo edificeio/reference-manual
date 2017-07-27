@@ -1,0 +1,40 @@
+= Getting started
+
+If you’ve used skeletons to initialize your application, you already have a gulpfile, 
+a webpack config file, and a npm package file. To start front-end development, 
+you first need to install nodeJS 6.11.
+
+https://nodejs.org/en/
+
+Then, you can go in your application folder and install all dependencies:
+
+`npm install`
+
+You will also need to make the gulp command available:
+
+`npm install -g gulp@3.9.1`
+
+
+== Gulp commands
+
+Two gulp commands are available in your application:
+
+`gulp `build``
+
+will start building your typescript files, bundle them in a single file, 
+and add cache-busting utilities. 
+
+WARNING: You need to use gulp build before gradle instaINGll, 
+as Gradle (the server-side build tool) will use your current resources directory.
+
+The second one is
+
+`gulp watch`
+
+This will start a process listening to all changes made to your files, build them and copy them to your springboard directory. You can set your springboard path with the springboard parameter:
+
+`gulp watch --springboard /path/to/my/springboard`
+
+This also works with relative paths:
+
+`gulp watch --springboard ../my/springboard`
