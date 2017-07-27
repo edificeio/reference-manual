@@ -6,7 +6,7 @@ Typically, these are the options used in ODE Framework :
 
 * **link:rights.adoc[Rights]** : all applications have to expose their rights system , 
   to make sure other applications can display informations properly
-* **link:ressources.adoc[Resources]** : it can be useful to list existing resources, 
+* **link:resources.adoc[Resources]** : it can be useful to list existing resources, 
   so they can be linked or listed from another application
 * **link:sniplets.adoc[Sniplets]**: applications may have sniplets. 
   A sniplet is an exportable applicative snippet of code that can be embedded in another application.

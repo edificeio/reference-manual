@@ -48,7 +48,7 @@ In ODE Framework, we use `[[]]` instead for compatibility issues:
 [source,html]
 ----
 <div>[[ myVar ]]</div>
-`----`
+----
 
 The bootstrap is done on document by ODE Framework, after loading mandatory dependencies: 
 translations, the user’s session, the application rights, etc… 
