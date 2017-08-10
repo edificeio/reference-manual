@@ -83,7 +83,7 @@ $ cd ${entcore}
 $ gulp adminV2-watch
 ....
 
-This task will copy modified files from resources/ to springboard after code editing.
+This task will copy modified files from resources/ to springboard after code editing. Configure _springboardPath_ variable in _entcore/admin/gulpfile.admin.js_ to adjust your springboard path.
 
 === Webpack dev server
 
