@@ -36,11 +36,11 @@ for(let controller of controllers){
 
 == Specific configuration
 
-AngularJS default delimiters are `\{\{}}` :
+AngularJS default delimiters are `\{\{\}\}` :
 
 [source,html]
 ----
-<div>\{\{ myVar }}</div>
+<div>\{\{ myVar \}\}</div>
 ----
 
 In ODE Framework, we use `[[]]` instead for compatibility issues:
