@@ -40,7 +40,7 @@ AngularJS default delimiters are `\{\{}}` :
 
 [source,html]
 ----
-<div>{{ myVar }}</div>
+<div>\{\{ myVar }}</div>
 ----
 
 In ODE Framework, we use `[[]]` instead for compatibility issues:
