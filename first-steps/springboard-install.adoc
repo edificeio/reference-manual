@@ -80,7 +80,7 @@ where <version> has to be replaced by entcore version number
 
 === Administration
 
-1. Authenticate with user tom-mate/password at http://localhost:8090/
+1. Authenticate with user tom.mate/password at http://localhost:8090/
 2. Go to http://localhost:8090/admin
 3. Import users: go to _Annuaire > alimentation_ and click on _Importer_ button
 4. Manage application rights: go to _Applications > roles applicatifs_ and create a _All_ right for needed application
