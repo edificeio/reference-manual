@@ -78,7 +78,7 @@ Start Service:
 $ sudo service postgresql start
 ....
 
-=== 3. Neo4j 2.3.2
+=== 3. Neo4j 3.1.6
 
 Add package repository:
 
@@ -91,29 +91,25 @@ $ sudo apt-get update
 Installation:
 
 ....
-$ sudo apt-get install neo4j=2.3.2
+$ sudo apt-get install neo4j=3.1.6
 ....
 
-Add configuration in */etc/neo4j/neo4j.properties* :
+Add configuration in */etc/neo4j/neo4j.conf* :
 
 ....
 # Enable auto-indexing for nodes, default is false
-node_auto_indexing=true
+dbms.auto_index.nodes.enabled=true
 
 # The node property keys to be auto-indexed, if enabled
-node_keys_indexable=name
-....
+dbms.auto_index.nodes.keys=name
 
-Edit file */etc/neo4j/neo4j-server.properties*:
-
-....
 dbms.security.auth_enabled=false
 ....
 
 Start Service:
 
 ....
-$ sudo service neo4j-service start
+$ sudo service neo4j start
 ....
 
 NOTE: Neo4j http url http://localhost:7474
@@ -159,16 +155,16 @@ Installation:
 ....
 $ sudo add-apt-repository ppa:webupd8team/java
 $ sudo apt-get update
-$ sudo apt-get install oracle-java7-installer
+$ sudo apt-get install oracle-java8-installer
 ....
 
 Check installation:
 
 ....
 $ java -version
-java version "1.7.0_80"
-Java(TM) SE Runtime Environment (build 1.7.0_80-b15)
-Java HotSpot(TM) 64-Bit Server VM (build 24.80-b11, mixed mode)
+java version "1.8.0_152"
+Java(TM) SE Runtime Environment (build 1.8.0_152-b16)
+Java HotSpot(TM) 64-Bit Server VM (build 25.152-b16, mixed mode)
 ....
 
 === 7. Gradle 1.6
@@ -242,4 +238,3 @@ To set SSH key for Github, please follow the reference documentations below:
 
 - https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 - https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
-
