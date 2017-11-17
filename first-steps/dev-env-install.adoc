@@ -104,6 +104,9 @@ dbms.auto_index.nodes.enabled=true
 dbms.auto_index.nodes.keys=name
 
 dbms.security.auth_enabled=false
+
+# Cypher language compatibility
+cypher.default_language_version=2.3
 ....
 
 Start Service:
