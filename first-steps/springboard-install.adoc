@@ -47,10 +47,8 @@ In *conf.properties*, check and edit if needed the following properties:
     sqlUsername=web-education
     sqlPassword=We_1234
 
-    // Configuration de l'apparence (skin et thème => 1 skin peut contenir plusieurs thèmes. 1 skin doit être associé à une domaine)
-    skin=leo
+    // Configuration de l'apparence (1 skin doit être associé à une domaine)
     skins={"localhost:8090":"leo"}
-    themes={"_id": "default","displayName": "default","path": "/assets/themes/leo/default/"},{"_id": "dyslexic","displayName": "dyslexic","path": "/assets/themes/leo/dyslexic/"}
 ....
 
 Generate Vertx configuration (based on test.properties):
