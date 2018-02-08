@@ -2,8 +2,8 @@
 
 You will find here the basis to dive into ODE Frameworks application's development. 
 
-1. link:first-steps/dev-env-install.adoc[Install your dev environment]
-2. link:first-steps/springboard-install.adoc[Install your dev Springboard]
+1. link:dev-env-install.adoc[Install your dev environment]
+2. link:springboard-install.adoc[Install your dev Springboard]
 
 
 NOTE: The installation process targets Linux Debian like ditribution. 
