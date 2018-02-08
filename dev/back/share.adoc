@@ -8,7 +8,7 @@ Server-side resource shares require the following conventions:
 2. Helpers exist to interact with the sharing directive and thus manage for you the lifecycle of the shared resources (Creation, update, deletion), as well as sharing notifications.
 3. The resource listing service that potentially contains shared resources must also in its response respect exchange semantics.
 
-// TODO Link to link:/developpement/client/index.adoc[client dev]
+// TODO Link to link:/dev/front/index.adoc[client dev]
 
 == Data model
 
@@ -282,7 +282,7 @@ new QueryBuilder().or(groups.toArray(new DBObject[groups.size()])).get()
 )
 ----
 
-// TODO reference link:/developpement/server/data-storage.adoc[Data Storage]
+// TODO reference link:/dev/back/data-storage.adoc[Data Storage]
 
 That query will therefore return all resources owned by the user (_userId_) or shared with him.
 
@@ -302,7 +302,7 @@ The search query for resources accessible by the user:
 "WHERE re.member_id IN " + Sql.listPrepared(groupsAndUserIds) + " OR owner = ?";
 ----
 
-// TODO reference link:/developpement/server/data-storage.adoc[Data Storage]
+// TODO reference link:/dev/back/data-storage.adoc[Data Storage]
 
 
 NOTE: *$schema* is schema of the application and *$resource$* is replaced by the name of the table that contains the resources
