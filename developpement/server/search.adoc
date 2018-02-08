@@ -1,20 +1,17 @@
 = Search
 
-ODE framework provides a system around the vertx bus to inscribe an application into the search engine application (see https://github.com/OPEN-ENT-NG/search-engine[Search Engine])
+ODE framework enables applications to register into the search engine module (see https://github.com/OPEN-ENT-NG/search-engine[Search Engine])
 
-Search engine uses Publish-subscribe and Point-to-Point model.
+* Search engine uses Publish-subscribe and Point-to-Point model. It's backed by the Vertx Event Bus.
+* Publish-subscribe model is used to push event to registered applications. While the Point-to-Point model allows applications to send their search's result.
+* Search engine API uses a fulltext model .
+* An API and a defaut implementation are provided for standard search behaviors. You can also override it to offer alternative search's behavior.
 
-Publish-subscribe model is used to notify applications that subscribed. While the Point-to-Point model allows the application to communicate the result of its search.
+NOTE: Search engine module  only support  Document (MongoDB) and  Relational (PostgreSQL) storage. File-type storage is not yet supported.
 
-Search engine API uses the fulltext model for both backend (Mongo and Postgre).
+== Subscribe Search Event
 
-APIs are provided for standard search behaviors. It is possible to implement either the desired search behavior.
-
-NOTE: The search engine can only search in Document storage or relational data stores. Therefore, it does not search for file-type storage.
-
-== Subscription
-
-The verticule of the application subscribes to the search event. It is effective at the start of the verticule.
+In your Application BaseServer (that extends a Verticle) add the following piece of code.
 
 [source,java]
 ----
@@ -76,9 +73,9 @@ WARNING: Looks at the Result chapter for the returned values convention
 
 ==== Index
 
-Add a JS script to "/deployment/$applicationName/migration/x.x.x/addTextIndex.js"
+Add a JS script to "/deployment/$applicationName/migration/x.y.z/addTextIndex.js"
 
-NOTE: $applicationName is the name of your app. x.x.x is the version of your app.
+NOTE: $applicationName is the name of your app. x.y.z is the version of your app.
 
 [source,javascript]
 ----
