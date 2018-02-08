@@ -1,20 +1,16 @@
 = CAS Registered Service
 
-ODE framework provides an asynchronous server SSO CAS library
+ODE framework comes with a asynchronous and customizable CAS Server. 
+The identity attributes pass in https://github.com/apereo/cas/blob/4.2.x/cas-server-documentation/protocol/CAS-Protocol-Specification.md#252-response
+[/serviceValidate] can be changed by exttending the _DefaultRegisteredService_ Java's class.
 
-see https://github.com/web-education/cas-server-async to consult this implementation
 
-cas-server-async library is integrate to ODE Framework, https://github.com/entcore/entcore/tree/master/cas[here], it complies with the Apereo CAS specification https://apereo.github.io/cas/5.0.x/protocol/CAS-Protocol-Specification.html
-
-It completely supports the CAS 2 protocol and the samlValidate part for the protocol in version 3
-
-NOTE: It is possible quickly to add a complete compatibility with the protocol CAS 3, if the need becomes proven
+NOTE: take a look at https://github.com/web-education/cas-server-async to deep into our cas server impleentation.
 
 == Specific CAS ticket
 
-The *org.entcore.cas.services* package contains a specific service set.
-
-Each registered service provides a specific implementation of the attributes distributed in the CAS ticket.
+The *org.entcore.cas.services* package contains services which output custom attributes to the CAS ticket. 
+It's usefull to integrate third-party application that need extra identity attributes. 
 
 === Specific SAML CAS ticket
 
