@@ -20,10 +20,10 @@ Open Digital Education is a french compagny. So application's label are french b
 All labels are available in english in a translations repository. 
 Just clone it in `assets` directory of your Springboard.
 ....
-   cd assets
-   git clone git@github.com:web-education/translations.git i18n
-   cd i18n
-   git checkout <version>
+    $ cd assets
+    $ git clone git@github.com:web-education/translations.git i18n
+    $ cd i18n
+    $ git checkout <version>
 ....
 
 === Build backend
