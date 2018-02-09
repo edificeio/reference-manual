@@ -23,6 +23,7 @@
 *** link:ops/identity-federation/saml.adoc[SAML]
 *** link:ops/identity-federation/openid-connect.adoc[OpenID Connect]
 ** link:ops/advanced-topics/index.adoc[Advanced topics]
+*** link:ops/advanced-topics/properties-inventory.adoc[Properties Inventory]
 *** link:ops/advanced-topics/multi-domain.adoc[Multi-domain]
 *** link:ops/advanced-topics/cron.adoc[Cron]
 *** link:ops/advanced-topics/export.adoc[Expose network data]

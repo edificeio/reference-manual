@@ -1,0 +1,143 @@
+= Properties Inventories
+
+TODO : For each section description and default value and behaviors
+
+== General
+
+|===
+| Property | Value
+
+| mode      | dev
+| host      | http://localhost:8090
+| httpProxy | true
+| senderEmail | noreply@entcore.org
+| ssl | false
+| logDirectory | data/log
+| signKey |
+| entcoreVersion |
+|===
+
+== Neo4J
+
+|===
+| Property | Value
+
+| neo4jUri | http://localhost:7474
+|===
+
+== Mongo DB
+
+|===
+| Property | Value
+
+| dbName    | ${MONGO_DB_NAME}
+| mongoHost | localhost
+| mongoPort | 27017
+|===
+
+== Authentification and Identification
+
+|===
+| Property | Value
+
+| passwordRegex | \^.\*$
+| logoutCallback | 
+| activationAutoLogin | false
+| authMandatoryFields | {}
+| activationWelcomeMessage | false
+| teacherForgotPasswordEmail | false
+| createdUserEmail | false |
+|===
+
+== Postgres
+
+NOTE: [optionnal] Usefull for applications that need relationnal data storage
+
+|===
+| Property | Value
+
+
+| sqlUrl      | jdbc:postgresql://localhost:5432/$PSQL_DB_NAME?stringtype=unspecified
+| sqlUsername | $PSQL_USER
+| sqlPassword | $PSQL_USER_PWD
+|===
+
+== Assets
+
+|===    
+| Property | Value
+
+| assetsPath | ../..
+| skins      | {"localhost:8090":"ode", "localhost:9000":"ode""}
+|===
+
+== User's Communication Default Policy
+
+|===
+| Property | Value
+
+| applycommunication | false
+| defaultCommunicationRules | 
+|===
+
+== Batch Data Feeding
+
+|===
+| Property | Value
+
+| feeder | BE1D
+| importDirectory | /opt/one/be1d |
+|===
+
+== Batch Referential Export
+
+|===
+| Property | Value
+
+| webdavCredential | false
+| webdavHost | 
+| webdavUsername | 
+| webdavPassword | 
+| webdavInsecure | 
+| exporter | ELIOT
+| exportPath | /tmp
+| exportDestination | 
+| autoExport | false
+|===
+
+== Identity Federation
+
+|===
+| Property | Value
+
+| federationLoginUri | 
+| federationCallBackParam | 
+| federatedAddress | {}
+| samlMetadataFolder | 
+| samlPrivateKey | 
+| samlServicesProviders | {}
+| samlIssuer | 
+| samlSLO | true
+|===
+
+== Swift (Bloc Storage)
+
+|===
+| Property | Value
+
+| swiftUri | 
+| swiftContainer | 
+| swiftUser | 
+| swiftKey | 
+|===
+
+*TODO* : to classify ...
+----
+
+| resourcesApplications | "workspace"
+| sharedConf | 
+| xitiSwitch | 
+| classDefaultRoles | false
+| emailConfig |
+
+----
