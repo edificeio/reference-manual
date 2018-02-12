@@ -1,0 +1,84 @@
+= Minimal Plateform Configuration
+:toc:
+:toc-title: This section explains the steps to configure very basically the application's side of your platefom. 
+:toclevels: 3
+:numbered:
+:imagesdir: assets
+:sectanchors:
+
+== Import a structure data set
+
+In ODE platefom a structure is typically a school or a grouping of school. 
+The user's data feeding process is designed around this notion of strucutre, 
+because schools are the "master data" of user's identity. 
+
+* Connect with the default super user : `tom.mate` / `password`
+* Go to URL : http://localhost:8090/directory/wizard (it's the CSV's import wizard)
+* Use the test data set place in `path-tospringboard/sample-be1d/EcoleprimaireEmileZola` folder
+
+Fill the form as follow in the screenshot below
+
+image::csv-import.png[CSV Feeding Wizard]
+
+* Choose a name for your new school
+* Upload profile's files :
+** `CSVExtraction-eleves.csv` for *Students*
+** `CSVExtraction-enseignants.csv` for *Teachers*
+** `CSVExtraction-responsables.csv` for *Parents*
+* Click *Start imporrt* on the Step 2 screen
+* Click *Finish* on the Step 3 screen (The next message is displyed : "Your import has been successfully completed")
+
+== Configure application roles
+
+In ODE plateform, each application provides its set of fined grained permissions.
+You have to group the permissions into high level roles before granting user's access.
+
+* Go to http://localhost:8090/appregistry/admin-console
+* Chose "*Application roles*" menu
+* Enter "_Message_" in left search field and select the application called * "_Messagerie_"
+
+image::application-roles.png[Application roles]
+
+* Press button *Add Role*
+* Name your role "_All_"
+* Select all permissions ("_Mailbox: create a draft_" and "_Mailbox: open mailbox_" )
+* presse button "Save"
+
+== Grant roles to groups
+
+* Chose "*Roles assigned*" menu
+* Select the school called * "_MY DEV SCHOOL_"
+
+image::roles-assigned.png[Application roles assigned]
+
+* Enter "_MY DEV_" in second search field
+* Select a group (eg. "_All students in group_")
+
+* Chose "*Application roles*" menu
+* Enter "_Message_" in left search field and select the application called * "Messagerie_"
+
+TIP: Grant access to all school's group to ease further testing operations. 
+
+== Activate user
+
+As User's account are batch imported, each user recieves an activation code. 
+At his first log in, the user have to choose a secret password. 
+
+* Go to http://localhost:8090/directory/admin-console
+* Chose "*User operations*" menu
+* Select the school called * "_MY DEV SCHOOL_"
+
+image::user-activation-code.png[User's activation code]
+
+* Select a user
+* Copy the his Activation Code and remember his login
+* Log out from Admin console 
+* Go to http://localhost:8090, to activate your user
+
+
+NOTE: User's color depends of his profiles. 
+Red for Teacher ;
+Green for Staff ;
+Yellow for Parent ;
+Blue for Guest ; 
+Black for Student

@@ -7,6 +7,7 @@
 * link:first-steps/index.adoc[First Steps]
 ** link:first-steps/dev-env-install.adoc[Install your dev environment]
 ** link:first-steps/springboard-install.adoc[Install your dev Springboard]
+** link:first-steps/minimal-plateform-config.adoc[Configure your plateform]
 * link:ops/index.adoc[Operations]
 ** link:ops/build-composition.adoc[Build &amp; Composition]
 ** link:ops/typical-ugrade.adoc[Typical upgrade]
