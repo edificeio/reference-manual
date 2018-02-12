@@ -55,8 +55,9 @@ In *conf.properties*, check and edit if needed the following properties:
     sqlUsername=web-education
     sqlPassword=We_1234
 
-    // Configuration de l'apparence (1 skin doit être associé à une domaine)
-    skins={"localhost:8090":"leo"}
+    // Themes
+    skins={"localhost:8090":"ode", "localhost:9000":"ode""}
+
 ....
 
 Generate Vertx configuration (based on test.properties):
