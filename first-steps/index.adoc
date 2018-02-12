@@ -1,6 +1,6 @@
 # First Steps
 
-You will find here the basis to dive into ODE Frameworks application's development. 
+You will find here the basis to install and configure an ODE Framework development environment . 
 
 1. link:dev-env-install.adoc[Install your dev environment]
 2. link:springboard-install.adoc[Install your dev Springboard]
