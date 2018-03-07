@@ -50,7 +50,7 @@ In *conf.properties*, check and edit if needed the following properties:
     mongoHost=localhost
     mongoPort=27017
 
-    // PostgreSQL
+    // PostgreSQL (optionnaly)
     sqlUrl=jdbc:postgresql://localhost:5432/ong
     sqlUsername=web-education
     sqlPassword=We_1234
@@ -75,7 +75,7 @@ Generate Vertx configuration (based on test.properties):
 
 === Start Springboard
 
-NOTE: Neo4j, Postgre and mongodb must be running
+NOTE: Neo4j and MongoDB must be running
 
 Start Springboard:
 

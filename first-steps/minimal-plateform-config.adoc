@@ -64,7 +64,7 @@ TIP: Grant access to all school's group to ease further testing operations.
 As User's account are batch imported, each user recieves an activation code. 
 At his first log in, the user have to choose a secret password. 
 
-* Go to http://localhost:8090/directory/admin-console
+* Go to http://localhost:8090/directory/admin-console#/
 * Chose "*User operations*" menu
 * Select the school called * "_MY DEV SCHOOL_"
 
