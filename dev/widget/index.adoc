@@ -15,12 +15,59 @@ Run the following commands :
 
 == Add some features
 
+Previous commands will generate you a widget with following architecture :
+
+* *i18n* : folder for multi-languages support
+* *{{widget-name}}-widget.js* : file which conatins the widget logic
+* *{{widget-name}}-widget.html* : file which contains the visible part of the widget
+
+First, they're filled with minimal code so modify them as you need. In .js file, 'widget' variable acts as bridge between your controller and your view. You can use it this way :
+
+_JS_ : 
+
+widget.foo= 'hello'
+
+_HTML_ :
+
+<div>\[[foo]]</div> // prints 'hello'
+
 == Add an icon
+
+Do as below :
+
+* `git clone https://github.com/entcore/generic-icons.git && cd generic-icons`. If you already have, please ensure you have the *latest* version
+* Go to https://icomoon.io/app/#/projects
+* Click on '*Import project*' (no account needed) then select *selection.json* in generic-icons
+* Click on '*Load*' button
+* On top-right, click on the three-horizontal bars and select '*Import to set*', then pick your .svg file
+* Your icon will appear on top-left of the set, click on it
+* Click on '*Generate Font*' on bottom
+
+_Please note the code corresponding to your icon, it will be essential below_
+
+* You can download the generated font on bottom-right
+
+Generic-icons integration will differ between first/second level school's theme.
+
+*First level* :
+
+
+
+*Second level* :
+
+* `git clone https://github.com/OPEN-ENT-NG/theme-open-ent.git && cd theme-open-ent`
+* In the *_css/icons/_widgets.scss_*, insert the following fragments :
+`
+
+`
 
 == Configure Springboard
 
 == Grant access to group
 
+In the administration console, go to Applications -> Widgets and pick the one you want to configure.
+
+
 == Test it
 
-WARNING: Javacript's errors are slient at runtime. This is a known issues we have to fix.
+WARNING: Javacript's errors are silent at runtime. This is a known issue we have to fix.
