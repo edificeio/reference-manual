@@ -1,0 +1,25 @@
+= Notifications 
+
+ODE framework provides an user's notification system. It's enable any application 
+to send or bradcast notifications about key event (from the user's point of view). 
+Notifications can be deliver through 3 channels :
+
+* INTERNAL : display on user timeline's screen 
+* EXTERNAL : send by email
+* PUSH NOTIFICATION : send via mobile platform messaging system
+
+
+NOTE: This section focuses on notification's developement. 
+Refer to link:../../ops/advanced-topics/index.adoc[Advanced topics] to learn how to configure the platform'notification policy
+
+== Configure the notification's template
+
+/src/main/resources/view/notify
+
+== Configure the notification's policy
+
+channels and peridicity
+
+== Translate your notifications
+
+== Wire notification in your code
