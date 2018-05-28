@@ -1,0 +1,156 @@
+= Development Environment Installation with Docker
+
+This document describes the development environment installation for frontend and backend developers
+
+NOTE: This documentation has been tested for Ubuntu 16.04
+
+1. Install Docker. Docler Compose
+2. Install Git and configure SSH Key for Github
+3. Clone a Springboard and run it 
+
+NOTE: Code Editor software is up to developer's choice
+
+== Basic Installation
+
+=== 1. Install Docker. Docler Compose
+
+1. Install Docker by following the reference documentation : https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository
+2. Grant non-root user to run Docker : https://docs.docker.com/install/linux/linux-postinstall/
+3. Install Docker Compose by following the reference documentation : https://docs.docker.com/compose/install/#install-using-pip
+
+WARNING: Step 2 is mandatory 
+
+NOTE: Installation's documentation for others OS is available here : https://docs.docker.com/install/
+
+=== 2. Install Git and configure SSH Key for Github
+
+Install Git :
+
+....
+$ sudo apt install git
+....
+
+To set SSH key for Github, please follow the reference documentations below:
+
+- https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+- https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+=== Clone a Springboard and run it
+
+Get the Springboard's boilerplate repository :
+....
+    $ git clone git@github.com:entcore/springboard.git
+    $ cd springboard
+....
+
+Run it
+....
+    ./build.sh clean init generateConf run
+....
+
+Availables command for build.sh sript are : 
+....
+                clean : clean springboard and docker's containers
+                 init : fetch files and artefacts usefull for springboard's execution
+         generateConf : generate an vertx configuration file (ent-core.json) from conf.properties
+                  run : run databases and vertx in distinct containers
+                 stop : stop containers
+      integrationTest : run integration tests
+           buildFront : fetch wigets and themes using Bower and run Gulp build. (/!\ first run can be long becouse of node-sass's rebuild).
+              archive : make an archive with folder /mods /assets /static
+              publish : upload the archive on nexus
+....
+
+== For Backend Development
+
+=== Install JDK 8
+
+Installation:
+
+....
+$ sudo add-apt-repository ppa:webupd8team/java
+$ sudo apt-get update
+$ sudo apt-get install oracle-java8-installer
+....
+
+Check installation:
+
+....
+$ java -version
+java version "1.8.0_152"
+Java(TM) SE Runtime Environment (build 1.8.0_152-b16)
+Java HotSpot(TM) 64-Bit Server VM (build 25.152-b16, mixed mode)
+....
+
+=== Install Gradle 4.5
+
+Installation:
+
+....
+$ cd ~/apps
+$ wget https://services.gradle.org/distributions/gradle-4.5-bin.zip
+$ unzip gradle-4.5-bin.zip
+$ ln -s gradle-4.5 gradle
+$ rm gradle-4.5-bin.zip
+....
+
+Add binary to Path:
+
+....
+$ echo PATH=\"\$HOME/apps/gradle/bin:\$PATH\" >> ~/.profile
+$ . ~/.profile
+....
+
+Check version:
+
+....
+$ gradle -v
+....
+
+=== Install your favortie Java IDE
+
+=== Monitor the containers
+
+Docker Compose names container with link:https://docs.docker.com/compose/reference/envvars/#compose_project_name[COMPOSE_PROJECT_NAME] convention.
+In our context container's name are preprended with Springboard's directory name (${SPRINGBOARD_DIR}). 
+
+You can run the below command to monitor your container's activity
+
+* `docker ps` : List running's containers
+* `docker ps -a` : List all containers
+* `docker exec -it ${SPRINGBOARD_DIR}_neo4j_1 bin/neo4j-shell` : Open Neo4j's shell
+* `docker exec -it ${SPRINGBOARD_DIR}_postgres_1 psql -U web-education ong` : Open PostgrSQL's shell
+* `docker exec -it ${SPRINGBOARD_DIR}_mongo_1 mongo one_gridfs` : Open MongoDB's shell
+* `docker exec -it ${SPRINGBOARD_DIR}_vertx_1 bash` : Open a Bash's shell on vertx's container
+* `docker logs -f ${SPRINGBOARD_DIR}_vertx_1` : Display Vertx's logs
+
+=== Chnage Vertx log level
+
+=== Map local directories to container's volume
+
+==== use your maven local
+Uncoment
+....
+#    - ~/.m2:/home/vertx/.m2
+....
+
+==== Use your local data
+
+
+=== Use Neo4j console
+
+Add the next port's mapping in neo4j container's description 
+....
+    ports:
+        - "7474:7474"
+        - "7687:7687"
+....
+
+Enable Bolt Protocol in neo4j-conf/neo4j.conf
+....
+dbms.connector.bolt.enabled=true
+....
+
+Neo4j's Console is accessible via http://localhost:7474/browser
+
+== For Frontend Development
