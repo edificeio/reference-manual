@@ -1,25 +1,51 @@
 = Notifications 
 
 ODE framework provides an user's notification system. It's enable any application 
-to send or bradcast notifications about key event (from the user's point of view). 
+to send or bradcast notifications about key events (from the user's point of view). 
 Notifications can be deliver through 3 channels :
 
-* INTERNAL : display on user timeline's screen 
+* INTERNAL : display on user timeline's screen
 * EXTERNAL : send by email
 * PUSH NOTIFICATION : send via mobile platform messaging system
 
 
 NOTE: This section focuses on notification's developement. 
-Refer to link:../../ops/advanced-topics/index.adoc[Advanced topics] to learn how to configure the platform'notification policy
+Refer to link:../../ops/advanced-topics/index.adoc[Advanced topics] to learn 
+how to configure the platform's notification policy
 
-== Configure the notification's template
+== Internal Notification
 
-/src/main/resources/view/notify
+// TODO
 
-== Configure the notification's policy
+== Email Notification
 
-channels and peridicity
+// TODO
 
-== Translate your notifications
+== Push Notification
 
-== Wire notification in your code
+In ODE Framework, Push Notification are enable through FCM footnote:[https://firebase.google.com/docs/cloud-messaging/[Firebase Cloud Messaging]].
+It provides a de facto standard for messaging and cross-platform capabilities.
+
+=== Configure
+
+==== FMC
+
+1. Create a google service account and get a private key : https://developers.google.com/identity/protocols/OAuth2ServiceAccount
+2. Activate FCM on link:https://support.google.com/cloud/answer/6158841?hl=en[Cloud Platform Console]
+
+// TODO : detail the process
+
+==== ODE
+
+In ${}
+....
+pushNotif = {
+    "uri": "https://accounts.google.com:443",
+    "tokenUrn": "/o/oauth2/token",
+    "scope": "https://www.googleapis.com/auth/firebase.messaging",
+    "url": "https://fcm.googleapis.com/v1/projects/{{project_id}}/messages:send",
+    "client_mail": {{client_mail}},
+    "aud": "https://accounts.google.com/o/oauth2/token",
+    "key": {{private_key}}
+}
+....
