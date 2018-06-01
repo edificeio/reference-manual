@@ -7,7 +7,7 @@
 * link:first-steps/index.adoc[First Steps]
 ** link:first-steps/dev-env-install.adoc[Install your dev environment]
 ** link:first-steps/springboard-install.adoc[Install your dev Springboard]
-** link:first-steps/minimal-plateform-config.adoc[Configure your plateform]
+** link:first-steps/minimal-plateform-config.adoc[Configure your platform]
 * link:ops/index.adoc[Operations]
 ** link:ops/build-composition.adoc[Build &amp; Composition]
 ** link:ops/typical-ugrade.adoc[Typical upgrade]
@@ -58,9 +58,9 @@
 **** link:dev/front/model/autosave.adoc[Autosave]
 **** link:dev/front/model/behaviours.adoc[Behaviours]
 **** link:dev/front/model/rights.adoc[Rights]
-**** link:dev/front/model/resources.adoc[Resources (in Behaviours)]
+**** link:dev/front/model/resources.adoc[Resources \(in Behaviours\)]
 **** link:dev/front/model/sniplets.adoc[Sniplets]
-**** link:dev/front/model/extensions.adoc[Extensions (in Behaviours)]
+**** link:dev/front/model/extensions.adoc[Extensions \(in Behaviours\)]
 **** link:dev/front/model/preferences.adoc[Preferences]
 **** link:dev/front/model/workspace.adoc[Workspace]
 **** link:dev/front/model/use-npm-modules.adoc[Addind others NPM modules]
@@ -69,3 +69,5 @@
 *** link:dev/theme/responsive.adoc[Responsive]
 *** link:dev/theme/overriding.adoc[Overriding]
 *** link:dev/theme/applications.adoc[Extension for applications]
+
+

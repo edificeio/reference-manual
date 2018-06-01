@@ -1,11 +1,11 @@
 # First Steps
 
-You will find here the basis to install and configure an ODE Framework development environment . 
+You will find here the basis to install and configure an ODE Framework development environment. 
 
 1. link:dev-env-install.adoc[Install your dev environment]
 2. link:springboard-install.adoc[Install your dev Springboard]
-3. link:minimal-plateform-config.adoc[Configure your plateform]
+3. link:minimal-plateform-config.adoc[Configure your platform]
 
 
-NOTE: The installation process targets Linux Debian like ditribution. 
-We are working on a Docker cross-plateform devlopment environment.
+NOTE: The installation process targets Linux Debian like distribution. 
+We are working on a Docker cross-platform development environment.

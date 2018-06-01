@@ -1,7 +1,7 @@
-# Server developpement
+# Server development
 
-That section give you the main keys to implement the server layer of an ODE application. 
-ODE Framework provides in one hand a complete web-framework on top on Vertx2 
+That section gives you the main keys to implement the server layer of an ODE application. 
+ODE Framework provides on the one hand a complete web-framework on top on Vertx2 
 and on the other hand a domain framework (to ease designing, building and )     
 
 

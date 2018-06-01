@@ -1,20 +1,20 @@
 = REST
 
-ODE frameworks offers, on top of Vertx2, an "annotation API" to implement a REST API. 
-It make possible to map a controller's method with a path (a route) by annatation. 
+ODE Framework offers, on top of Vertx2, an "annotation API" to implement a REST API. 
+It makes it possible to map a controller method with a path (a route) by annotation. 
 There are two ideas behind that approach :
 
-* provide a descriptive style at code time (that reminds JAX-RS for Java developpers)
+* provide a descriptive style at code time (that reminds JAX-RS for Java developers)
 * keep asynchronous vertx2 execution at runtime 
 
 
 NOTE: With ODE annotations you don't need to manage a vertx2 RouteMatcher. 
-The URL path format follow the verxt2 one (for parameter extraction, pattern matching ...)
+The URL path format follows the verxt2 one (for parameter extraction, pattern matching ...)
 . See link:http://vertx.io./vertx2[Vert2 manual]  
 
 == HTTP method
 
-NOTE: annotations are shipped in the `import fr.wseduc.rs` package
+NOTE: Annotations are shipped in the `import fr.wseduc.rs` package.
 
 === GET
 
@@ -52,7 +52,7 @@ public void update(final HttpServerRequest request) {
 ----
 
 NOTE: `bodyToJson` is a static method provided by `fr.wseduc.webutils.request.RequestUtils`. 
-It wraps vertx2 `request.bodyHandler` in order to strip common XSS pattern from de the request's body. 
+It wraps vertx2 `request.bodyHandler` in order to strip common XSS pattern from the request body. 
 
 === POST
 

@@ -1,19 +1,18 @@
 = Security
 
-ODE Frameworks uses an hybrid security model in order to deal with the various cases you will meet 
-when designing and developing educational applications. It can be done in 4 manners :
+ODE Framework uses an hybrid security model in order to deal with the various cases you will come accross when designing and developing educational applications. It can be done in 4 ways :
 
-* *AUTHENTICATED* : The right grants user's access if he is authenticated
-* *WORKFLOW* : The right grants user's access to an application process. It is managed by an administrator 
-* *RESOURCE* : The right grants user's access to a resource process. It is managed by the resource's owner
-* *CUSTOM* : the right gants access to anything the designer / developper want in the application.
+* *AUTHENTICATED* : The right grants user access if he is authenticated
+* *WORKFLOW* : The right grants user access to an application process. It is managed by an administrator 
+* *RESOURCE* : The right grants user access to a resource process. It is managed by the resource's owner
+* *CUSTOM* : the right grants access to anything the designer / developer want in the application.
 
-This document describe how to use the security framework. 
+This document describes how to use the security framework. 
 You can read the link:architecture/security.adoc[Security Architecture] document to understand the design choices.  
 
-== Right's definition and convention
+== Rights definition and convention
 
-The right have to be define on actions in a controller that extends `fr.wseduc.webutils.http.BaseController`.
+The right has to be defined on actions in a controller that extends `fr.wseduc.webutils.http.BaseController`.
 
 [source,java]
 ----
@@ -35,7 +34,7 @@ public void getMessage(final HttpServerRequest request){
 
 === AUTHENTICATED
 
-To grant access to authenticated users use :
+To grant access to authenticated users, use :
 
 [source,java]
 ----
@@ -46,7 +45,7 @@ NOTE: `value` is useless in this case. It can be empty
 
 === WORKFLOW
 
-To grant access to an application's process managed by the administrator :
+To grant access to an application process managed by the administrator :
 
 [source,java]
 ----
@@ -105,7 +104,7 @@ public interface ResourcesProvider {
 }
 ----
 
-In `authorized` methode you have acces to request context through 
+In `authorized` method you have acces to request context through 
 
 * `resourceRequest` : the current http request
 * `user` : the current user's UserInfos

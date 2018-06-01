@@ -1,6 +1,6 @@
 = Development Environment Installation
 
-This document describes the development environment installation for frontend and backend developers
+This document describes the development environment installation for frontend and backend developers.
 
 NOTE: This documentation has been tested for Ubuntu 16.04
 
@@ -237,7 +237,7 @@ $ sudo apt install git
 
 === 10. SSH Key for github
 
-To set SSH key for Github, please follow the reference documentations below:
+To set SSH key for Github, please follow the reference documentation below:
 
 - https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 - https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
