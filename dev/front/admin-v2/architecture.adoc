@@ -1,6 +1,6 @@
 = Admin v2 - Architecture
 David Caudeli <david.caudeli@opendigitaleducation.com>
-v1.0, 2017-08-09
+v1.1, 2018-04-24
 :toc:
 :toclevels: 3
 :numbered:
@@ -17,12 +17,6 @@ URL::
 +
 ....
 https://github.com/entcore/entcore
-....
-
-Branch::
-+
-....
-admin-v2
 ....
 
 == Files Structure
@@ -47,7 +41,7 @@ entcore/package.json
 
 Admin v2 is bundled using *Webpack 2* and built through *Gulp* tasks. 
 
-NOTE: Build process is described here: https://github.com/web-education/reference-manual/blob/dev-front-WIP2017/first-steps/admin-v2-build-process.adoc
+NOTE: Build process is described here: https://github.com/web-education/reference-manual/blob/master/dev/front/admin-v2/build-process.adoc
 
 ==== Entcore Build File
 
