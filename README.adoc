@@ -3,24 +3,27 @@
 
 image:/assets/ode-mini.png[alt=""]
 
-link:http://opendigitaleducation.com[Open Digital Education] (ODE) Framework aims at providing a modular toolkit to design, build and execute applications in education's field.
-It embraces paramount concerns and constraints of education's field like
- 
-* massive deployment
-* deep community interaction 
-* high gaps in technology adoption 
-* heterogenous application's type. 
+link:http://opendigitaleducation.com[Open Digital Education] (ODE) Framework aims at providing a modular toolkit to design, build and execute collaborative applications and networks in the education field.
 
-It is typically well suited to implement an deploy :
+It is typically well suited to implement an deploy:
 
 * VLE footnote:[link:https://en.wikipedia.org/wiki/Virtual_learning_environment[Virtual Learning Environement] (In France it's called an  link:https://fr.wikipedia.org/wiki/Espace_num%C3%A9rique_de_travail[ENT])]
 * LMS footnote:[link:https://en.wikipedia.org/wiki/Learning_management_system[Learning Managment System]]
-* Educational Portal
-* Field of studies specific learning application
+* Educational Portals
+* Collaborative applications 
+* Educational social networks
 * MOOC footnote:[link:https://en.wikipedia.org/wiki/Massive_open_online_course[Massive Open Online Course]]
 
-ODE Framework is distributed under Open Source LGPL V3 Licence. 
-So we hope it can spread in education's communities and be helpfull to improve EdTech's uses.
+It enables to address spectific challenges such as: 
+
+* massive deployment
+* deep community interaction
+* high gaps in technology adoption
+* various application type 
+
+ODE Framework is distributed under *Open Source LGPL V3 Licence*. 
+
+We hope it can spread in education communities and be helpful to improve EdTech use.
 
 == Get started
 
@@ -29,16 +32,16 @@ Follow link:first-steps/index.adoc[First Steps] instructions
 
 == About this manual
 
-WARNING: *!! This manual is under active editing !!*. We will inform you on link:https://groups.google.com/forum/#!forum/entcore[Google Group] when a first proper version is available
+WARNING: *!! This manual is under active editing !!*. We will inform you on this link:https://groups.google.com/forum/#!forum/entcore[Google Group] when a first proper version is available
 
 This manual puts forward ODE Framework capabilites. 
-You will find for each of them a brief decription and usage example. 
-To browse deeper inside the framework's features we also provide links to detailed API documentation.
-We try to write each section as autonomous as possible. So you can use it as "technical receipes"
+You will find for each of them a brief decription and example. 
+To know more about the framework features, we also provide links to detailed API documentation.
+We try to write each section as autonomous as possible, so that you can use it as "technical recipes".
 
-NOTE: If you observe some errors or lacks your comments and contributions are welcomed !
+NOTE: If you notice something wrong or missing, your comments and contributions are welcome!
 
 == About the community 
 
-Go to our confluence space https://opendigitaleducation.atlassian.net/wiki/display/FK. 
-You will find our roadmap, notes about our current works and other usefull resources like technical guides or detailed release notes 
+Go to our Confluence space https://opendigitaleducation.atlassian.net/wiki/display/FK. 
+You will find our roadmap, notes about our current works and other useful resources like technical guides or detailed release notes.
