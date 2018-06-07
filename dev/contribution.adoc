@@ -1,11 +1,11 @@
-= Developper contribution guidelines
+= Developer contribution guidelines
 
 == Branch organisation
 
 * *master* : the main branch. It stores all the public commit log and tag (mapped to release). 
-  It musts be never "pushed force".
+  It must never be "pushed force".
 * *dev* : the next release integration branch.
-* *my-topic* : a topic branch for a particular project. It must be rebase as often as possible on dev branch
+* *my-topic* : a topic branch for a particular project. It must be rebased as often as possible on dev branch
 
 == 1. Derive _topic_ from _dev_
 
