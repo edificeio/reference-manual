@@ -1,8 +1,1 @@
-= Theme
-
-You will find here all you need to adapt theming to your needs
-
-* CSS architecture (`writing in progress ...`)
-* link:applications.adoc[Extension for applications]
-* Overriding CSS (`writing in progress ...`)
-* Responsive features (`writing in progress ...`)
+`writing in progress`

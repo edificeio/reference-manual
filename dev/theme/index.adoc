@@ -1,3 +1,8 @@
+= Theme
 
+This section gathers all topics useful to adapt theming to your needs
 
-Theme's extension for applications
+* CSS architecture and components (`writing in progress ...`)
+* Overrinding CSS (`writing in progress ...`)
+* Responsive (`writing in progress ...`)
+* link:[Style extension for applications]

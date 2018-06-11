@@ -6,13 +6,13 @@ and on the other hand a EdTech domain specific framework
 
 == Covered topics
 
-* Layout (`wrinting in progress ...`)
+* Layout (`writing in progress ...`)
 * link:rest.adoc[REST]
-* Data Storage (`wrinting in progress ...`)
+* Data Storage (`writing in progress ...`)
 * link:security.adoc[Security]
-* I18n (`wrinting in progress ...`)
+* I18n (`writing in progress ...`)
 * link:integration.adoc[Integration]
-* Notification (`wrinting in progress ...`)
+* Notification (`writing in progress ...`)
 * link:share.adoc[Share]
-* Trace (`wrinting in progress ...`)
+* Trace (`writing in progress ...`)
 * link:search.adoc[Search]
