@@ -2,8 +2,6 @@
 
 This document describes the development environment installation for frontend and backend developers
 
-NOTE: This documentation has been tested for Ubuntu 16.04
-
 1. Install Docker. Docler Compose
 2. Install Git and configure SSH Key for Github
 3. Clone a Springboard and run it 
