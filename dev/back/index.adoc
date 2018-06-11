@@ -1,17 +1,18 @@
-# Server development
+= Backend development
 
-That section gives you the main keys to implement the server layer of an ODE application. 
-ODE Framework provides on the one hand a complete web-framework on top on Vertx2 
-and on the other hand a domain framework (to ease designing, building and )     
+In that section we expose the key concepts and features to implement the server layer with 
+ODE Framework. It provides in one hand a complete web-framework on top on Vertx2 
+and on the other hand a EdTech domain specific framework       
 
+== Covered topics
 
-* link:layout.adoc[Layout]
+* Layout (`wrinting in progress ...`)
 * link:rest.adoc[REST]
-* link:data-storage.adoc[Data Storage]
+* Data Storage (`wrinting in progress ...`)
 * link:security.adoc[Security]
-* link:i18n.adoc[I18n]
+* I18n (`wrinting in progress ...`)
 * link:integration.adoc[Integration]
-* link:notification.adoc[Notification]
+* Notification (`wrinting in progress ...`)
 * link:share.adoc[Share]
-* link:trace.adoc[Trace]
+* Trace (`wrinting in progress ...`)
 * link:search.adoc[Search]

@@ -1,4 +1,4 @@
-= Developper guide
+= Development guide
 
 * link:back/index.adoc[Server]
 * link:front/index.adoc[Client]
