@@ -1,10 +1,10 @@
 =  Override Theme
 
-The theme built process follow a waterfall composition :
+The theme's build process follows a waterfall composition :
 
-1. Configure `parent` theme
-2. Create a `child` theme that will inherit UI's artefacts from its `parent` ('img', 'js', 'fonts', 'template', 'css')
-3. Customize UI's artefacts in `/overrides` directory under your child theme root
+1. Configure _parent theme_
+2. Create a _child theme_ that will inherit UI's artefacts from its _parent_ ('img', 'js', 'fonts', 'template', 'css')
+3. Customize UI's artefacts in `/overrides` directory under your _child theme_ root
 
 
 In `theme-conf.js` (under your springboard's root) configure the theme 'waterfall structure' 
@@ -21,7 +21,7 @@ overriding: [
 ]
 ----
 
-The whole theme 'waterfall structure' looks like above : 
+The whole theme 'waterfall structure' looks like bellow : 
 
 [source]
 ----
@@ -33,7 +33,7 @@ The whole theme 'waterfall structure' looks like above :
 │   ├── portal.html
 │   ├── skins
 │   └── template
-└── <your-chil-theme>
+└── <your-child-theme>
     │   ├── overrides
     │   ├── img
     │   └── template
@@ -46,23 +46,42 @@ The whole theme 'waterfall structure' looks like above :
     └── template
 ----
 
-So the theme built process (lauched with `./build.sh buildFront`) follow the next logic :
+So the theme built process (lauched with `./build.sh buildFront`) respects the next logic :
 
 1. Fetch parent themes and its dependencies  
-2. Copy overridable UI's artefacts ('img', 'js', 'fonts', 'template', 'css') from `parent theme` to `child theme`
-3. Squash overridable UI's artefacts whith `child theme` overrides
+2. Copy overridable UI's artefacts ('img', 'js', 'fonts', 'template', 'css') from _parent theme_ to _child theme_
+3. Squash overridable UI's artefacts whith _child theme_ specific overrides (placed under `<your-child-theme>/overrides/`)
 4. Run build process (SASS ...)
 
 == Template
 
+Describe overriding policy into `<your-child-theme>/overrides/template/override.json` :
+
+- *key* must be a template's directroy (so an application name)
+- *value* muste be an string array containing template's name   
+
 [source]
 ----
-<your-chil-theme>
+
+{
+  "auth": ["activation-form", "forgot-form"],
+  "portal": ["conversation-unread"]
+}
+----
+
+Create driectories and templates you declare into `override.json` under `<your-child-theme>/overrides/template/``
+
+[source]
+----
+<your-child-theme>
     ├── overrides
         ├── img
         └── template
             ├── override.json
 ----
+
+WARNING: If you want to keep _parent theme_ specific templates you need to  
+`cp <your-parent-theme>/template/ <your-child-theme>/overrides/template/` and follow above instructions 
 
 == CSS
 
