@@ -55,6 +55,7 @@ Availables command for build.sh sript are :
                  stop : stop containers
       integrationTest : run integration tests
            buildFront : fetch wigets and themes using Bower and run Gulp build. (/!\ first run can be long becouse of node-sass's rebuild).
+      buildLocalFront : fetch wigets and themes using Bower and run Gulp build-local
               archive : make an archive with folder /mods /assets /static
               publish : upload the archive on nexus
 ....
@@ -152,3 +153,109 @@ dbms.connector.bolt.enabled=true
 Neo4j's Console is accessible via http://localhost:7474/browser
 
 == For Frontend Development
+
+=== Complete build
+
+When you are cloning a new app, you should checkout to the `dev` branch and do a complete build. A complete build can also be done if there are any pulled changes.
+Be sure that your `graddle.properties` versions in your springboard and your local app version are corresponding.
+
+* Stop the springboard with `./build.sh stop`
+* Build the app (see the sub-sections below)
+* Remove the corresponding app folder in your springboard `mods` folder (you can remove all with `rm -rf mods/*`, but don't remove the folder `mods` itself)
+* Run the springboard with `./build.sh run`
+
+==== entcore
+
+Inside entcore repo :
+
+....
+./build.sh clean install
+....
+
+==== infra-front
+
+Inside infra-front repo :
+
+....
+./build.sh clean install
+....
+
+Inside entcore repo :
+
+....
+./build.sh clean infra install
+....
+
+==== specific apps
+
+Inside your specific app repo :
+
+....
+./build.sh clean install
+....
+
+=== Watcher
+
+When developping in the current app, you'll need to use a 'watcher' in order to apply your current changes for html/ts files. After launching the watcher command, you can save a file in order to copy the changes to the springboard.
+
+WARNING: After watching an app, all your watched stuff in infra-front will be canceled. Re-watch in the infra-front to re-apply your changes.
+
+NOTE: Watching .ts files can often lead to a watcher crash. Just re-run it if it happens.
+
+==== entcore
+
+....
+./build.sh -s=springboardname -m=modulename watch
+....
+Default: -s=recette, -m=conversation
+
+==== Other apps
+
+....
+./build.sh watch
+....
+
+=== Build front
+
+If you are bulding front for the first time in the springboard, use :
+
+....
+./build.sh buildFront
+....
+
+For applying your local changes (for css, or any asset) :
+
+* Be sure that your springboard `docker-compose.yml` contains the following node volumes :
+
+....
+    - ../theme-open-ent:/home/node/theme-open-ent
+    - ../panda:/home/node/panda
+    - ../entcore-css-lib:/home/node/entcore-css-lib
+    - ../generic-icons:/home/node/generic-icons
+....
+
+* Be sure that these 4 repos (theme-open-ent, panda, entcore-css-lib and generic-icons) are cloned.
+* For improving performance, go to the springboard `theme-conf.js` and comment one of the 'overriding' object (build themes one by one), this gains more than 5 minutes to finish.
+* Use
+
+....
+./build.sh buildLocalFront
+....
+
+NOTE: If you are having an error with a file with a too long name, just run buildFront and buildLocalFront commands.
+
+=== Apply 1D and 2D themes
+
+You can have the two themes in two separate tabs of your browser. Go to the `conf.properties` and add a skin to `127.0.0.1`:
+
+....
+skins={"localhost:8090":"cg77", "127.0.0.1:8090":"cg771d"}
+....
+
+And re-run the springboard :
+
+....
+./build.sh stop generateConf run
+....
+
+Then, open one tab with `localhost:8090` for 1D and an other one with `127.0.0.1:8090` for 2D.
