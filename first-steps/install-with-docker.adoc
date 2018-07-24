@@ -114,13 +114,14 @@ In our context container's name are preprended with Springboard's directory name
 
 You can run the below command to monitor your container's activity
 
-* `docker ps` : List running's containers
-* `docker ps -a` : List all containers
-* `docker exec -it ${SPRINGBOARD_DIR}_neo4j_1 bin/neo4j-shell` : Open Neo4j's shell
-* `docker exec -it ${SPRINGBOARD_DIR}_postgres_1 psql -U web-education ong` : Open PostgrSQL's shell
-* `docker exec -it ${SPRINGBOARD_DIR}_mongo_1 mongo one_gridfs` : Open MongoDB's shell
-* `docker exec -it ${SPRINGBOARD_DIR}_vertx_1 bash` : Open a Bash's shell on vertx's container
-* `docker logs -f ${SPRINGBOARD_DIR}_vertx_1` : Display Vertx's logs
+* List running's containers : `docker ps``
+* List all containers : `docker ps -a`
+* Open Neo4j's shell : `docker exec -it ${SPRINGBOARD_DIR}_neo4j_1 bin/neo4j-shell`
+* Open PostgrSQL's shell : `docker exec -it ${SPRINGBOARD_DIR}_postgres_1 psql -U web-education ong`
+* Open MongoDB's shell : `docker exec -it ${SPRINGBOARD_DIR}_mongo_1 mongo one_gridfs`
+* Open a Bash's shell on vertx's container : `docker exec -it ${SPRINGBOARD_DIR}_vertx_1 bash`
+* Display Vertx's logs : `docker logs -f ${SPRINGBOARD_DIR}_vertx_1`
+* Display all containers logs : `docker-compose logs -f`
 
 === Chnage Vertx log level
 
