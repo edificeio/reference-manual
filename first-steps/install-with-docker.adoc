@@ -152,4 +152,55 @@ dbms.connector.bolt.enabled=true
 
 Neo4j's Console is accessible via http://localhost:7474/browser
 
+=== Enable Remote Debugging
+
+As vertx services are running inside a docker container, it is not possible to enable local debugging.
+So we will use remote debugging to bypass this issue.
+
+First, make sure you have exposed the remote agent port from the vertx docker container.
+
+To do so, open your springboard directory and edit the file "docker-compose.yml".
+It should contains the following port configuration:
+
+....
+vertx:
+  image: opendigitaleducation/vertx-service-launcher:1.0.0
+  user: "1000:1000"
+  ports:
+    - "8090:8090"
+    - "5000:5000"
+....
+
+Then, restart your docker container using:
+
+....
+./build.sh stop init
+....
+
+
+[NOTE]
+====
+Behind the scene, remote debugging is enabled in vertx-service-launcher using this JVM property:
+
+`-agentlib:jdwp=transport=dt_socket,address=5000,server=y,suspend=n`
+
+This JVM option start an agent listening on port 5000 and letting your IDE debugging the application.
+====
+
+
+Your vertx container is now ready. Let's configure your IDE.
+
+To configure your IDE, create a new debug configuration and set followings properties:
+
+* Host = localhost (or any IP address allowing to reach the vertx container)  
+* Port = 5000
+* Connection Type = Socket Attach
+
+[WARNING]
+====
+If you are using Eclipse you must select all source folders you would like to debug
+====
+
+You can now use your configuration to start a remote debug session.
+
 == For Frontend Development
