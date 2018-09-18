@@ -50,7 +50,7 @@ In *conf.properties*, check and edit if needed the following properties:
     mongoHost=localhost
     mongoPort=27017
 
-    // PostgreSQL (optionnaly)
+    // PostgreSQL (optionally)
     sqlUrl=jdbc:postgresql://localhost:5432/ong
     sqlUsername=web-education
     sqlPassword=We_1234
@@ -88,4 +88,4 @@ where <version> has to be replaced by entcore version number
 === Administration
 
 1. Authenticate with user tom.mate/password at http://localhost:8090/
-2. Follow this link:minimal-plateform-config.adoc[link] to configure your plateform
+2. Follow this link:minimal-plateform-config.adoc[link] to configure your platform

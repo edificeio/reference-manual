@@ -9,7 +9,7 @@
 == Import a structure data set
 
 In ODE platform, a structure is typically a school or a grouping of school. 
-The user's data loading process is designed around this notion of strucutre, 
+The user's data loading process is designed around this notion of structure,
 because schools are the "master data" of user's identity. 
 
 * Connect with the default super user : `tom.mate` / `password`
@@ -61,7 +61,7 @@ TIP: Grant access to all school groups to ease further testing operations.
 
 == Activate user
 
-As user accounts are batch imported, each user recieves an activation code. 
+As user accounts are batch imported, each user receives an activation code.
 When he first logs in, the user has to choose a secret password. 
 
 * Go to http://localhost:8090/directory/admin-console#/

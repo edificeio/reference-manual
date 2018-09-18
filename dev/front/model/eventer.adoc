@@ -14,7 +14,7 @@ const eventer = new Eventer();
 ----
 
 |===
-| Desecription | Member 
+| Description | Member
 
 | Listen to an event
 | `eventer.on(‘myevent’, () => console.log(‘event’));`

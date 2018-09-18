@@ -47,6 +47,6 @@
 **** link:dev/front/model/use-npm-modules.adoc[Addind others NPM modules]
 ** link:dev/theme/index.adoc[Theme]
 *** link:dev/theme/applications.adoc[Extension for applications]
-*** link:dev/theme/overriding.adoc[Overring Theme]
+*** link:dev/theme/overriding.adoc[Overriding Theme]
 
 

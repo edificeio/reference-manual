@@ -3,4 +3,4 @@
 You will find here the basis to install and configure an ODE Framework development environment. 
 
 1. link:install-with-docker.adoc[Install your dev environment with Docker]
-2. link:minimal-plateform-config.adoc[Configure your plateform]
+2. link:minimal-plateform-config.adoc[Configure your platform]

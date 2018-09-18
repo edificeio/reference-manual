@@ -14,7 +14,7 @@ It is typically well suited to implement an deploy:
 * Educational social networks
 * MOOC footnote:[link:https://en.wikipedia.org/wiki/Massive_open_online_course[Massive Open Online Course]]
 
-It enables to address spectific challenges such as: 
+It enables to address specific challenges such as:
 
 * massive deployment
 * deep community interaction
@@ -34,8 +34,8 @@ Follow link:first-steps/index.adoc[First Steps] instructions
 
 WARNING: *!! This manual is under active editing !!*. We will inform you on this link:https://groups.google.com/forum/#!forum/entcore[Google Group] when a first proper version is available
 
-This manual puts forward ODE Framework capabilites. 
-You will find for each of them a brief decription and example. 
+This manual puts forward ODE Framework capabilities.
+You will find for each of them a brief description and example.
 To know more about the framework features, we also provide links to detailed API documentation.
 We try to write each section as autonomous as possible, so that you can use it as "technical recipes".
 
