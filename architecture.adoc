@@ -14,7 +14,7 @@ Versatile
 * widget
 * sniplet
 
-= Technology stack and signtifiant dependencies
+= Technology stack and significant dependencies
 
 * Java 7
 * Vertx2

@@ -26,7 +26,7 @@ Two gulp commands are available in your application:
 will start building your typescript files, bundle them in a single file, 
 and add cache-busting utilities. 
 
-WARNING: You need to use gulp build before gradle instaINGll, 
+WARNING: You need to use gulp build before gradle install,
 as Gradle (the server-side build tool) will use your current resources directory.
 
 The second one is

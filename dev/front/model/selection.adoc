@@ -11,13 +11,13 @@ const selection = new Selection(myArray);
 ----
 
 The objects inside the Array should implement Selectable, 
-which simply means the have a selected property. 
+which simply means they have a selected property.
 The selected property will be true when an user has selected the item, false otherwise.
 
 The selection can then be used for various operations:
 
 |===
-| Desecription | Member 
+| Description | Member
 
 | Get all selected items
 | `selection.selected`

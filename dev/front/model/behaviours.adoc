@@ -4,8 +4,8 @@ In ODE Framework, any application can communicate with all others.
 This is done through the behaviours file, which is the exposed API of the application. 
 Typically, these are the options used in ODE Framework :
 
-* **link:rights.adoc[Rights]** : all applications have to expose their rights system , 
-  to make sure other applications can display informations properly
+* **link:rights.adoc[Rights]** : all applications have to expose their rights system,
+  to make sure other applications can display information properly
 * **link:resources.adoc[Resources]** : it can be useful to list existing resources, 
   so they can be linked or listed from another application
 * **link:sniplets.adoc[Sniplets]**: applications may have sniplets. 

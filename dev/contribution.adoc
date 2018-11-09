@@ -20,7 +20,7 @@
 
 ----
 
-NOTE: Each new evolution projet must be isolated on a dedicated topic branch. 
+NOTE: Each new evolution project must be isolated on a dedicated topic branch.
 
 == 2. Isolation test : Rebase _topic_ on _dev_. Test your evolution
 

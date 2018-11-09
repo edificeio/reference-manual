@@ -11,7 +11,7 @@ ui.extendSelector.touchEvents(selector);
 ----
 
 This allows the element or all elements matching the selector to listen to touch input. 
-It will trigger some additionnal events:
+It will trigger some additional events:
 
 `longclick`, `doubletap`, `swipe-right`, `swipe-left`, `swipe-up`, `swipe-bottom`
 

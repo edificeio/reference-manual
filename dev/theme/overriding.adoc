@@ -8,7 +8,7 @@ The theme's build process follows a waterfall composition :
 
 
 In `theme-conf.js` (under your springboard's root) configure the theme 'waterfall structure' 
-with the `ovverriding` object  
+with the `overriding` object
 
 [source]
 ----
@@ -46,19 +46,19 @@ The whole theme 'waterfall structure' looks like bellow :
     └── template
 ----
 
-So the theme built process (lauched with `./build.sh buildFront`) respects the next logic :
+So the theme built process (launched with `./build.sh buildFront`) respects the next logic :
 
 1. Fetch parent themes and its dependencies  
 2. Copy overridable UI's artefacts ('img', 'js', 'fonts', 'template', 'css') from _parent theme_ to _child theme_
-3. Squash overridable UI's artefacts whith _child theme_ specific overrides (placed under `<your-child-theme>/overrides/`)
+3. Squash overridable UI's artefacts with _child theme_ specific overrides (placed under `<your-child-theme>/overrides/`)
 4. Run build process (SASS ...)
 
 == Template
 
 Describe overriding policy into `<your-child-theme>/overrides/template/override.json` :
 
-- *key* must be a template's directroy (so an application name)
-- *value* muste be an string array containing template's name   
+- *key* must be a template's directory (so an application name)
+- *value* must be an string array containing template's name
 
 [source]
 ----
@@ -69,7 +69,7 @@ Describe overriding policy into `<your-child-theme>/overrides/template/override.
 }
 ----
 
-Create driectories and templates you declare into `override.json` under `<your-child-theme>/overrides/template/``
+Create directories and templates you declare into `override.json` under `<your-child-theme>/overrides/template/``
 
 [source]
 ----
