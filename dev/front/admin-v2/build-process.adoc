@@ -1,8 +1,5 @@
 = Admin v2 - Build Process
 David Caudeli <david.caudeli@opendigitaleducation.com>
-v1.0, 2017-08-09
-
-:toc:
 
 This document describes the admin console v2 build process for developers
 
@@ -11,90 +8,112 @@ This document describes the admin console v2 build process for developers
 === Dev tools
 
 * git
-* npm
-* gulp (3.9.1)
-* gradle (1.6)
+* docker
+* docker-compose
 
 === Clone admin console v2 project
 
+Admin V2 project is inside Entcore project, in the 'admin' folder.
+
+Clone Entcore project from github:
+
 ....
 $ git clone git@github.com:entcore/entcore.git
-$ cd entcore
-$ git checkout admin-v2
-....
-
-=== Install npm dependencies
-
-....
-$ npm install
 ....
 
 === Springboard configuration
 
-In your springboard gradle.properties file, set entcore version to ${version greater than 2.0} and springboard plugin version to 1.0-SNAPSHOT:
+In your springboard gradle.properties and conf.properties files, set entcoreVersion to the entcore version you just cloned in previous step. 
+
+In conf.properties file, add "localhost:9000" to skins array (this is useful to get theme for webapack dev server running on port 9000):
 
 ....
-entCoreVersion=${version greater than 2.0}
-springboardPluginVersion=1.0-SNAPSHOT
+skins={"localhost:8090":"cg77", "localhost:9000": "cg77"}
 ....
 
-In test.properties/conf.properties, set entcore version to ${version greater than 2.0} and add "localhost:9000" to skins array:
+Generate springboard configuration after editing, run this command in springboard folder:
 
 ....
-entcoreVersion=${version greater than 2.0} 
-skins={"localhost:8090":"leo", "localhost:9000": "leo"}
+./build.sh generateConf
 ....
 
 == Dev build
 
-Check "0. Requirements" before
-
 === Build front
 
-....
-$ gulp adminV2-clean
-$ gulp adminV2-build-dev
-....
-
-=== Build admin module
+In entcore folder, run the following commands:
 
 ....
-$ gradle :admin:clean
-$ gradle :admin:install
+./build.sh adminV2NodeClean
+./build.sh adminV2NodeBuildDev
 ....
 
-=== Deploy admin module to local springboard
+This will clean and build typescript, saas and all needed resources files for the frontend app.
+
+=== Build admin gradle module
+
+In entcore folder, run the following commands:
 
 ....
-$ cd ${springboard_dir}
-$ rm -rf mods/org.entcore~admin~${version greater than 2.0}/
-$ vertx runMod org.entcore~infra~${version greater than 2.0} -conf ent-core.embedded.json
+./build.sh adminV2GradleClean
+./build.sh adminV2GradleInstall
+....
+
+This will clean, build and install the admin module in maven repository. The module contains both frontend and backend needed files. This module will be deployed to springboard, see next section.
+
+=== Deploy admin gradle module to local springboard
+
+Stop springboard, remove admin module and start again springboard by executing following commands in springboard folder:
+
+....
+./build.sh stop
+rm -rf mods/org.entcore~admin~${version}/
+./build.sh run
 ....
 
 Test app in browser => http://localhost:8090/admin
 
-== Dev "Hot Reload" build
+== Dev build with webpack dev server (Hot Reload)
 
 IMPORTANT: Apply "Dev build" before
 
-=== Watch resources
-
-....
-$ cd ${entcore}
-$ gulp adminV2-watch
-....
-
-This task will copy modified files from resources/ to springboard after code editing. Configure _springboardPath_ variable in _entcore/admin/gulpfile.admin.js_ to adjust your springboard path.
-
 === Webpack dev server
 
+In entcore folder, run the following command:
+
 ....
-$ gulp adminV2-dev-server
+./build.sh adminV2NodeDevServer
 ....
 
-This task will deploy files in memory after code editing, browser will refresh automatically.
+This will build and deploy files in memory after code editing, browser will refresh automatically.
 
 Test app in browser => http://localhost:9000/admin
+
+=== Watch resources
+
+Edit the following const in entcore/admin/gulpfile.admin.js:
+
+....
+const entCoreVersion = '{version}'
+const springboardPath = '{path/to/springboard}'
+....
+
+Exemple:
+
+....
+const entCoreVersion = '3.4-SNAPSHOT'
+const springboardPath = '../recette'
+....
+
+In entcore folder, run the following command:
+
+....
+./build.sh adminV2NodeWatch
+....
+
+This task will copy modified files from entcore/admin/src/main/resources folder to springboard admin module after code editing.
+
+NOTE: For i18n json files updates you will have to restart your springboard to see changes.
 
 == Production build (before commit)
 
@@ -102,30 +121,34 @@ IMPORTANT: Before committing your work, it is mandatory to test app with product
 
 === Build front
 
-....
-$ cd ${entcore}
-$ gulp adminV2-build
-....
-
-NOTE: gulp adminV2-build will generate js files with hash code in filename
-
-=== Build admin module  
+In entcore folder:
 
 ....
-$ gradle :admin:clean
-$ gradle :admin:install
+./build.sh adminV2NodeClean
+./build.sh adminV2NodeBuildProd
+....
+
+NOTE: This task will generate js and css files with hash code in filename.
+
+=== Build admin gradle module
+
+....
+./build.sh adminV2GradleClean
+./build.sh adminV2GradleInstall
 ....
 
 === Deploy admin module to local springboard
 
+Stop springboard, remove admin module and start again springboard by executing following commands in springboard folder:
+
 ....
-$ cd ${springboard_dir}
-$ rm -rf mods/org.entcore~admin~${version greater than 2.0}/
-$ vertx runMod org.entcore~infra~${version greater than 2.0} -conf ent-core.embedded.json
+./build.sh stop
+rm -rf mods/org.entcore~admin~${version}/
+./build.sh run
 ....
 
 Test app in browser => http://localhost:8090/admin
 
-If OK then commit
+If OK then commit.
 
 IMPORTANT: After production build, to start again dev workflow, do an initial dev build (see "Dev build" chapter)
