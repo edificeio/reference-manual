@@ -41,9 +41,17 @@ Get the Springboard's boilerplate repository:
     $ cd springboard
 ....
 
-Run it
+Run it (frist time)
 ....
-    ./build.sh clean init generateConf run
+    ./build.sh init
+    ./build.sh generateConf
+    ./build.sh buildFront
+    ./build.sh run
+....
+
+For the next runs, just launch
+....
+./build.sh run
 ....
 
 Available commands for build.sh script are:
