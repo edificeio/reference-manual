@@ -17,7 +17,7 @@ Versatile
 = Technology stack and significant dependencies
 
 * Java 7
-* Vertx2
+* Vertx3
 * AngularJS (aka Angular 1)
 * Neo4j
 * MongoDB

@@ -1,7 +1,7 @@
 = Backend development
 
 In that section we expose the key concepts and features to implement the server layer with 
-ODE Framework. It provides in one hand a complete web-framework on top on Vertx2 
+ODE Framework. It provides in one hand a complete web-framework on top on Vertx3 
 and on the other hand a EdTech domain specific framework       
 
 == Covered topics
