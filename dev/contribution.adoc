@@ -1,59 +1,125 @@
-= Developer contribution guidelines
+= Contribution guidelines
 
-== Branch organisation
+Thanks for taking the time to contribute!
 
-* *master* : the main branch. It stores all the public commit log and tag (mapped to release). 
+== Commits
+
+=== Messages
+
+A development (feature, fix, etc.) must be contained in one commit.
+
+The commit message must be based on the https://www.conventionalcommits.org specification
+and written in english.
+The identifier of the issue must be placed in the short description.
+
+----
+<type>[optional scope]: #<issue>, <description>
+
+[optional body]
+
+[optional footer]
+----
+
+Commit types we are using the most:
+
+* *feat*: adds a new feature
+* *fix*: fixes a bug
+* *release*: bumps to a release version
+* *test*: adds some tests
+* *docs*: updates the documentation
+* *chore*: concerns a routine task (ex. updating a development version)
+* *refactor*: changes the production code without modifying the behaviour of the solution
+
+
+Example of commit message:
+----
+feat(adminv2): #CAV2-378, initialize the user communication view
+
+- adds routing for the user communication view
+- adds a basic skeleton of the view
+
+
+Co-authored-by: david-cc <david.caudeli@web-education.net>
+----
+
+
+=== Changelog
+
+The changelog is generated from the commit messages then manually edited.
+The commit messages must be very clean and descriptive (what feature has been implemented or what bug has been fixed and how).
+
+=== Pull Requests and reviews
+
+A development can be integrated with a Pull Request, through a review process, if one of the following conditions is matched:
+
+ - it is an external contribution
+ - it is part of an Open Digital Education "chantier" project (ramping-up fresh developers, etc.)
+ - it is risky (ex. the contributor is not comfortable with the technical or functional domain)
+
+If the Pull Request is opened by an Open Digital Education contributor, the PR is prefixed with "[ODE]".
+
+The Pull Request is integrated with the "Squash and Merge" option to match the mono-commit criteria.
+
+== Branches
+
+* *master*: the main branch. It stores all the public commit log and tag (mapped to release).
   It must never be "pushed force".
-* *dev* : the next release integration branch.
-* *my-topic* : a topic branch for a particular project. It must be rebased as often as possible on dev branch
+* *dev*: the branch holding the fixes of the latest release.
+* *next*: the branch holding the features of the next release.
+* *my-topic-branch*: a topic branch for a particular project. It must be rebased as often as possible.
 
-== 1. Derive _topic_ from _dev_
+=== 1. Derive _my-topic-branch_ from _next_
 
+Each new feature must be isolated on a dedicated branch.
 [source]
 ----
-
-                                       I---J---K  (topic)
+                                             K---L---M  (my-topic-branch)
+                                            /
+                                       H---I  (next)
                                       /
-                             E---F---G---H  (dev)
+                             E---F---G  (dev)
                             /
                A---B---C---D  (master)
-
 ----
 
-NOTE: Each new evolution project must be isolated on a dedicated topic branch.
-
-== 2. Isolation test : Rebase _topic_ on _dev_. Test your evolution
+=== 2. Isolation test: Rebase often _my-topic-branch_ on _next_ and test your feature.
 
 [source]
 ----
-
-                                           I---J---K---L---M  (topic)
-                                          /
-                             E---F---G---H  (dev)
+                                                 K'---L'---M'  (my-topic-branch)
+                                                /
+                                       H---I---J  (next)
+                                      /
+                             E---F---G  (dev)
                             /
                A---B---C---D  (master)
-
 ----
 
 
-== 3. Integration test : Merge _topic_ in _dev_. All _dev_'s evolution will be test together
+== 3. Integration test: Squash and merge _my-topic-branch_ in _next_. Features of _next_ will be test as a whole.
 
 [source]
 ----
-
-                             E---F---G---H---I---J---K---L---M  (topic, dev)
+                                       H---I---J---K''  (next, my-topic-branch)
+                                      /
+                             E---F---G  (dev)
                             /
-               A---B---C---D  master
-
+               A---B---C---D  (master)
 ----
 
-== 4. Packaging : Merge _dev_ on _master_. Tag the _HEAD_ of _master_ with the next release label 
+== 4. Packaging a minor release: Merge _dev_ on _master_. Tag the _HEAD_ of _master_ with the next minor release label.
 
 [source]
 ----
-
-               A---B---C---D---E---F---G---H---I---J---K---L---M  (topic, dev, master, NEXT_RELEASE_LABEL)  
-
+                                         H---I---J---K''  (next, my-topic-branch)
+                                        /
+               A---B---C---D---E---F---G  (master, dev, tag_of_minor_release)
 ----
 
 
+== 5. Packaging a major release: Merge _next_ on _master_. Tag the _HEAD_ of _master_ with the next major release label.
+
+[source]
+----
+               A---B---C---D---E---F---G---H---I---J---K''  (master, dev, next, my-topic-branch, tag_of_major_release)
+----
