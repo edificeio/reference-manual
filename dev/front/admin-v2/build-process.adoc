@@ -79,6 +79,26 @@ IMPORTANT: Apply "Dev build" before
 
 === Webpack dev server
 
+In entcore/docker-compose.yml, in node section, add:
+
+....
+net: host
+....
+
+Exemple:
+
+....
+node:
+  image: opendigitaleducation/node
+  working_dir: /home/node/app
+  net: host
+  volumes:
+    - ./:/home/node/app
+    - ~/.npm:/.npm
+    - ../recette:/home/node/recette # TODO : rendre générique pour appliquer à tous les springboards
+    - ../infra-front:/home/node/infra-front
+....
+
 In entcore folder, run the following command:
 
 ....
