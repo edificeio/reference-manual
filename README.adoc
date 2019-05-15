@@ -21,7 +21,7 @@ It enables to address specific challenges such as:
 * high gaps in technology adoption
 * various application type 
 
-ODE Framework is distributed under *Open Source LGPL V3 Licence*. 
+ODE Framework is distributed under *GNU Affero General Public License v3*. 
 
 We hope it can spread in education communities and be helpful to improve EdTech use.
 
