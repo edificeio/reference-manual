@@ -1,7 +1,3 @@
----
-title: eventer
-id: eventer
----
 The eventer is a simple publish-subscribe messaging system. Unlike native CustomEvents, it doesn’t have to be called from a DOM element, but can be used anywhere in your code.
 
 It allows triggering and listening to custom messages.

@@ -1,7 +1,3 @@
----
-title: contribution
-id: contribution
----
 Thanks for taking the time to contribute!
 
 # Commits

@@ -1,7 +1,3 @@
----
-title: sniplets
-id: sniplets
----
 Sniplets are comprised of both an applicative part (in typescript) and a view (in html). They are stored as a small JSON object which can point on an existing resource. Usually they are used to bring functionality from an application into another.
 
 For example, let’s say you have a todo list application, in which the user lists their tasks, and a wiki. You could display in the wiki a single todo list listing all tasks related to the wiki. That todo list would still be available in the todo app, but it would also be shown in the wiki, providing context.

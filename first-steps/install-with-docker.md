@@ -1,7 +1,3 @@
----
-title: install-with-docker
-id: install-with-docker
----
 This document describes the development environment installation for frontend and backend developers
 
 1.  Install Docker. Docker Compose

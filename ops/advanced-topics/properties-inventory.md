@@ -1,7 +1,3 @@
----
-title: properties-inventory
-id: properties-inventory
----
 TODO : For each section description and default value and behaviors
 
 # General

@@ -1,7 +1,3 @@
----
-title: springboard-install
-id: springboard-install
----
 # Get sources
 
 > **Note**
@@ -80,6 +76,6 @@ where &lt;version&gt; has to be replaced by entcore version number
 
 1.  Authenticate with user tom.mate/password at <http://localhost:8090/>
 
-2.  Follow this [link](minimal-plateform-config) to configure your platform
+2.  Follow this [link](minimal-plateform-config.md) to configure your platform
 
 

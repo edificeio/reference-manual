@@ -1,7 +1,3 @@
----
-title: applications
-id: applications
----
 Usually, when an application needs some additional SASS, it should be a new component, added in the theme. Sometimes, however, applications can have a very specific presentation, for instance when they provide UX-based functionalities, or when you need to use a CSS library. In these cases, it’s possible to use custom SASS in your applications.
 
 # Usage

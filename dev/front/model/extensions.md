@@ -1,7 +1,3 @@
----
-title: extensions
-id: extensions
----
 Extensions in behaviours can be pretty much anything. Some applications expose their whole model, some don’t expose anything.
 
 This is done simply by adding custom objects of methods on the Behaviours object. For instance, an application made for reading or editing doc files could have a method creating and returning a doc file from a HTML string :

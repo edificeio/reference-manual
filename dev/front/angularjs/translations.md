@@ -1,7 +1,3 @@
----
-title: translations
-id: translations
----
 Translations use the same .json files inside `/src/main/resources/i18n` as the server. The keys from the portal are available everywhere in the application. In the view, you can use the following directives to add translations:
 
 ``` html

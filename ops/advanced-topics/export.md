@@ -1,7 +1,3 @@
----
-title: export
-id: export
----
 ODE Framework provide an referential’s data export API granted by OAuth2 or HTTP Bascis credential. In some integration case, it can be usefull for data’s setup in third party application.
 
 # Configuration

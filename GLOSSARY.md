@@ -1,7 +1,3 @@
----
-title: GLOSSARY
-id: GLOSSARY
----
 # ENT
 
 # SDET

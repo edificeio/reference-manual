@@ -1,7 +1,3 @@
----
-title: index
-id: index
----
 # Getting started
 
 If you’ve used [skeletons](https://github.com/entcore/skeletons) to initialize your application, you already have a gulpfile, a webpack config file, and a npm package file. To start front-end development, you first need to install nodeJS 6.11.
@@ -42,46 +38,46 @@ This also works with relative paths:
 
 # Covered topics
 
--   [Using AngularJs](angularjs/index)
+-   [Using AngularJs](angularjs/index.md)
 
-    -   [Translations](angularjs/translations)
+    -   [Translations](angularjs/translations.md)
 
-    -   [Templates](angularjs/templates)
+    -   [Templates](angularjs/templates.md)
 
-    -   [Notifications](angularjs/notifications)
+    -   [Notifications](angularjs/notifications.md)
 
-    -   [Routing](angularjs/routing)
+    -   [Routing](angularjs/routing.md)
 
-    -   [UI Module](angularjs/ui-module)
+    -   [UI Module](angularjs/ui-module.md)
 
--   [Making your model](model/index)
+-   [Making your model](model/index.md)
 
-    -   [HTTP](model/http)
+    -   [HTTP](model/http.md)
 
-    -   [Mix](model/mix)
+    -   [Mix](model/mix.md)
 
-    -   [Selection](model/selection)
+    -   [Selection](model/selection.md)
 
-    -   [Eventer](model/eventer)
+    -   [Eventer](model/eventer.md)
 
-    -   [Provider](model/provider)
+    -   [Provider](model/provider.md)
 
-    -   [Autosave](model/autosave)
+    -   [Autosave](model/autosave.md)
 
-    -   [Behaviours](model/behaviours)
+    -   [Behaviours](model/behaviours.md)
 
-    -   [Rights](model/rights)
+    -   [Rights](model/rights.md)
 
-    -   [Resources (in Behaviours)](model/resources)
+    -   [Resources (in Behaviours)](model/resources.md)
 
-    -   [Sniplets](model/sniplets)
+    -   [Sniplets](model/sniplets.md)
 
-    -   [Extensions (in Behaviours)](model/extensions)
+    -   [Extensions (in Behaviours)](model/extensions.md)
 
-    -   [Preferences](model/preferences)
+    -   [Preferences](model/preferences.md)
 
-    -   [Workspace](model/workspace)
+    -   [Workspace](model/workspace.md)
 
-    -   [Addind others NPM modules](model/use-npm-modules)
+    -   [Addind others NPM modules](model/use-npm-modules.md)
 
 

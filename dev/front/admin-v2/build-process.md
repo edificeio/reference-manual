@@ -1,7 +1,3 @@
----
-title: build-process
-id: build-process
----
 This document describes the admin console v2 build process for developers
 
 # Requirements

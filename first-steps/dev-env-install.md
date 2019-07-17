@@ -1,7 +1,3 @@
----
-title: dev-env-install
-id: dev-env-install
----
 This document describes the development environment installation for frontend and backend developers.
 
 > **Note**

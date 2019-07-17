@@ -1,7 +1,3 @@
----
-title: README
-id: README
----
 ![](/assets/ode-mini.png)
 
 [Open Digital Education](http://opendigitaleducation.com) (ODE) Framework aims at providing a modular toolkit to design, build and execute collaborative applications and networks in the education field.
@@ -36,7 +32,7 @@ We hope it can spread in education communities and be helpful to improve EdTech 
 
 # Get started
 
-Follow [First Steps](first-steps/index) instructions
+Follow [First Steps](first-steps/index.md) instructions
 
 # About this manual
 

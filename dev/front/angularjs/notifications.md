@@ -1,7 +1,3 @@
----
-title: notifications
-id: notifications
----
 Notifications are displayed through the notify function.
 
 ``` typescript

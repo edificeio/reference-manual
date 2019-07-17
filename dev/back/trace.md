@@ -1,7 +1,3 @@
----
-title: trace
-id: trace
----
 Since ODE framework 3.6 it provides an API to trace HTTP request on specific routes.
 
 # Description

@@ -1,7 +1,3 @@
----
-title: search
-id: search
----
 ODE framework enables applications to register into the search engine module (see [Search Engine](https://github.com/OPEN-ENT-NG/search-engine))
 
 -   Search engine uses Publish-subscribe and Point-to-Point model. It’s backed by the Vertx Event Bus.

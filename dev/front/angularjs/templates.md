@@ -1,7 +1,3 @@
----
-title: templates
-id: templates
----
 Templates are the building blocks of your application view. They allow you to load fragments of html from your template folder. To use them, you need to set containers in your view:
 
 `<container template=”myContainer”></container>`

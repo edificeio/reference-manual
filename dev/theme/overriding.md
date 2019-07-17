@@ -1,7 +1,3 @@
----
-title: overriding
-id: overriding
----
 The theme’s build process follows a waterfall composition :
 
 1.  Configure *parent theme*

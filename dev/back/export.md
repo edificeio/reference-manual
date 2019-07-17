@@ -1,7 +1,3 @@
----
-title: export
-id: export
----
 ODE Framework allows to export transverse user resources in Json format using its `Archive` module. To do so, it delegates to every single application (via the Vert.x EventBus) the actions of extracting wanted resources from their respective database and placing them in a shared temporary folder on the Vert.x filesystem. When all applications are done, the folder is zipped and sent for download.
 
 # How does it look like ?

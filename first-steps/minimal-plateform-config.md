@@ -1,7 +1,3 @@
----
-title: minimal-plateform-config
-id: minimal-plateform-config
----
 # Import a structure data set
 
 In ODE platform, a structure is typically a school or a grouping of school. The user’s data loading process is designed around this notion of structure, because schools are the "master data" of user’s identity.

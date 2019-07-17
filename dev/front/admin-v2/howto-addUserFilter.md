@@ -1,7 +1,3 @@
----
-title: howto-addUserFilter
-id: howto-addUserFilter
----
 This document describes the procedure to follow to add a filter to the user list in admin v2 app.
 
 # Procedure

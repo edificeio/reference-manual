@@ -1,7 +1,3 @@
----
-title: index
-id: index
----
 You will find here all topic related to system administration of on ODE plateform.
 
 -   Build & Composition (`writing in progress`)
@@ -10,11 +6,11 @@ You will find here all topic related to system administration of on ODE platefor
 
 -   Assets configuration (`writing in progress`)
 
--   [Properties Inventory](advanced-topics/properties-inventory)
+-   [Properties Inventory](advanced-topics/properties-inventory.md)
 
--   [Cron](advanced-topics/cron)
+-   [Cron](advanced-topics/cron.md)
 
--   [Export educational network data](advanced-topics/export)
+-   [Export educational network data](advanced-topics/export.md)
 
 -   Data Feed (`writing in progress`)
 

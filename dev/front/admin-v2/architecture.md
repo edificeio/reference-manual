@@ -1,7 +1,3 @@
----
-title: architecture
-id: architecture
----
 This document presents the Admin v2 project architecture. Document objective is to help developers understand the Admin v2 project files organization and source code architecture in order to get familiar with it and facilitate new admin v2 developer insertion.
 
 # Project Repository
@@ -31,7 +27,7 @@ Admin v2 is bundled using **Webpack 2** and built through **Gulp** tasks.
 
 > **Note**
 >
-> Build process is described here: <https://github.com/web-education/reference-manual/blob/master/dev/front/admin-v2/build-process>
+> Build process is described here: <https://github.com/web-education/reference-manual/blob/master/dev/front/admin-v2/build-process.md>
 
 ### Entcore Build File
 
@@ -315,7 +311,7 @@ Gets User profiles list.
 
     app/core/services/userlist.filters.service.ts
 
-Services for User list filters, see <https://github.com/web-education/reference-manual/blob/dev-front-WIP2017/first-steps/admin-v2-howto-addUserFilter> to know how to add a new user filter.
+Services for User list filters, see <https://github.com/web-education/reference-manual/blob/dev-front-WIP2017/first-steps/admin-v2-howto-addUserFilter.md> to know how to add a new user filter.
 
 #### Userlist
 

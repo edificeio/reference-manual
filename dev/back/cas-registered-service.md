@@ -1,7 +1,3 @@
----
-title: cas-registered-service
-id: cas-registered-service
----
 ODE framework comes with a asynchronous and customizable CAS Server. The identity attributes pass in <https://github.com/apereo/cas/blob/4.2.x/cas-server-documentation/protocol/CAS-Protocol-Specification.md#252-response> \[/serviceValidate\] can be changed by exttending the *DefaultRegisteredService* Java’s class.
 
 > **Note**

@@ -1,7 +1,3 @@
----
-title: rest
-id: rest
----
 ODE Framework offers, on top of Vertx3, an "annotation API" to implement a REST API. It makes it possible to map a controller method with a path (a route) by annotation. There are two ideas behind that approach :
 
 -   provide a descriptive style at code time (that reminds JAX-RS for Java developers)

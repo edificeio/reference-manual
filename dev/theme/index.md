@@ -1,7 +1,3 @@
----
-title: index
-id: index
----
 This section gathers all topics useful to adapt theming to your needs
 
 -   CSS architecture and components (`writing in progress …​`)
@@ -10,6 +6,6 @@ This section gathers all topics useful to adapt theming to your needs
 
 -   Responsive (`writing in progress …​`)
 
--   [Style extension for applications](applications)
+-   [Style extension for applications](applications.md)
 
 

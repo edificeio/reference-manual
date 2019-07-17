@@ -1,7 +1,3 @@
----
-title: class-admin
-id: class-admin
----
 Class-Admin is a sub-module of the `directory` module in `entcore`. It virtually gives pseudo-ADML rights to a Teacher on its class. Aong them are the rights to visualize and edit almost every user information, to block and delete them, to change their class affectation, and to generate new activation codes, in case of lost password.
 
 # The REST API

@@ -1,7 +1,3 @@
----
-title: security
-id: security
----
 ODE Framework uses an hybrid security model in order to deal with the various cases you will come accross when designing and developing educational applications. It can be done in 4 ways :
 
 -   **AUTHENTICATED** : The right grants user access if he is authenticated
@@ -12,7 +8,7 @@ ODE Framework uses an hybrid security model in order to deal with the various ca
 
 -   **CUSTOM** : the right grants access to anything the designer / developer want in the application.
 
-This document describes how to use the security framework. You can read the [Security Architecture](architecture/security) document to understand the design choices.
+This document describes how to use the security framework. You can read the [Security Architecture](architecture/security.md) document to understand the design choices.
 
 # Rights definition and convention
 

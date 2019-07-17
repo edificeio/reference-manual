@@ -1,7 +1,3 @@
----
-title: selection
-id: selection
----
 The selection tool is a basic utility to make working with lists of selectable items easier. It works by simply passing an array to a new Selection:
 
 ``` typescript

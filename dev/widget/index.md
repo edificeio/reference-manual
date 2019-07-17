@@ -1,7 +1,3 @@
----
-title: index
-id: index
----
 In ODE franemark environement, Widget is a small UI’s piece, that final user can configure. It can be placed, positioned and removed (by drad & drop) in the left column from home page.
 
 This guide will show you the steps to design, developp and integrate a widget whith ODE framework.

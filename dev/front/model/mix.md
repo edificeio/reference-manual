@@ -1,7 +1,3 @@
----
-title: mix
-id: mix
----
 Mix is a basic tool for casting. When you retrieve data from the server, it’s sent as basic objects (if you log a JSON response in Chrome, it will show as Object). In Typescript, you can use type assertion (see type assertion in <https://www.typescriptlang.org/docs/handbook/basic-types.html>) to trick the compiler into ignoring the type difference :
 
 ``` typescript

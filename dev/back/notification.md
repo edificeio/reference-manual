@@ -1,7 +1,3 @@
----
-title: notification
-id: notification
----
 ODE framework provides an user’s notification system. It’s enable any application to send or bradcast notifications about key events (from the user’s point of view). Notifications can be deliver through 3 channels :
 
 -   INTERNAL : display on user timeline’s screen
@@ -12,7 +8,7 @@ ODE framework provides an user’s notification system. It’s enable any applic
 
 > **Note**
 >
-> This section focuses on notification’s developement. Refer to [Advanced topics](../../ops/advanced-topics/index) to learn how to configure the platform’s notification policy
+> This section focuses on notification’s developement. Refer to [Advanced topics](../../ops/advanced-topics/index.md) to learn how to configure the platform’s notification policy
 
 # Internal Notification
 

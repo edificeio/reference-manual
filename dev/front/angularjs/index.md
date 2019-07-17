@@ -1,7 +1,3 @@
----
-title: index
-id: index
----
 # Using AngularJS
 
 The ng object in entcore allows you to create controllers and directives. In your controllers or directives folder, add a new file:

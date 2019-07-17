@@ -1,7 +1,3 @@
----
-title: rights
-id: rights
----
 An application defines rights by adding a rights property to its behaviours. The behaviours file should already contain a “rights” object, which is a mapping between server-side methods and the shorter names used in frontend.
 
 Workflow rights are rights set by the administrator, and design actions users can perform on the application, like creating a resource, or publishing any kind of content.

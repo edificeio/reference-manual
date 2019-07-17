@@ -1,7 +1,3 @@
----
-title: cron
-id: cron
----
 ODE Framework provides a library to schedule tasks with cron expression. Its source code is available in [vertx-cron-timer repository](https://github.com/web-education/vertx-cron-timer/commits/master) It uses the cron expression implementation from [Quartz](http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html) and the Vertx’s timer.
 
 # Adds dependency to library

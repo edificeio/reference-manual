@@ -1,7 +1,3 @@
----
-title: share
-id: share
----
 # Conventions
 
 Server-side resource shares require the following conventions:

@@ -1,7 +1,3 @@
----
-title: routing
-id: routing
----
 To create new routes, add the paths you want to handle in your app.ts:
 
 ``` typescript

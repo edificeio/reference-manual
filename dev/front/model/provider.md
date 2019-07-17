@@ -1,7 +1,3 @@
----
-title: provider
-id: provider
----
 The provider is an utility that requests the server on a given path only once, stores the collection, and casts it as a given class.
 
 ``` typescript

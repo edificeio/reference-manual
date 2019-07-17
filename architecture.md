@@ -1,7 +1,3 @@
----
-title: architecture
-id: architecture
----
 User centric network and UI
 
 Design to scale-up

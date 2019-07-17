@@ -1,7 +1,3 @@
----
-title: workspace
-id: workspace
----
 The workspace exposes some utilities to create and save files. This can be very useful if you want to save or export the user’s creations in a file for instance, saving as an image or as text some content they’re working on.
 
 We usually make any file generated on the platform available in the workspace.

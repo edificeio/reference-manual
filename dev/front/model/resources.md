@@ -1,7 +1,3 @@
----
-title: resources
-id: resources
----
 Making a resources list available in behaviours is done by implementing the `loadResources` method.
 
 ``` typescript

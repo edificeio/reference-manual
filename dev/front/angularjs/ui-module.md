@@ -1,7 +1,3 @@
----
-title: ui-module
-id: ui-module
----
 The UI module adds some basic functionality that you can use in your directives to simplify animating and making responsive components.
 
 ``` typescript

@@ -1,13 +1,9 @@
----
-title: index
-id: index
----
--   [Backend Development](back/index)
+-   [Backend Development](back/index.md)
 
--   [Frontend Development](front/index)
+-   [Frontend Development](front/index.md)
 
--   [Theme](theme/index)
+-   [Theme](theme/index.md)
 
--   [Contribution Guidelines](contribution)
+-   [Contribution Guidelines](contribution.md)
 
 
