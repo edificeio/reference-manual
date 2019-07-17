@@ -1,0 +1,157 @@
+---
+title: build-process
+id: build-process
+---
+This document describes the admin console v2 build process for developers
+
+# Requirements
+
+## Dev tools
+
+-   git
+
+-   docker
+
+-   docker-compose
+
+## Clone admin console v2 project
+
+Admin V2 project is inside Entcore project, in the 'admin' folder.
+
+Clone Entcore project from github:
+
+    $ git clone git@github.com:entcore/entcore.git
+
+## Springboard configuration
+
+In your springboard gradle.properties and conf.properties files, set entcoreVersion to the entcore version you just cloned in previous step.
+
+In conf.properties file, add "localhost:9000" to skins array (this is useful to get theme for webapack dev server running on port 9000):
+
+    skins={"localhost:8090":"cg77", "localhost:9000": "cg77"}
+
+Generate springboard configuration after editing, run this command in springboard folder:
+
+    ./build.sh generateConf
+
+# Dev build
+
+## Build front
+
+In entcore folder, run the following commands:
+
+    ./build.sh adminV2NodeClean
+    ./build.sh adminV2NodeBuildDev
+
+This will clean and build typescript, saas and all needed resources files for the frontend app.
+
+## Build admin gradle module
+
+In entcore folder, run the following commands:
+
+    ./build.sh adminV2GradleClean
+    ./build.sh adminV2GradleInstall
+
+This will clean, build and install the admin module in maven repository. The module contains both frontend and backend needed files. This module will be deployed to springboard, see next section.
+
+## Deploy admin gradle module to local springboard
+
+Stop springboard, remove admin module and start again springboard by executing following commands in springboard folder:
+
+    ./build.sh stop
+    rm -rf mods/org.entcore~admin~${version}/
+    ./build.sh run
+
+Test app in browser ⇒ <http://localhost:8090/admin>
+
+# Dev build with webpack dev server (Hot Reload)
+
+> **Important**
+>
+> Apply "Dev build" before
+
+## Webpack dev server
+
+In entcore/docker-compose.yml, in node section, add:
+
+    net: host
+
+Exemple:
+
+    node:
+      image: opendigitaleducation/node
+      working_dir: /home/node/app
+      net: host
+      volumes:
+        - ./:/home/node/app
+        - ~/.npm:/.npm
+        - ../recette:/home/node/recette # TODO : rendre générique pour appliquer à tous les springboards
+        - ../infra-front:/home/node/infra-front
+
+In entcore folder, run the following command:
+
+    ./build.sh adminV2NodeDevServer
+
+This will build and deploy files in memory after code editing, browser will refresh automatically.
+
+Test app in browser ⇒ <http://localhost:9000/admin>
+
+## Watch resources
+
+Edit the following const in entcore/admin/gulpfile.admin.js:
+
+    const entCoreVersion = '{version}'
+    const springboardPath = '{path/to/springboard}'
+
+Exemple:
+
+    const entCoreVersion = '3.4-SNAPSHOT'
+    const springboardPath = '../recette'
+
+In entcore folder, run the following command:
+
+    ./build.sh adminV2NodeWatch
+
+This task will copy modified files from entcore/admin/src/main/resources folder to springboard admin module after code editing.
+
+> **Note**
+>
+> For i18n json files updates you will have to restart your springboard to see changes.
+
+# Production build (before commit)
+
+> **Important**
+>
+> Before committing your work, it is mandatory to test app with production build
+
+## Build front
+
+In entcore folder:
+
+    ./build.sh adminV2NodeClean
+    ./build.sh adminV2NodeBuildProd
+
+> **Note**
+>
+> This task will generate js and css files with hash code in filename.
+
+## Build admin gradle module
+
+    ./build.sh adminV2GradleClean
+    ./build.sh adminV2GradleInstall
+
+## Deploy admin module to local springboard
+
+Stop springboard, remove admin module and start again springboard by executing following commands in springboard folder:
+
+    ./build.sh stop
+    rm -rf mods/org.entcore~admin~${version}/
+    ./build.sh run
+
+Test app in browser ⇒ <http://localhost:8090/admin>
+
+If OK then commit.
+
+> **Important**
+>
+> After production build, to start again dev workflow, do an initial dev build (see "Dev build" chapter)

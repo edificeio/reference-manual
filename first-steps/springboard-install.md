@@ -1,0 +1,85 @@
+---
+title: springboard-install
+id: springboard-install
+---
+# Get sources
+
+> **Note**
+>
+> Add your SSH key to Github first by following instructions here <https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/>
+
+Clone the repository:
+
+        $ cd ~/ode/dev/projects
+        $ git clone git@github.com:entcore/springboard.git
+        $ cd springboard
+
+# Build the Springboard
+
+## Get english translations
+
+Application labels are in french by default. All labels are available in english in a translation repository. Just clone it in the `assets` directory of your Springboard.
+
+        $ cd assets
+        $ git clone git@github.com:web-education/translations.git i18n
+        $ cd i18n
+        $ git checkout <version>
+
+## Build backend
+
+Go Back to your Springboard root and launch
+
+        cd ../..
+        $ gradle clean init
+
+In **conf.properties**, check and edit if needed the following properties:
+
+        mode=dev
+
+        host=http://localhost:8090
+        httpProxy=true
+
+        // Neo4J
+        neo4jUri=http://localhost:7474
+
+        // MongoDB
+        dbName=one_gridfs
+        mongoHost=localhost
+        mongoPort=27017
+
+        // PostgreSQL (optionally)
+        sqlUrl=jdbc:postgresql://localhost:5432/ong
+        sqlUsername=web-education
+        sqlPassword=We_1234
+
+        // Themes
+        skins={"localhost:8090":"ode", "localhost:9000":"ode""}
+
+Generate Vertx configuration (based on test.properties):
+
+        $ gradle generateConf
+
+## Build frontend
+
+        $ npm install
+        $ gulp build
+
+## Start Springboard
+
+> **Note**
+>
+> Neo4j and MongoDB must be running
+
+Start Springboard:
+
+        $ vertx runMod org.entcore~infra~<version> -conf ent-core.json
+
+where &lt;version&gt; has to be replaced by entcore version number
+
+## Administration
+
+1.  Authenticate with user tom.mate/password at <http://localhost:8090/>
+
+2.  Follow this [link](minimal-plateform-config) to configure your platform
+
+
