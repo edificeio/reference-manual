@@ -1,6 +1,0 @@
-= Development guide
-
-* link:back/index.adoc[Backend Development]
-* link:front/index.adoc[Frontend Development]
-* link:theme/index.adoc[Theme]
-* link:contribution.adoc[Contribution Guidelines]

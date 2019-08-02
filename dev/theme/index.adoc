@@ -1,8 +1,0 @@
-= Theme
-
-This section gathers all topics useful to adapt theming to your needs
-
-* CSS architecture and components (`writing in progress ...`)
-* Overriding CSS (`writing in progress ...`)
-* Responsive (`writing in progress ...`)
-* link:applications.adoc[Style extension for applications]
