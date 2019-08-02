@@ -20,129 +20,37 @@ Each table, function, trigger, and type must be prefixed to the schema defined i
 
 Table **users**
 
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>id</p></td>
-<td><p>VARCHAR(36)</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>username</p></td>
-<td><p>VARCHAR(255)</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Field      | Type           | Descritpion  |
+|------------|----------------|--------------|
+| id         | VARCHAR(36)    |              |
+| username   | VARCHAR(255)   |              |
+
 
 Table **groups**
 
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>id</p></td>
-<td><p>VARCHAR(36)</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>name</p></td>
-<td><p>VARCHAR(255)</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Field      | Type           | Descritpion  |
+|------------|----------------|--------------|
+| id         | VARCHAR(36)    |              |
+| name       | VARCHAR(255)   |              |
+
 
 Table **members**
 
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>id</p></td>
-<td><p>VARCHAR(36)</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>user_id</p></td>
-<td><p>VARCHAR(36)</p></td>
-<td><p>One entry contain only an user_id value or a group id value</p></td>
-</tr>
-<tr class="odd">
-<td><p>group_id</p></td>
-<td><p>VARCHAR(36)</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Field      | Type           | Descritpion  |
+|------------|----------------|--------------|
+| id         | VARCHAR(36)    |              |
+| user_id    | VARCHAR(36)    | One entry contain only an user_id value or a group id value |
+| group_id   | VARCHAR(36)    |              |
+
 
 Table **$resource$\\\_shares**
 
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>member_id</p></td>
-<td><p>VARCHAR(36</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>resource_id</p></td>
-<td><p>BIGINT</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>action</p></td>
-<td><p>VARCHAR(255)</p></td>
-<td><p>Contains the right of access to a service, in the following form: Namespace separated by dashes followed by the class name followed by a pipe followed by the name of the method</p></td>
-</tr>
-</tbody>
-</table>
+| Field      | Type           | Descritpion  |
+|------------|----------------|--------------|
+| member_id  | VARCHAR(36)    |              |
+| resource_id| BIGINT         |              |
+| action     | VARCHAR(255)   | Contains the right of access to a service, in the following form: Namespace separated by dashes followed by the class name followed by a pipe followed by the name of the method |
+
 
 > **Note**
 >
@@ -183,52 +91,15 @@ CONSTRAINT thread_share_member_fk FOREIGN KEY(member_id) REFERENCES $schema.memb
 
 This modeling requires the addition of function, trigger and a new type
 
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>merge_users</p></td>
-<td><p>FUNCTION</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>insert_users_members</p></td>
-<td><p>FUNCTION</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>insert_groups_members</p></td>
-<td><p>FUNCTION</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>users_trigger</p></td>
-<td><p>TRIGGER</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>groups_trigger</p></td>
-<td><p>TRIGGER</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>share_tuple</p></td>
-<td><p>TYPE</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Name                  | Type           | Descritpion  |
+|-----------------------|----------------|--------------|
+| merge_users           | FUNCTION       |              |
+| insert_users_members  | FUNCTION       |              |
+| insert_groups_members | FUNCTION       |              |
+| users_trigger         | TRIGGER        |              |
+| groups_trigger        | TRIGGER        |              |
+| share_tuple           | TYPE           |              |
+
 
 **SQL example:**
 

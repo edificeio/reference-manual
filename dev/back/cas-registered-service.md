@@ -10,43 +10,15 @@ The **org.entcore.cas.services** package contains services which output custom a
 
 ## Specific SAML CAS ticket
 
-<table>
-<caption>prepareUser contract</caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>user</p></td>
-<td><p>fr.wseduc.cas.entities.User</p></td>
-<td><p>Cas ticket</p></td>
-</tr>
-<tr class="even">
-<td><p>userId</p></td>
-<td><p>String</p></td>
-<td><p>Graph user Id</p></td>
-</tr>
-<tr class="odd">
-<td><p>service</p></td>
-<td><p>String</p></td>
-<td><p>Service URI</p></td>
-</tr>
-<tr class="even">
-<td><p>data</p></td>
-<td><p>JsonObject</p></td>
-<td><p>User data, see registered service example for more details</p></td>
-</tr>
-</tbody>
-</table>
+***prepareUser contract***
+
+| Param           |      Type            |  Description           |
+|-----------------|----------------------|------------------------|
+| user            | fr.wseduc.cas.entities.User | Cas Ticket      |
+| userId          | String               | Graph user Id          |
+| service         | String               | Service URI            |
+| data            | JsonObject           | User data, see registered service example for more details |
+
 
 **Basic example:** default identifier as the value for the user tag and the PROFIL attribute as additional attributes
 
@@ -86,53 +58,15 @@ public class $YourName$RegisteredService extends DefaultRegisteredService {
 
 ## Specific CAS 2 ticket
 
-<table>
-<caption>prepareUser contract</caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>user</p></td>
-<td><p>fr.wseduc.cas.entities.User</p></td>
-<td><p>Cas ticket</p></td>
-</tr>
-<tr class="even">
-<td><p>userId</p></td>
-<td><p>String</p></td>
-<td><p>Graph user Id</p></td>
-</tr>
-<tr class="odd">
-<td><p>service</p></td>
-<td><p>String</p></td>
-<td><p>Service URI</p></td>
-</tr>
-<tr class="even">
-<td><p>data</p></td>
-<td><p>JsonObject</p></td>
-<td><p>User data, see registered service example for more details</p></td>
-</tr>
-<tr class="odd">
-<td><p>doc</p></td>
-<td><p>org.w3c.dom.Document</p></td>
-<td><p>xml doc</p></td>
-</tr>
-<tr class="even">
-<td><p>additionnalAttributes</p></td>
-<td><p>List&lt;org.w3c.dom.Element&gt;</p></td>
-<td><p>xml element</p></td>
-</tr>
-</tbody>
-</table>
+| Param           |      Type            |  Description           |
+|-----------------|----------------------|------------------------|
+| user            | fr.wseduc.cas.entities.User | Cas Ticket      |
+| userId          | String               | Graph user Id          |
+| service         | String               | Service URI            |
+| data            | JsonObject           | User data, see registered service example for more details |
+| doc             | org.w3c.dom.Document  | xml doc                |
+| additionnalAttributes | List<org.w3c.dom.Element>  | xml element |
+
 
 **Basic example:** default identifier as the value for the user tag and the UID attribute as additional attributes
 

@@ -10,47 +10,13 @@ The objects inside the Array should implement Selectable, which simply means the
 
 The selection can then be used for various operations:
 
-<table>
-<colgroup>
-<col width="50%" />
-<col width="50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Description</th>
-<th>Member</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>Get all selected items</p></td>
-<td><p><code>selection.selected</code></p></td>
-</tr>
-<tr class="even">
-<td><p>Select all items</p></td>
-<td><p><code>selection.selectAll();</code></p></td>
-</tr>
-<tr class="odd">
-<td><p>Deselect all items</p></td>
-<td><p><code>selection.deselectAll();</code></p></td>
-</tr>
-<tr class="even">
-<td><p>Number of selected items</p></td>
-<td><p><code>selection.length</code></p></td>
-</tr>
-<tr class="odd">
-<td><p>Number of items in the whole collection</p></td>
-<td><p><code>selection.colLength</code></p></td>
-</tr>
-<tr class="even">
-<td><p>Select items matching predicate</p></td>
-<td><p><code>selection.select(e ⇒ e.name === ‘match’)</code></p></td>
-</tr>
-<tr class="odd">
-<td><p>Remove selected items from the whole collection</p></td>
-<td><p><code>selection.removeSelection()</code></p></td>
-</tr>
-</tbody>
-</table>
+
+- Get all selected items : `selection.selected`
+- Select all items : `selection.selectAll();`
+- Deselect all items : `selection.deselectAll();`
+- Number of selected items : `selection.length`
+- Number of items in the whole collection : `selection.colLength`
+- Select items matching predicate : `selection.select(e ⇒ e.name === ‘match’)`
+- Remove selected items from the whole collection :  `selection.removeSelection()`
 
 

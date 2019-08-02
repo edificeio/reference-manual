@@ -38,58 +38,16 @@ if (config.getBoolean("searching-event", true)) {
 See the contract service to [SearchingEvents](https://github.com/entcore/entcore/blob/1.26.0/common/src/main/java/org/entcore/common/search/SearchingEvents.java#L31)
 
 **search contract**:
+| Args             | Type          | Descritpion                  |
+|------------------|---------------|------------------------------|
+| userId           | String        |                              |
+| groupIds         | List<String>  |                              |
+| returnFields     | List<String>  | Returned fields by the backend query |
+| searchWords      | List<String>  | Words to search              |
+| page             | Integer       | current page                 |
+| limit            | Integer       | page size                    |
+| handler          | Handler<Either<String, JsonArray>> | return callback |
 
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Args</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>userId</p></td>
-<td><p>String</p></td>
-<td><p>User id</p></td>
-</tr>
-<tr class="even">
-<td><p>groupIds</p></td>
-<td><p>List&lt;String&gt;</p></td>
-<td><p>groups id</p></td>
-</tr>
-<tr class="odd">
-<td><p>returnFields</p></td>
-<td><p>List&lt;String&gt;</p></td>
-<td><p>Returned fields by the backend query</p></td>
-</tr>
-<tr class="even">
-<td><p>searchWords</p></td>
-<td><p>List&lt;String&gt;</p></td>
-<td><p>Words to search</p></td>
-</tr>
-<tr class="odd">
-<td><p>page</p></td>
-<td><p>Integer</p></td>
-<td><p>current page</p></td>
-</tr>
-<tr class="even">
-<td><p>limit</p></td>
-<td><p>Integer</p></td>
-<td><p>Number of occurrences to return</p></td>
-</tr>
-<tr class="odd">
-<td><p>handler</p></td>
-<td><p>Handler&lt;Either&lt;String, JsonArray&gt;&gt;</p></td>
-<td><p>Callback with the result</p></td>
-</tr>
-</tbody>
-</table>
 
 > **Warning**
 >
