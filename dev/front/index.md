@@ -52,6 +52,8 @@ This also works with relative paths:
 
 -   [Making your model](model/index.md)
 
+    -   [Navigation Guards](navigation-guard.md)
+
     -   [HTTP](model/http.md)
 
     -   [Mix](model/mix.md)
