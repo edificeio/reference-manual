@@ -92,6 +92,16 @@ It is responsible of:
 </form>
 ```
 
+Optionally, you may force the root ID like so:
+
+```html
+<form guard-root="myRoot">
+    <!--...-->
+</form>
+```
+
+This will allow you to interact with this root even if your directive is outside of it. See the reset-guard-id option of reset-guard below for more info.
+
 ### reset-guard
 
 It is an attribute directive that receive an expression as param.
@@ -107,7 +117,23 @@ The directive listen 2 dom events:
 - submit: if the tag is a "form"
 - click: for any other tag
 
+If you need to listen to an event other than these, you may specify the reset-guard-event option:
+
+```html
+<editor reset-guard="saveChanges()" reset-guard-event="change"/>
+```
+
 The directive wait that the promise resolved (so the save succeed) and then it reset guards relative to its groups (=relative to its form).
+
+The reset-guard will reset its closest-parent guard-root, or all guards on the page if none is found.
+If you need to put a reset-guard outside of the guard-root you wish to reset, you may use the reset-guard-id option:
+
+```html
+<button reset-guard="save()" reset-guard-id="myRoot"></button>
+<form root-guard="myRoot">
+    <!--...-->
+</form>
+```
 
 ### guard-ignore-template
 
