@@ -166,7 +166,8 @@ The `MongoDbRepositoryEvents` class also provides the `exportFiles` method, whic
 
     public abstract class SqlRepositoryEvents extends AbstractRepositoryEvents {
 
-        protected void exportTables(HashMap<String, JsonArray> queries, JsonArray cumulativeResult, String exportPath, AtomicBoolean exported, Handler<Boolean> handler) {
+        protected void exportTables(HashMap<String, JsonArray> queries, JsonArray cumulativeResult, HashMap<String, JsonArray> fieldsToNull,
+                                    String exportPath, AtomicBoolean exported, Handler<Boolean> handler) {
             ...
         }
 
