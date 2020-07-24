@@ -200,3 +200,9 @@ To configure your IDE, create a new debug configuration and set followings prope
 You can now use your configuration to start a remote debug session.
 
 # For Frontend Development
+
+For installing the frontend module, you must run this command :
+
+```
+./build.sh buildFront
+```
