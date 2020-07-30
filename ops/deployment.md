@@ -20,6 +20,7 @@ Create a config file *conf/entcore.json* for the launcher:
 ```json
 {
     "assets-path": "my/root/path",
+    "clean": true,
     "consulMods": ["https://MY_CONSUL_SERVER/v1/kv/service/SCOPE1","http://MY_CONSUL_SERVER/v1/kv/service/SCOPE2"],
     "consulSync": "https://MY_CONSUL_SERVER/v1/kv/service/SYNC_FOLDER",
     "consuleNode": "app1",
@@ -44,6 +45,7 @@ Create a config file *conf/entcore.json* for the launcher:
 
 The file contains the following parameters:
 - assets-path: The root path where the platform will be deployed
+- clean: If enabled, the launcher will clean old artefact
 - consulMods: An ordered list containing all Consul KV folder URIs. The launcher will watch recursively theses folders and merge values. SCOPE can be a string or a path (like *myapp/myenv/mynode*)
 - consulSync: The Consul KV folder used to sync nodes (in case of cluster)
 - consulNode: The name of the current node (in case of cluster)
