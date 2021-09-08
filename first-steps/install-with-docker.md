@@ -40,14 +40,14 @@ To set SSH key for Github, please follow the reference documentations below:
 
 -   <https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/>
 
-## Clone a Springboard and run it
+## 3. Clone a Springboard and run it
 
 Get the Springboard’s boilerplate repository:
 
         $ git clone git@github.com:entcore/springboard.git
         $ cd springboard
 
-Run it (frist time)
+Run it (first time)
 
         ./build.sh init
         ./build.sh generateConf
@@ -199,4 +199,42 @@ To configure your IDE, create a new debug configuration and set followings prope
 
 You can now use your configuration to start a remote debug session.
 
-# For Frontend Development
+# For Mac OS Installation
+
+## 1. Install Docker
+## 2. Configure `sed` correctly
+
+Follow these steps: https://medium.com/@bramblexu/install-gnu-sed-on-mac-os-and-set-it-as-default-7c17ef1b8f64
+
+## 3. Ode User and bower user
+
+- Add ODE User in the gradle.properties file
+- Create bower credentials file to your root folder (~/.bower_credentials) and add credentials info
+
+## 4. Build.Gradle
+
+Comment this line in build.gradle file : `deployment "fr.openent:lool:$loolVersion:deployment"`
+
+## 5. Running the springboard
+
+        ./build.sh init
+        ./build.sh generateConf
+        ./build.sh buildFront
+        ./build.sh run
+
+## 6. Warnings
+
+- It'll take time to launch everything on Mac OS, so you can check the progression of the "run" command with :
+
+  
+`docker-compose logs -f vertx`
+
+  
+- Sometimes, `recette_neo4j_1` in the `recette` container will stop. You have to run it manually.
+- Don't forget to add the `neo4j ports` in the docker-compose.yml file.
+
+## 7. Integration Test
+
+- You can run the test or go to step 2 to configure data manually.
+- Please check `recette_neo4j_1` is running before.
+- Then run `./build.sh integrationTest`
