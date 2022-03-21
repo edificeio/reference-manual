@@ -74,3 +74,31 @@ export FRONT_TAG=dev
 ```
 export FRONT_TAG=next
 ``` 
+
+## Node Saas error
+
+Error:
+
+```
+fs.js:961
+  return binding.readdir(pathModule._makeLong(path), options.encoding);
+                 ^
+
+Error: ENOENT: no such file or directory, scandir '/home/node/app/node_modules/node-sass/vendor'
+    at Error (native)
+    at Object.fs.readdirSync (fs.js:961:18)
+    at Object.getInstalledBinaries (/home/node/app/node_modules/node-sass/lib/extensions.js:133:13)
+    at foundBinariesList (/home/node/app/node_modules/node-sass/lib/errors.js:20:15)
+    at foundBinaries (/home/node/app/node_modules/node-sass/lib/errors.js:15:5)
+    at Object.module.exports.missingBinary (/home/node/app/node_modules/node-sass/lib/errors.js:45:5)
+    at module.exports (/home/node/app/node_modules/node-sass/lib/binding.js:15:30)
+    at Object.<anonymous> (/home/node/app/node_modules/node-sass/lib/index.js:14:35)
+    at Module._compile (module.js:570:32)
+    at Object.Module._extensions..js (module.js:579:10)
+```
+
+How to solve:
+
+```
+npm rebuild node-sass
+```
