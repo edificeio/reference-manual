@@ -79,6 +79,9 @@ Installation:
     $ sudo add-apt-repository ppa:webupd8team/java
     $ sudo apt-get update
     $ sudo apt-get install oracle-java8-installer
+    
+    Other repo with java8 available (ppa:ts.sch.gr/ppa)
+    
 
 Check installation:
 
