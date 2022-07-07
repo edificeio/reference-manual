@@ -104,6 +104,11 @@ Add binary to Path:
 
     $ echo PATH=\"\$HOME/apps/gradle/bin:\$PATH\" >> ~/.profile
     $ . ~/.profile
+    
+In case of error :  
+    Failed to load native library 'libnative-platform.so' for Linux amd64.
+    Please care about giving full rights on .gradle home folder (~/.gradle)
+    drwxrwxrwx  5 root    root    4096 juil.  7 09:15 .gradle/
 
 Check version:
 
