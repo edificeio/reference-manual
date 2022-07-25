@@ -1,5 +1,14 @@
 # Import a structure data set
 
+## Integration Test
+
+From recette Springboard
+
+    $ ./build.sh integrationTest
+    
+It should give you students/parents/teachers data + basic roles thru src/test/scala/org/entcore/test/simulations/IntegrationTest.scala    
+
+## Manually
 In ODE platform, a structure is typically a school or a grouping of school. The user’s data loading process is designed around this notion of structure, because schools are the "master data" of user’s identity.
 
 -   Connect with the default super user : `tom.mate` / `password`
