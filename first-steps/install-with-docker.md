@@ -178,6 +178,30 @@ Available commands for build.sh script are:
                buildFront : fetch widgets and themes using Bower and run Gulp build. (/!\ first run can be long because of node-sass's rebuild).
                   archive : make an archive with folder /mods /assets /static
                   publish : upload the archive on nexus
+                  
+## 4. Clone entcore, infra-front, clean install and watchers.
+
+    $ git clone https://github.com/opendigitaleducation/entcore.git
+    $ git clone https://github.com/opendigitaleducation/infra-front.git
+    
+You may want to checkout dev branch (to be synched with recette sprinboard)
+
+    $ git checkout dev
+    
+Clean install
+
+    $./build.sh clean install
+    
+Watch infra-front 
+
+    $./build.sh watch
+    
+Watch infra-front   
+
+    $./build.sh -m=[module] watch
+    (ex) $./build.sh -m=directory watch
+    
+You should see ressource copy on code change.    
 
 # For Backend Development
 
