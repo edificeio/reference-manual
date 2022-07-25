@@ -41,12 +41,117 @@ To set SSH key for Github, please follow the reference documentations below:
 -   <https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/>
 
 ## 3. Clone a Springboard and run it
+        
+For a first run and to ensure you are focusing a up-to-date version, please clone the one on gitlab and checkout dev.
+Keep 'recette' as folder name as some repo are linked to this specific name (entcore, infra-front, ...)
 
-Get the Springboard’s boilerplate repository:
+        $ git clone http://code.web-education.net/ODE/recette.git
+        $ git checkout dev
+
+If you need Springboard’s boilerplate repository:
 
         $ git clone git@github.com:entcore/springboard.git
         $ cd springboard
 
+Please fill gradle.properties with
+
+        odeUsername and odePassword
+        
+You may also need to comment modules developped by CGI in build.gradle
+
+        /*deployment "fr.openent:competences:$competencesVersion:deployment"
+        deployment "fr.openent:presences:$presencesVersion:deployment"
+        deployment "fr.cgi:edt:$edtVersion:deployment"
+        deployment "fr.openent:incidents:$incidentsVersion:deployment"
+        deployment "fr.openent:statistics-presences:$statisticsPresencesVersion:deployment"
+        deployment "fr.openent:massmailing:$massmailingVersion:deployment"
+        deployment "fr.openent:formulaire:$formulaireVersion:deployment"
+        deployment "com.opendigitaleducation:explorer:$explorerVersion:deployment"
+        deployment "fr.openent:diary:$diaryVersion:deployment"
+        deployment "fr.openent:lool:$loolVersion:deployment"*/
+        
+docker-compose.yml basic config
+
+        vertx:
+          image: opendigitaleducation/vertx-service-launcher:1.1-SNAPSHOT
+          user: "1000:1000"
+          ports:
+            - "8090:8090"
+            - "5000:5000"
+          volumes:
+            - ./assets:/srv/springboard/assets
+            - ./mods:/srv/springboard/mods
+            - ./ent-core.json:/srv/springboard/conf/vertx.conf
+            - ./aaf-duplicates-test:/home/wse/aaf
+            - ~/.m2:/home/vertx/.m2
+        #    - ./avatars:/srv/storage/avatars
+          links:
+            - neo4j
+            - postgres
+            - mongo
+            - pdf
+            - elasticsearch
+        #environment:
+        #  MAVEN_REPOSITORIES: ''
+
+        pdf:
+          image: opendigitaleducation/node-pdf-generator:1.0.0
+          ports:
+            - "3000:3000"
+
+        neo4j:
+          image: neo4j:3.1
+          volumes:
+            - ./neo4j-conf:/conf
+
+        elasticsearch:
+          image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
+          environment:
+            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+            MEM_LIMIT: 1073741824
+            discovery.type: single-node
+          ulimits:
+            memlock:
+              soft: -1
+              hard: -1
+            nofile:
+              soft: 65536
+              hard: 65536
+          cap_add:
+            - IPC_LOCK
+          ports:
+            - "9200:9200"
+            - "9300:9300"
+
+        postgres:
+          image: postgres:9.5
+          environment:
+            POSTGRES_PASSWORD: We_1234
+            POSTGRES_USER: web-education
+            POSTGRES_DB: ong
+
+        mongo:
+          image: mongo:3.6
+
+        gradle:
+          image: gradle:4.5-alpine
+          working_dir: /home/gradle/project
+          volumes:
+            - ./:/home/gradle/project
+            - ~/.m2:/home/gradle/.m2
+            - ~/.gradle:/home/gradle/.gradle
+
+        node:
+          image: opendigitaleducation/node
+          working_dir: /home/node/app
+          volumes:
+            - ./:/home/node/app
+            - ~/.npm:/.npm
+            - ../theme-open-ent:/home/node/theme-open-ent
+            - ../panda:/home/node/panda
+            - ../entcore-css-lib:/home/node/entcore-css-lib
+            - ../generic-icons:/home/node/generic-icons
+        
 Run it (first time)
 
         ./build.sh init
@@ -56,7 +161,11 @@ Run it (first time)
 
 For the next runs, just launch
 
-    ./build.sh run
+    ./build.sh stop run
+  
+To clean modules installed, please check
+
+    cd ./mods
 
 Available commands for build.sh script are:
 
