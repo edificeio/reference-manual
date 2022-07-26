@@ -259,6 +259,8 @@ You can run the below command to monitor your container’s activity
 
 -   List all containers : `docker ps -a`
 
+-   Clean them all : docker rm $(docker ps -aq)
+
 -   Open Neo4j’s shell : `docker exec -it ${SPRINGBOARD_DIR}_neo4j_1 bin/neo4j-shell`
 
 -   Open PostgrSQL’s shell : `docker exec -it ${SPRINGBOARD_DIR}_postgres_1 psql -U web-education ong`
