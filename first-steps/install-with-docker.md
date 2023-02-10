@@ -344,39 +344,132 @@ You can now use your configuration to start a remote debug session.
 
 # For Mac OS Installation
 
-## 1. Install Docker
-## 2. Configure `sed` correctly
+## 0. Descriptors configuration
 
-Follow these steps: https://medium.com/@bramblexu/install-gnu-sed-on-mac-os-and-set-it-as-default-7c17ef1b8f64
+As you will be handling multiple databases which will need to manipulate many files you need to increase the number of files that can be opened by your system.
 
-## 3. Ode User and bower user
+1. Execute the following commands
+
+```
+cat <<EOT >> /Library/LaunchDaemons/limit.maxfiles.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>limit.maxfiles</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>launchctl</string>
+      <string>limit</string>
+      <string>maxfiles</string>
+      <string>64000</string>
+      <string>200000</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>ServiceIPC</key>
+    <false/>
+  </dict>
+</plist>
+EOT
+
+sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
+
+cat <<EOT >> ~/.zprofile
+# Changes the ulimit limits.
+ulimit -Sn 64000      # Increase open files.
+ulimit -Sl unlimited # Increase max locked memory.
+EOT
+
+```
+
+2. Reboot your machine
+
+## 1. Brew
+
+c.f. https://brew.sh/index_fr
+
+## 2. sdkman
+
+c.f. https://sdkman.io/install
+
+## 3. Java
+
+```
+sdk install java 8.0.352-amzn
+```
+
+## 4. Gradle
+
+Execute the following command
+
+```
+sdk install gradle 4.5
+```
+
+## 5. NVM and Node
+
+Execute the following command
+
+```
+brew install nvm
+echo "source $(brew --prefix nvm)/nvm.sh" >> ~/.zshrc
+nvm install 10
+```
+
+## 6. Maven
+
+Follow the instructions listed here https://maven.apache.org/install.html.
+
+## 7. Docker Desktop
+
+**Warning !!!** Before you dive into the installation of Docker, keep in mind that you need to select the right executable for your chip (it will probably be an Apple Silicon one if your have a recent computer).
+
+Follow the instructions here https://docs.docker.com/desktop/install/mac-install/.
+
+After the installation, execute the following command to check that docker compose is working properly
+
+```
+docker-compose -v
+```
+
+If an error is returned, install it via brew https://formulae.brew.sh/formula/docker-compose.
+
+
+## 8. Configure `sed` and `xargs`
+
+For `sed`, follow these steps: https://medium.com/@bramblexu/install-gnu-sed-on-mac-os-and-set-it-as-default-7c17ef1b8f64
+
+For `xargs`, execute the following command
+
+```
+brew install findutils
+```
+
+It will install gxargs which runs exactly as GNU xargs.
+
+## 9. Ode User and bower user
 
 - Add ODE User in the gradle.properties file
 - Create bower credentials file to your root folder (~/.bower_credentials) and add credentials info
 
-## 4. Build.Gradle
+## 10. Build.Gradle
 
 Comment this line in build.gradle file : `deployment "fr.openent:lool:$loolVersion:deployment"`
 
-## 5. Running the springboard
 
-        ./build.sh init
-        ./build.sh generateConf
-        ./build.sh buildFront
-        ./build.sh run
+# Running the springboard
 
-## 6. Warnings
+        ./build-noDocker.sh init
+        ./build-noDocker.sh generateConf
+        ./build-noDocker.sh buildFront
+        ./build-noDocker.sh run
 
-- It'll take time to launch everything on Mac OS, so you can check the progression of the "run" command with :
+In general, you will have to use the script `build-noDocker.sh` instad of the script `build.sh` in the different projects to build the assets.
 
-  
-`docker-compose logs -f vertx`
-
-  
-- Sometimes, `recette_neo4j_1` in the `recette` container will stop. You have to run it manually.
-- Don't forget to add the `neo4j ports` in the docker-compose.yml file.
-
-## 7. Integration Test
+# Integration Test
 
 - You can run the test or go to step 2 to configure data manually.
 - Please check `recette_neo4j_1` is running before.
