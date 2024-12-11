@@ -1,6 +1,4 @@
-![](/assets/ode-mini.png)
-
-[Open Digital Education](http://opendigitaleducation.com) (ODE) Framework aims at providing a modular toolkit to design, build and execute collaborative applications and networks in the education field.
+[Edifice](http://edifice.io) (ODE) Framework aims at providing a modular toolkit to design, build and execute collaborative applications and networks in the education field.
 
 It is typically well suited to implement an deploy:
 
