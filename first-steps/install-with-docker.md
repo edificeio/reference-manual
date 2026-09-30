@@ -88,6 +88,12 @@ All containers should be `healthy`. The first start of vertx takes a minute or t
 - the ENT: <http://localhost:8090>
 - the Traefik dashboard (routes registered by the modules): <http://localhost:8080>
 
+Log in with the default account, created automatically on the first start: `tom.mate` / `password`.
+
+> **Warning**
+>
+> This account is meant for local development only. Change its password from the ENT on any instance reachable from outside.
+
 For the next runs, just launch
 
     ./build.sh stop run
