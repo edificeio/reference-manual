@@ -1,6 +1,6 @@
 This document describes the development environment installation for frontend and backend developers
 
-1.  Install Docker. Docker Compose
+1.  Install Docker & Docker Compose
 
 2.  Install Git and configure SSH Key for Github
 
@@ -18,7 +18,7 @@ This document describes the development environment installation for frontend an
 
 2.  Grant non-root user to run Docker : <https://docs.docker.com/install/linux/linux-postinstall/>
 
-3.  Install Docker Compose by following the reference documentation : <https://docs.docker.com/compose/install/#install-using-pip>
+3.  Install the Docker Compose plugin (`docker compose`) by following the reference documentation : <https://docs.docker.com/compose/install/linux/>. The legacy `docker-compose` binary is not required: `build.sh` falls back to `docker compose` when it is missing.
 
 > **Warning**
 >
@@ -27,6 +27,8 @@ This document describes the development environment installation for frontend an
 > **Note**
 >
 > Installation’s documentation for others OS is available here : <https://docs.docker.com/install/>
+>
+> On Windows, please read [Windows (WSL 2)](#windows-wsl-2) first.
 
 ## 2. Install Git and configure SSH Key for Github
 
@@ -42,116 +44,26 @@ To set SSH key for Github, please follow the reference documentations below:
 
 ## 3. Clone a Springboard and run it
         
-For a first run and to ensure you are focusing a up-to-date version, please clone the one on gitlab and checkout dev.
-Keep 'recette' as folder name as some repo are linked to this specific name (entcore, infra-front, ...)
+Two public springboards are available:
 
-        $ git clone http://code.web-education.net/ODE/recette.git
-        $ git checkout dev
+| Springboard | Content |
+| ----------- | ------- |
+| [edificeio/springboard](https://github.com/edificeio/springboard) | Boilerplate: core modules only (portal, directory, conversation, workspace, ...) |
+| [OPEN-ENT-NG/springboard-open-ent](https://github.com/OPEN-ENT-NG/springboard-open-ent) | Same base with many more applications (blog, forum, mindmap, collaborative wall, ...) |
 
-If you need Springboard’s boilerplate repository:
+Clone one of them:
 
-        $ git clone git@github.com:entcore/springboard.git
+        $ git clone https://github.com/edificeio/springboard.git
         $ cd springboard
 
-Please fill gradle.properties with
+> **Note**
+>
+> No credentials are needed: backend artefacts are downloaded from the public Nexus group (`https://maven.opendigitaleducation.com/nexus/content/groups/public`) and frontend packages from npmjs. The `NEXUS_*`, `NPM_TOKEN` and `BOWER_*` variables used by `build.sh` can be left unset.
 
-        odeUsername and odePassword
-        
-You may also need to comment modules developped by CGI in build.gradle
+> **Warning**
+>
+> Make sure you have at least 15 GB of free disk space: Docker images, Gradle cache, modules and node modules add up quickly. A full disk can freeze Docker (and WSL on Windows).
 
-        /*deployment "fr.openent:competences:$competencesVersion:deployment"
-        deployment "fr.openent:presences:$presencesVersion:deployment"
-        deployment "fr.cgi:edt:$edtVersion:deployment"
-        deployment "fr.openent:incidents:$incidentsVersion:deployment"
-        deployment "fr.openent:statistics-presences:$statisticsPresencesVersion:deployment"
-        deployment "fr.openent:massmailing:$massmailingVersion:deployment"
-        deployment "fr.openent:formulaire:$formulaireVersion:deployment"
-        deployment "com.opendigitaleducation:explorer:$explorerVersion:deployment"
-        deployment "fr.openent:diary:$diaryVersion:deployment"
-        deployment "fr.openent:lool:$loolVersion:deployment"*/
-        
-docker-compose.yml basic config
-
-        vertx:
-          image: opendigitaleducation/vertx-service-launcher:1.1-SNAPSHOT
-          user: "1000:1000"
-          ports:
-            - "8090:8090"
-            - "5000:5000"
-          volumes:
-            - ./assets:/srv/springboard/assets
-            - ./mods:/srv/springboard/mods
-            - ./ent-core.json:/srv/springboard/conf/vertx.conf
-            - ./aaf-duplicates-test:/home/wse/aaf
-            - ~/.m2:/home/vertx/.m2
-        #    - ./avatars:/srv/storage/avatars
-          links:
-            - neo4j
-            - postgres
-            - mongo
-            - pdf
-            - elasticsearch
-        #environment:
-        #  MAVEN_REPOSITORIES: ''
-
-        pdf:
-          image: opendigitaleducation/node-pdf-generator:1.0.0
-          ports:
-            - "3000:3000"
-
-        neo4j:
-          image: neo4j:3.1
-          volumes:
-            - ./neo4j-conf:/conf
-
-        elasticsearch:
-          image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
-          environment:
-            ES_JAVA_OPTS: "-Xms1g -Xmx1g"
-            MEM_LIMIT: 1073741824
-            discovery.type: single-node
-          ulimits:
-            memlock:
-              soft: -1
-              hard: -1
-            nofile:
-              soft: 65536
-              hard: 65536
-          cap_add:
-            - IPC_LOCK
-          ports:
-            - "9200:9200"
-            - "9300:9300"
-
-        postgres:
-          image: postgres:9.5
-          environment:
-            POSTGRES_PASSWORD: We_1234
-            POSTGRES_USER: web-education
-            POSTGRES_DB: ong
-
-        mongo:
-          image: mongo:3.6
-
-        gradle:
-          image: gradle:4.5-alpine
-          working_dir: /home/gradle/project
-          volumes:
-            - ./:/home/gradle/project
-            - ~/.m2:/home/gradle/.m2
-            - ~/.gradle:/home/gradle/.gradle
-
-        node:
-          image: opendigitaleducation/node
-          working_dir: /home/node/app
-          volumes:
-            - ./:/home/node/app
-            - ~/.npm:/.npm
-            - ../theme-open-ent:/home/node/theme-open-ent
-            - ../panda:/home/node/panda
-            - ../entcore-css-lib:/home/node/entcore-css-lib
-            - ../generic-icons:/home/node/generic-icons
-        
 Run it (first time)
 
         ./build.sh init
@@ -159,35 +71,66 @@ Run it (first time)
         ./build.sh buildFront
         ./build.sh run
 
+What each step does:
+
+- `init` fetches the springboard files (templates, default configuration) with Gradle.
+- `generateConf` downloads the modules into `mods/`, generates `docker-compose.yml` and `ent-core.json` from `conf.properties`, then fills the list of services of `ent-core.json` from the `template.j2` of each module (with the `opendigitaleducation/vertx-cli` image). The first run downloads every module and can take several minutes without printing much.
+- `buildFront` installs themes, widgets and front libraries (yarn and pnpm in the `opendigitaleducation/node:18-alpine-pnpm` image) and copies the static files of each module into `static/`.
+- `run` starts the databases and middlewares, then vertx.
+
+Check that everything is up:
+
+        docker compose ps
+        docker compose logs -f vertx
+
+All containers should be `healthy`. The first start of vertx takes a minute or two. Then open:
+
+- the ENT: <http://localhost:8090>
+- the Traefik dashboard (routes registered by the modules): <http://localhost:8080>
+
 For the next runs, just launch
 
     ./build.sh stop run
-  
-To clean modules installed, please check
 
-    cd ./mods
+After changing `conf.properties` or module versions, run `./build.sh generateConf` again, then `docker compose restart vertx`.
+
+### Local customization
+
+`generateConf` regenerates `docker-compose.yml`, so do not edit it. Put your local changes in a `docker-compose.override.yml` file at the root of the springboard: Docker Compose merges it automatically. Keep it out of git with:
+
+    echo docker-compose.override.yml >> .git/info/exclude
+
+For example, to reach the databases from your host:
+
+```yaml
+services:
+  postgres:
+    ports: ["5432:5432"]
+  mongo:
+    ports: ["27017:27017"]
+  neo4j:
+    ports: ["7474:7474", "7687:7687"]
+```
 
 Available commands for build.sh script are:
 
                     clean : clean springboard and docker's containers
                      init : fetch files and artefacts useful for springboard's execution
-             generateConf : generate an vertx configuration file (ent-core.json) from conf.properties
+             generateConf : download modules, generate docker-compose.yml and the vertx configuration file (ent-core.json) from conf.properties
                       run : run databases and vertx in distinct containers
                      stop : stop containers
+                     down : stop and remove containers
           integrationTest : run integration tests
-               buildFront : fetch widgets and themes using Bower and run Gulp build. (/!\ first run can be long because of node-sass's rebuild).
-                  archive : make an archive with folder /mods /assets /static
+               buildFront : install themes, widgets and front libraries (yarn/pnpm) and copy modules' static files
+                  archive : make an archive with folder /assets /static
                   publish : upload the archive on nexus
                   
 ## 4. Clone entcore, infra-front, clean install and watchers.
 
-    $ git clone https://github.com/opendigitaleducation/entcore.git
-    $ git clone https://github.com/opendigitaleducation/infra-front.git
+    $ git clone https://github.com/edificeio/entcore.git
+    $ git clone https://github.com/edificeio/infra-front.git
     
-You may want to checkout dev branch (to be synched with recette sprinboard)
 
-    $ git checkout dev
-    
 Clean install
 
     $./build.sh clean install
@@ -247,35 +190,25 @@ Check version:
 
     $ gradle -v
 
-## Install your favorite Java IDE
-
 ## Monitor the containers
 
 Docker Compose names container with [COMPOSE\_PROJECT\_NAME](https://docs.docker.com/compose/reference/envvars/#compose_project_name) convention. In our context container’s name are prepended with Springboard’s directory name (${SPRINGBOARD\_DIR}).
 
-You can run the below command to monitor your container’s activity
+You can run the below commands from the springboard directory to monitor your container’s activity
 
--   List running’s containers : `` docker ps` ``
+-   List the springboard’s containers : `docker compose ps`
 
--   List all containers : `docker ps -a`
+-   Open Neo4j’s shell : `docker compose exec neo4j bin/neo4j-shell`
 
--   Clean them all : docker rm $(docker ps -aq)
+-   Open PostgreSQL’s shell : `docker compose exec postgres psql -U web-education ong`
 
--   Open Neo4j’s shell : `docker exec -it ${SPRINGBOARD_DIR}_neo4j_1 bin/neo4j-shell`
+-   Open MongoDB’s shell : `docker compose exec mongo mongosh one_gridfs`
 
--   Open PostgrSQL’s shell : `docker exec -it ${SPRINGBOARD_DIR}_postgres_1 psql -U web-education ong`
+-   Open a Bash’s shell on vertx’s container : `docker compose exec vertx bash`
 
--   Open MongoDB’s shell : `docker exec -it ${SPRINGBOARD_DIR}_mongo_1 mongo one_gridfs`
+-   Display Vertx’s logs : `docker compose logs -f vertx`
 
--   Open a Bash’s shell on vertx’s container : `docker exec -it ${SPRINGBOARD_DIR}_vertx_1 bash`
-
--   Display Vertx’s logs : `docker logs -f ${SPRINGBOARD_DIR}_vertx_1`
-
--   Display all containers logs : `docker-compose logs -f`
-
-## Change Vertx log level
-
-## Map local directories to container’s volume
+-   Display all containers logs : `docker compose logs -f`
 
 ### use your maven local
 
@@ -287,11 +220,15 @@ Uncomment
 
 ## Use Neo4j console
 
-Add the next port’s mapping in neo4j container’s description
+Add the next port’s mapping in your `docker-compose.override.yml` (see [Local customization](#local-customization))
 
-        ports:
-            - "7474:7474"
-            - "7687:7687"
+```yaml
+services:
+  neo4j:
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+```
 
 Enable Bolt Protocol in neo4j-conf/neo4j.conf
 
@@ -305,18 +242,18 @@ As vertx services are running inside a docker container, it is not possible to e
 
 First, make sure you have exposed the remote agent port from the vertx docker container.
 
-To do so, open your springboard directory and edit the file "docker-compose.yml". It should contains the following port configuration:
+To do so, add the following port configuration to your `docker-compose.override.yml` (see [Local customization](#local-customization)):
 
-    vertx:
-      image: opendigitaleducation/vertx-service-launcher:1.0.0
-      user: "1000:1000"
-      ports:
-        - "8090:8090"
-        - "5000:5000"
+```yaml
+services:
+  vertx:
+    ports:
+      - "5000:5000"
+```
 
-Then, restart your docker container using:
+Then, recreate the vertx container using:
 
-    ./build.sh stop init
+    docker compose up -d vertx
 
 > **Note**
 >
@@ -341,6 +278,32 @@ To configure your IDE, create a new debug configuration and set followings prope
 > If you are using Eclipse you must select all source folders you would like to debug
 
 You can now use your configuration to start a remote debug session.
+
+# Windows (WSL 2)
+
+The springboard runs on Windows through WSL 2 (Ubuntu), with Docker installed either inside WSL or with Docker Desktop (WSL 2 backend). Run every command from a WSL terminal.
+
+- **Clone inside the WSL filesystem** (e.g. `~/springboard`), not under `/mnt/c` or `/mnt/d`. Windows drives are very slow from WSL and Gradle can hang while writing its cache there.
+
+- **Check the free space of the drive hosting your WSL distribution** (usually `C:`). The WSL virtual disk grows with images and caches; when the drive is full, WSL freezes (no new terminal can be opened). To move the distribution to another drive:
+
+        wsl --shutdown
+        wsl --manage Ubuntu --move D:\wsl\Ubuntu
+
+    You can also let the virtual disk give back freed space, in `%UserProfile%\.wslconfig`:
+
+        [experimental]
+        sparseVhd=true
+
+# Troubleshooting
+
+| Symptom | Cause and fix |
+| ------- | ------------- |
+| `Failed to load native library 'libnative-platform.so'` during `init` | `~/.gradle` (or `~/.m2`) was created by Docker and belongs to root. Fix it with `sudo chown -R $(id -u):$(id -g) ~/.gradle ~/.m2` |
+| `docker-compose: command not found` | Only Compose v2 is installed. Recent versions of `build.sh` fall back to `docker compose`; otherwise create a wrapper: `printf '#!/bin/sh\nexec docker compose "$@"\n' \| sudo tee /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose` |
+| `cp: cannot stat 'mods/...-fat.jar/public': Not a directory` at the end of `buildFront` | Harmless: the copy loop also goes through the fat jars, which are not directories |
+| Vertx logs `The -conf argument does not point to an existing file` | `ent-core.json` is not mounted where the launcher expects it, or is not readable by the vertx user. Check that the vertx service of `docker-compose.yml` defines `VERTX_CONF_PATH=/srv/springboard/conf/vertx.conf`, and that `ent-core.json` is readable (`ls -l ent-core.json`) |
+| Vertx logs `Missing services to deploy` and `ent-core.json` ends with `{{generatedServicesPath\|safe}}` | The services list was not generated. Run `./build.sh generateConf` again (it calls `vertx-cli`) and check its output |
 
 # For Mac OS Installation
 
@@ -456,9 +419,6 @@ It will install gxargs which runs exactly as GNU xargs.
 - Create bower credentials file to your root folder (~/.bower_credentials) and add credentials info
 
 ## 10. Build.Gradle
-
-Comment this line in build.gradle file : `deployment "fr.openent:lool:$loolVersion:deployment"`
-
 
 # Running the springboard
 
