@@ -1,20 +1,10 @@
 -   [Introduction](README.md)
 
--   [Architecture](architecture/index.md)
-
 -   [First Steps](first-steps/index.md)
 
     -   [Install your dev env with Docker](first-steps/install-with-docker.md)
 
     -   [Configure your platform](first-steps/minimal-plateform-config.md)
-
--   [Operations](ops/index.md)
-
-    -   [Properties Inventory](ops/advanced-topics/properties-inventory.md)
-
-    -   [Cron](ops/advanced-topics/cron.md)
-
-    -   [Expose network data](ops/advanced-topics/export.md)
 
 -   [Development](dev/index.md)
 
